@@ -17,6 +17,16 @@ import logging
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
-
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(
+        description='Arguments for visualizing data')
+    parser.add_argument(
+        '--bus_data_path',
+        required=True,
+        type=str,
+        help='The absolute file path to the bus data being analyzed')
+
+    args = parser.parse_args()
+
 
