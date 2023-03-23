@@ -1,8 +1,6 @@
 """
-Project: Transportation data analysis
-Description:
-TBD
-"""
+Description: Executes transportation data analysis and creates all
+visualizations.
 
 # ----------------------------------------------------------------------------
 # ---LOAD LIBRARIES-----------------------------------------------------------
