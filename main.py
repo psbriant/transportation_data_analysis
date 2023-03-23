@@ -9,9 +9,12 @@ ridership data (the values are represented by nans).
 import argparse
 import logging
 
-# ----------------------------------------------------------------------------
-# ---SET UP LOGGING-----------------------------------------------------------
-# ----------------------------------------------------------------------------
+import numpy as np
+import pandas as pd
+
+from constants import (HeatmapArguments)
+from visualizations import (create_heatmap)
+
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
