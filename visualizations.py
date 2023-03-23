@@ -15,6 +15,7 @@ import seaborn as sns
 
 def create_heatmap(
         data: pd.DataFrame,
+        output_path: str,
         data_index: str,
         data_columns: str,
         data_values: str) -> None:
@@ -27,6 +28,8 @@ def create_heatmap(
 
     Arguments:
         data (DataFrame): Input data to visualize.
+        output_path (str): Absolute file path (including the name of the file)
+            to save the heatmap to.
         data_index (strList): Column to use to make new frame's index.
         data_columns (strList): List of columns to use to make new frame's
             columns.
@@ -56,5 +59,41 @@ def create_heatmap(
     # Create a heatmap with the numeric values in each cell
     # TODO: Add logging for specific dimensions being plotted
     # TODO: Eventually move hardcoded arguments to constants.
-    f, ax = plt.subplots(figsize=(9, 6))
-    sns.heatmap(data_long, annot=True, linewidths=.5, ax=ax)
+    f, ax = plt.subplots(figsize=(18, 12))
+    hm = sns.heatmap(data_long, annot=True, fmt='g', linewidths=.5, ax=ax)
+    fig = hm.get_figure()
+    fig.savefig(output_path)
+
+
+def create_stacked_histogram(
+    data: pd.DataFrame, x, hue) -> None:
+    """
+
+    Arguments:
+        data (DataFrame): Input data to visualize.
+        x ():
+        hue ():
+
+    Returns:
+        None
+
+    Raises:
+        None
+    """
+
+    sns.set_theme(style="ticks")
+    f, ax = plt.subplots(figsize=(7, 5))
+    sns.despine(f)
+
+    sns.histplot(
+        data,
+        x=x,
+        hue=hue,
+        multiple="stack",
+        palette="light:m_r",
+        edgecolor=".3",
+        linewidth=.5,
+        log_scale=True,
+    )
+    ax.xaxis.set_major_formatter(mpl.ticker.ScalarFormatter())
+    ax.set_xticks([500, 1000, 2000, 5000, 10000])
