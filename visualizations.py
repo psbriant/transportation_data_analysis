@@ -63,3 +63,37 @@ def create_heatmap(
     hm = sns.heatmap(data_long, annot=True, fmt='g', linewidths=.5, ax=ax)
     fig = hm.get_figure()
     fig.savefig(output_path)
+
+
+def create_stacked_histogram(
+    data: pd.DataFrame, x, hue) -> None:
+    """
+
+    Arguments:
+        data (DataFrame): Input data to visualize.
+        x ():
+        hue ():
+
+        Returns:
+            None
+
+        Raises:
+            None
+    """
+
+    sns.set_theme(style="ticks")
+    f, ax = plt.subplots(figsize=(7, 5))
+    sns.despine(f)
+
+    sns.histplot(
+        data,
+        x=x,
+        hue=hue,
+        multiple="stack",
+        palette="light:m_r",
+        edgecolor=".3",
+        linewidth=.5,
+        log_scale=True
+    )
+    ax.xaxis.set_major_formatter(mpl.ticker.ScalarFormatter())
+    ax.set_xticks([500, 1000, 2000, 5000, 10000])
