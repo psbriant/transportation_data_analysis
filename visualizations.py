@@ -100,7 +100,7 @@ def create_stacked_histogram(
         palette="light:m_r",
         edgecolor=".3",
         linewidth=.5,
-        log_scale=True
+        log_scale=False
     )
     ax.xaxis.set_major_formatter(mpl.ticker.ScalarFormatter())
     ax.set_xticks([500, 1000, 2000, 5000, 10000])
