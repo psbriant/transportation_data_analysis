@@ -66,13 +66,20 @@ def create_heatmap(
 
 
 def create_stacked_histogram(
-    data: pd.DataFrame, x, hue) -> None:
+    data: pd.DataFrame, x: str, hue: str) -> None:
     """
+    Create a stacked histogram for specified data and columns.
+
+    TODO: Figure out how to best set up kwargs for pandas and seaborn
+    functions.
+    TODO: Figure out what type hints would look like for a list of strings.
 
     Arguments:
         data (DataFrame): Input data to visualize.
-        x ():
-        hue ():
+        x (str): Column representing the variable that specifies positions on
+            the x axis.
+        hue (str): Semantic variable that is mapped to determine the color of
+            plot elements.
 
         Returns:
             None
