@@ -14,11 +14,11 @@ import seaborn as sns
 
 
 def create_heatmap(
-        data: pd.DataFrame,
-        output_path: str,
-        data_index: str,
-        data_columns: str,
-        data_values: str) -> None:
+    data: pd.DataFrame,
+    output_path: str,
+    data_index: str,
+    data_columns: str,
+    data_values: str) -> None:
     """
     Create a heatmap for specified data and columns.
 
@@ -66,7 +66,9 @@ def create_heatmap(
 
 
 def create_stacked_histogram(
-    data: pd.DataFrame, x: str, hue: str) -> None:
+    data: pd.DataFrame,
+    x: str,
+    hue: str) -> None:
     """
     Create a stacked histogram for specified data and columns.
 
