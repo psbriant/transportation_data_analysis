@@ -76,3 +76,25 @@ if __name__ == "__main__":
         data_index=heatmap_args.index,
         data_columns=heatmap_args.columns,
         data_values=heatmap_args.values)
+
+    # ------------------------------------------------------------------------
+    # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY WEEKDAY RIDERSHIP (1999-2022)-
+    # ------------------------------------------------------------------------
+    # TBD
+    # ------------------------------------------------------------------------
+
+    # Create dataset for the top ten routes by weekday ridership from 1999 to
+    # 2022 by copying, subsetting and aggregating the original CTA bus
+    # ridership dataset.
+    ttrwdr_1999_2022 = cta_bus_data.copy()
+    # Subset to weekday ridership only
+    ttrwdr_1999_2022 = ttrwdr_1999_2022[
+        ttrwdr_1999_2022['DAY_TYPE'] == 'Weekday']
+    # Test by subsetting for October
+    ttrwdr_1999_2022 = ttrwdr_1999_2022[ttrwdr_1999_2022['MONTH'] == 10]
+    # Test by subsetting for ten routes
+    ttrwdr_1999_2022 = ttrwdr_1999_2022[ttrwdr_1999_2022['ROUTE'].isin(
+        ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])]
+    ttrwdr_1999_2022 = ttrwdr_1999_2022.drop(
+        labels=['MONTH', 'DAY_TYPE'],
+        axis=1)
