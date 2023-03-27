@@ -12,8 +12,8 @@ import logging
 import numpy as np
 import pandas as pd
 
-from constants import (HeatmapArguments)
-from visualizations import (create_heatmap)
+from constants import (HeatmapArguments, HistogramArguments)
+from visualizations import (create_heatmap, create_stacked_histogram)
 
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
@@ -45,6 +45,7 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     heatmap_args = HeatmapArguments()
+    histogram_args = HistogramArguments()
 
     # ------------------------------------------------------------------------
     # ---LOAD DATASET---------------------------------------------------------
@@ -98,6 +99,15 @@ if __name__ == "__main__":
     ttrwdr_1999_2022 = ttrwdr_1999_2022.drop(
         labels=['MONTH', 'DAY_TYPE'],
         axis=1)
+
+    # Create output path for heatmap
+    histogram_output_path = f'{output_dir}{histogram_args.output_file}'
+
+    create_stacked_histogram(
+        data=ttrwdr_1999_2022,
+        output_path=histogram_output_path,
+        x=histogram_args.x,
+        hue=histogram_args.hue)
 
     # ------------------------------------------------------------------------
     # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY SATURDAY RIDERSHIP IN 2022----
