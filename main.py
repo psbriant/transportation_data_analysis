@@ -54,7 +54,7 @@ if __name__ == "__main__":
     # ---LOAD DATASET---------------------------------------------------------
     # ------------------------------------------------------------------------
 
-    logging.info("Loading data")
+    logging.info("Loading bus data")
     cta_bus_data = pd.read_csv(bus_data_path, encoding='utf-8')
 
     # ------------------------------------------------------------------------
@@ -66,6 +66,8 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     # Heatmap by weekday ridership, month and year.
+    logging.info("Preparing to create heatmap for the years 1999 to 2022")
+    logging.info("Subsetting data")
     hm_rmy_data = cta_bus_data.copy()
     hm_rmy_data = hm_rmy_data[
         hm_rmy_data['ROUTE'].isin(
@@ -75,6 +77,7 @@ if __name__ == "__main__":
     # Create output path for heatmap
     heatmap_output_path = f'{output_dir}{heatmap_args.output_file}'
 
+    logging.info("Creating Heatmap for the years 1999 to 2022")
     create_heatmap(
         data=hm_rmy_data,
         output_path=heatmap_output_path,
@@ -91,6 +94,8 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     # Heatmap by weekday ridership, month and year.
+    logging.info("Preparing to create heatmap for the years 1999 to 2010")
+    logging.info("Subsetting data")
     hm_rmy_data_1999_2010 = hm_rmy_data.copy()
     hm_rmy_data_1999_2010 = hm_rmy_data_1999_2010[
         hm_rmy_data_1999_2010['YEAR'] < 2011]
@@ -98,6 +103,7 @@ if __name__ == "__main__":
     # Create output path for heatmap
     heatmap_output_path = f'{output_dir}{heatmap_args_1999_2010.output_file}'
 
+    logging.info("Creating Heatmap for the years 1999 to 2010")
     create_heatmap(
         data=hm_rmy_data_1999_2010,
         output_path=heatmap_output_path,
@@ -114,6 +120,8 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     # Heatmap by weekday ridership, month and year.
+    logging.info("Preparing to create heatmap for the years 2011 to 2022")
+    logging.info("Subsetting data")
     hm_rmy_data_2011_2022 = hm_rmy_data.copy()
     hm_rmy_data_2011_2022 = hm_rmy_data_2011_2022[
         hm_rmy_data_2011_2022['YEAR'] > 2010]
@@ -121,6 +129,7 @@ if __name__ == "__main__":
     # Create output path for heatmap
     heatmap_output_path = f'{output_dir}{heatmap_args_2011_2022.output_file}'
 
+    logging.info("Creating Heatmap for the years 2011 to 2022")
     create_heatmap(
         data=hm_rmy_data_2011_2022,
         output_path=heatmap_output_path,
