@@ -69,6 +69,7 @@ def create_stacked_histogram(
     data: pd.DataFrame,
     output_path: str,
     x: str,
+    y: str,
     hue: str) -> None:
     """
     Create a stacked histogram for specified data and columns.
@@ -82,7 +83,9 @@ def create_stacked_histogram(
         output_path (str): Absolute file path (including the name of the file)
             to save the heatmap to.
         x (str): Column representing the variable that specifies positions on
-            the x axis.
+            the x-axis.
+        y (str): Column representing the variable that specifies positions on
+            the y-axis.
         hue (str): Semantic variable that is mapped to determine the color of
             plot elements.
 
@@ -100,6 +103,7 @@ def create_stacked_histogram(
     sh = sns.histplot(
         data,
         x=x,
+        y=y,
         hue=hue,
         multiple="stack",
         palette="light:m_r",

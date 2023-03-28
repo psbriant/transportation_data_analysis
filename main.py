@@ -107,6 +107,7 @@ if __name__ == "__main__":
         data=ttrwdr_1999_2022,
         output_path=histogram_output_path,
         x=histogram_args.x,
+        y=histogram_args.y,
         hue=histogram_args.hue)
 
     # ------------------------------------------------------------------------
