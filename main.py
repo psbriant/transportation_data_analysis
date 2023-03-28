@@ -12,8 +12,8 @@ import logging
 import numpy as np
 import pandas as pd
 
-from constants import (HeatmapArguments, BarChartArguments)
-from visualizations import (create_heatmap, create_stacked_barchart)
+from constants import (HeatmapArguments)
+from visualizations import (create_heatmap)
 
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
@@ -45,7 +45,6 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     heatmap_args = HeatmapArguments()
-    barchart_args = BarChartArguments()
 
     # ------------------------------------------------------------------------
     # ---LOAD DATASET---------------------------------------------------------
