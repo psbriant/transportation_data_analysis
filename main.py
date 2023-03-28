@@ -69,7 +69,6 @@ if __name__ == "__main__":
     # Create output path for heatmap
     heatmap_output_path = f'{output_dir}{heatmap_args.output_file}'
 
-    # TODO figure out how to declare these variables using constants.py.
     create_heatmap(
         data=hm_rmy_data,
         output_path=heatmap_output_path,
