@@ -12,8 +12,8 @@ import logging
 import numpy as np
 import pandas as pd
 
-from constants import (HeatmapArguments, HistogramArguments)
-from visualizations import (create_heatmap, create_stacked_histogram)
+from constants import (HeatmapArguments, BarChartArguments)
+from visualizations import (create_heatmap, create_stacked_barchart)
 
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
@@ -45,7 +45,7 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     heatmap_args = HeatmapArguments()
-    histogram_args = HistogramArguments()
+    barchart_args = BarChartArguments()
 
     # ------------------------------------------------------------------------
     # ---LOAD DATASET---------------------------------------------------------
@@ -77,38 +77,6 @@ if __name__ == "__main__":
         data_index=heatmap_args.index,
         data_columns=heatmap_args.columns,
         data_values=heatmap_args.values)
-
-    # ------------------------------------------------------------------------
-    # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY WEEKDAY RIDERSHIP (1999-2022)-
-    # ------------------------------------------------------------------------
-    # TBD
-    # ------------------------------------------------------------------------
-
-    # Create dataset for the top ten routes by weekday ridership from 1999 to
-    # 2022 by copying, subsetting and aggregating the original CTA bus
-    # ridership dataset.
-    ttrwdr_1999_2022 = cta_bus_data.copy()
-    # Subset to weekday ridership only
-    ttrwdr_1999_2022 = ttrwdr_1999_2022[
-        ttrwdr_1999_2022['DAY_TYPE'] == 'Weekday']
-    # Test by subsetting for October
-    ttrwdr_1999_2022 = ttrwdr_1999_2022[ttrwdr_1999_2022['MONTH'] == 10]
-    # Test by subsetting for ten routes
-    ttrwdr_1999_2022 = ttrwdr_1999_2022[ttrwdr_1999_2022['ROUTE'].isin(
-        ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])]
-    ttrwdr_1999_2022 = ttrwdr_1999_2022.drop(
-        labels=['MONTH', 'DAY_TYPE'],
-        axis=1)
-
-    # Create output path for heatmap
-    histogram_output_path = f'{output_dir}{histogram_args.output_file}'
-
-    create_stacked_histogram(
-        data=ttrwdr_1999_2022,
-        output_path=histogram_output_path,
-        x=histogram_args.x,
-        y=histogram_args.y,
-        hue=histogram_args.hue)
 
     # ------------------------------------------------------------------------
     # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY SATURDAY RIDERSHIP IN 2022----
