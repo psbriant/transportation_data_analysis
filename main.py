@@ -89,14 +89,9 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     # Heatmap by weekday ridership, month and year.
-    hm_rmy_data_1999_2010 = cta_bus_data.copy()
-    hm_rmy_data_1999_2010 = hm_rmy_data_1999_2010[
-        hm_rmy_data_1999_2010['ROUTE'] == '1']
-    hm_rmy_data_1999_2010 = hm_rmy_data_1999_2010[
-        hm_rmy_data_1999_2010['DAY_TYPE'] == 'Weekday']
+    hm_rmy_data_1999_2010 = hm_rmy_data.copy()
     hm_rmy_data_1999_2010 = hm_rmy_data_1999_2010[
         hm_rmy_data_1999_2010['YEAR'] < 2011]
-
 
     # Create output path for heatmap
     heatmap_output_path = f'{output_dir}{heatmap_args_1999_2010.output_file}'
@@ -117,11 +112,7 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     # Heatmap by weekday ridership, month and year.
-    hm_rmy_data_2011_2022 = cta_bus_data.copy()
-    hm_rmy_data_2011_2022 = hm_rmy_data_2011_2022[
-        hm_rmy_data_2011_2022['ROUTE'] == '1']
-    hm_rmy_data_2011_2022 = hm_rmy_data_2011_2022[
-        hm_rmy_data_2011_2022['DAY_TYPE'] == 'Weekday']
+    hm_rmy_data_2011_2022 = hm_rmy_data.copy()
     hm_rmy_data_2011_2022 = hm_rmy_data_2011_2022[
         hm_rmy_data_2011_2022['YEAR'] > 2010]
 
