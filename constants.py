@@ -12,5 +12,12 @@ class HeatmapArguments:
     output_file: str = 'ridership_heatmap.png'
 
 
+@dataclass
+class HistogramArguments:
+    x: str = 'ROUTE'
+    hue: str = 'YEAR'
+    output_file: str = 'ridership_histogram.png'
+
+
 
 
