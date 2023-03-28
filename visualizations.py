@@ -67,6 +67,7 @@ def create_heatmap(
 
 def create_stacked_histogram(
     data: pd.DataFrame,
+    output_path: str,
     x: str,
     hue: str) -> None:
     """
@@ -78,6 +79,8 @@ def create_stacked_histogram(
 
     Arguments:
         data (DataFrame): Input data to visualize.
+        output_path (str): Absolute file path (including the name of the file)
+            to save the heatmap to.
         x (str): Column representing the variable that specifies positions on
             the x axis.
         hue (str): Semantic variable that is mapped to determine the color of
@@ -94,7 +97,7 @@ def create_stacked_histogram(
     f, ax = plt.subplots(figsize=(7, 5))
     sns.despine(f)
 
-    sns.histplot(
+    sh = sns.histplot(
         data,
         x=x,
         hue=hue,
@@ -106,3 +109,5 @@ def create_stacked_histogram(
     )
     ax.xaxis.set_major_formatter(mpl.ticker.ScalarFormatter())
     ax.set_xticks([500, 1000, 2000, 5000, 10000])
+    fig = sh.get_figure()
+    fig.savefig(output_path)
