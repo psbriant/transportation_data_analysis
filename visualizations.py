@@ -6,19 +6,20 @@ TBD
 
 import logging
 
-import matplotlib as mpl
-import matplotlib.pyplot as plt
+import altair as alt
 import numpy as np
 import pandas as pd
-import seaborn as sns
 
 
 def create_heatmap(
     data: pd.DataFrame,
     output_path: str,
-    data_index: str,
-    data_columns: str,
-    data_values: str) -> None:
+    x_value: str,
+    y_value: str,
+    color_values: str,
+    facet_values: str,
+    facet_columns: int,
+    facet_rows:int) -> None:
     """
     Create a heatmap for specified data and columns.
 
@@ -30,12 +31,18 @@ def create_heatmap(
         data (DataFrame): Input data to visualize.
         output_path (str): Absolute file path (including the name of the file)
             to save the heatmap to.
-        data_index (strList): Column to use to make new frame's index.
-        data_columns (strList): List of columns to use to make new frame's
-            columns.
-        data_values (strList): Columns to use for populating new frame's
-            values. If not specified, all remaining columns will be used and
-            the result will have hierarchically indexed columns.
+        x_value (str): The name of the column representing the x-axis of the
+            heatmap.
+        y_value (str): The name of the column representing the y-axis of the
+            heatmap.
+        color_values (str): The name of column representing the values to
+            plot.
+        facet_values (str): The name of the column representing the values to
+            create a facet grid of plots for.
+        facet_columns (int): The number of columns the facet grid will
+            contain.
+        facet_rows (int): The number of rows the facet grid will
+            contain.
 
     Returns:
         None
@@ -46,21 +53,14 @@ def create_heatmap(
 
     data = data.copy()
 
-    # TODO: determine where this should be set or whether this needs to be set
-    #  at all.
-    sns.set_theme()
+    chart = alt.Chart(data).mark_rect().encode(
+        alt.X(name=x_value, type='ordinal'),
+        alt.Y(name=y_value, type='ordinal'),
+        alt.Color(name=color_values, type='quantitative'),
+        alt.Facet(name=facet_values,
+                  type='ordinal',
+                  columns=facet_columns,
+                  rows=facet_rows))
 
-    # Convert data to long-form for plotting
-    data_long = data.pivot(
-        index=data_index,
-        columns=data_columns,
-        values=data_values)
-
-    # Create a heatmap with the numeric values in each cell
-    # TODO: Add logging for specific dimensions being plotted
-    # TODO: Eventually move hardcoded arguments to constants.
-    f, ax = plt.subplots(figsize=(18, 12))
-    hm = sns.heatmap(data_long, annot=True, fmt='g', linewidths=.5, ax=ax)
-    fig = hm.get_figure()
-    fig.savefig(output_path)
+    chart.save(output_path)
 
