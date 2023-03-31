@@ -6,9 +6,11 @@ from dataclasses import dataclass
 
 @dataclass
 class HeatmapArguments:
-    index: str = 'MONTH'
-    columns: str = 'YEAR'
-    values: str = 'AVG_RIDES'
+    x_value: str = 'MONTH'
+    y_value: str = 'YEAR'
+    color_values: str = 'AVG_RIDES'
+    facet_values: str = 'ROUTE'
+    facet_columns: int = 3
     output_file: str = 'ridership_heatmap.png'
 
 @dataclass

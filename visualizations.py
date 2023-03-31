@@ -18,8 +18,7 @@ def create_heatmap(
     y_value: str,
     color_values: str,
     facet_values: str,
-    facet_columns: int,
-    facet_rows:int) -> None:
+    facet_columns: int) -> None:
     """
     Create a heatmap for specified data and columns.
 
@@ -41,8 +40,6 @@ def create_heatmap(
             create a facet grid of plots for.
         facet_columns (int): The number of columns the facet grid will
             contain.
-        facet_rows (int): The number of rows the facet grid will
-            contain.
 
     Returns:
         None
@@ -54,13 +51,15 @@ def create_heatmap(
     data = data.copy()
 
     chart = alt.Chart(data).mark_rect().encode(
-        alt.X(name=x_value, type='ordinal'),
-        alt.Y(name=y_value, type='ordinal'),
-        alt.Color(name=color_values, type='quantitative'),
-        alt.Facet(name=facet_values,
+        alt.X(x_value, type='ordinal'),
+        alt.Y(y_value, type='ordinal'),
+        alt.Color(color_values, type='quantitative'),
+        alt.Facet(facet_values,
                   type='ordinal',
-                  columns=facet_columns,
-                  rows=facet_rows))
+                  columns=facet_columns),
+        stroke = alt.value('black'),
+        strokeWidth = alt.value(0.2),
+    )
 
     chart.save(output_path)
 

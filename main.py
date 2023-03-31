@@ -81,9 +81,11 @@ if __name__ == "__main__":
     create_heatmap(
         data=hm_rmy_data,
         output_path=heatmap_output_path,
-        data_index=heatmap_args.index,
-        data_columns=heatmap_args.columns,
-        data_values=heatmap_args.values)
+        x_value=heatmap_args.x_value,
+        y_value=heatmap_args.y_value,
+        color_values=heatmap_args.color_values,
+        facet_values=heatmap_args.facet_values,
+        facet_columns=heatmap_args.facet_columns)
 
     # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2010)-----------
@@ -107,9 +109,11 @@ if __name__ == "__main__":
     create_heatmap(
         data=hm_rmy_data_1999_2010,
         output_path=heatmap_output_path,
-        data_index=heatmap_args_1999_2010.index,
-        data_columns=heatmap_args_1999_2010.columns,
-        data_values=heatmap_args_1999_2010.values)
+        x_value=heatmap_args_1999_2010.x_value,
+        y_value=heatmap_args_1999_2010.y_value,
+        color_values=heatmap_args_1999_2010.color_values,
+        facet_values=heatmap_args_1999_2010.facet_values,
+        facet_columns=heatmap_args_1999_2010.facet_columns)
 
     # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (2011-2022)-----------
@@ -133,9 +137,11 @@ if __name__ == "__main__":
     create_heatmap(
         data=hm_rmy_data_2011_2022,
         output_path=heatmap_output_path,
-        data_index=heatmap_args_2011_2022.index,
-        data_columns=heatmap_args_2011_2022.columns,
-        data_values=heatmap_args_2011_2022.values)
+        x_value=heatmap_args_2011_2022.x_value,
+        y_value=heatmap_args_2011_2022.y_value,
+        color_values=heatmap_args_2011_2022.color_values,
+        facet_values=heatmap_args_2011_2022.facet_values,
+        facet_columns=heatmap_args_2011_2022.facet_columns)
 
     # ------------------------------------------------------------------------
     # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY SATURDAY RIDERSHIP IN 2022----
