@@ -58,6 +58,26 @@ if __name__ == "__main__":
     cta_bus_data = pd.read_csv(bus_data_path, encoding='utf-8')
 
     # ------------------------------------------------------------------------
+    # ---PREP DATA------------------------------------------------------------
+    # ------------------------------------------------------------------------
+
+    # Change values in the month column so that they represent the actual
+    # names of each month instead of the numerical representation.
+    cta_bus_data = cta_bus_data.replace(
+        {1: 'January',
+         2: 'February',
+         3: 'March',
+         4: 'April',
+         5: 'May',
+         6: 'June',
+         7: 'July',
+         8: 'August',
+         9: 'September',
+         10: 'October',
+         11: 'November',
+         12: 'December'})
+
+    # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2022)-----------
     # ------------------------------------------------------------------------
     # Currently heatmaps are only for weekday ridership
