@@ -18,7 +18,8 @@ def create_heatmap(
     y_value: str,
     color_values: str,
     facet_values: str,
-    facet_columns: int) -> None:
+    facet_columns: int,
+    x_axis_sort_order: list[str]) -> None:
     """
     Create a heatmap for specified data and columns.
 
@@ -40,6 +41,8 @@ def create_heatmap(
             create a facet grid of plots for.
         facet_columns (int): The number of columns the facet grid will
             contain.
+        x_axis_sort_order (strList): A list of strings representing the order
+            of values on the x-axis.
 
     Returns:
         None
@@ -51,7 +54,7 @@ def create_heatmap(
     data = data.copy()
 
     chart = alt.Chart(data).mark_rect().encode(
-        alt.X(x_value, type='ordinal'),
+        alt.X(x_value, type='ordinal', sort=x_axis_sort_order),
         alt.Y(y_value, type='ordinal'),
         alt.Color(color_values, type='quantitative'),
         alt.Facet(facet_values,

@@ -105,7 +105,8 @@ if __name__ == "__main__":
         y_value=heatmap_args.y_value,
         color_values=heatmap_args.color_values,
         facet_values=heatmap_args.facet_values,
-        facet_columns=heatmap_args.facet_columns)
+        facet_columns=heatmap_args.facet_columns,
+        x_axis_sort_order=heatmap_args.x_axis_sort_order)
 
     # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2010)-----------
@@ -133,7 +134,8 @@ if __name__ == "__main__":
         y_value=heatmap_args_1999_2010.y_value,
         color_values=heatmap_args_1999_2010.color_values,
         facet_values=heatmap_args_1999_2010.facet_values,
-        facet_columns=heatmap_args_1999_2010.facet_columns)
+        facet_columns=heatmap_args_1999_2010.facet_columns,
+        x_axis_sort_order=heatmap_args_1999_2010.x_axis_sort_order)
 
     # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (2011-2022)-----------
@@ -161,7 +163,8 @@ if __name__ == "__main__":
         y_value=heatmap_args_2011_2022.y_value,
         color_values=heatmap_args_2011_2022.color_values,
         facet_values=heatmap_args_2011_2022.facet_values,
-        facet_columns=heatmap_args_2011_2022.facet_columns)
+        facet_columns=heatmap_args_2011_2022.facet_columns,
+        x_axis_sort_order=heatmap_args_2011_2022.x_axis_sort_order)
 
     # ------------------------------------------------------------------------
     # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY SATURDAY RIDERSHIP IN 2022----
