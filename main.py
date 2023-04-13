@@ -100,9 +100,6 @@ if __name__ == "__main__":
     if routes:
         hm_rmy_data = hm_rmy_data[
             hm_rmy_data['ROUTE'].isin(routes)]
-    # hm_rmy_data = hm_rmy_data[
-    #     hm_rmy_data['ROUTE'].isin(
-    #         ['1', '2', '4', '155', '53', 'J14', '72', '80', '206'])]
     hm_rmy_data = hm_rmy_data[hm_rmy_data['DAY_TYPE'] == 'Weekday']
 
     # Create output path for heatmap
