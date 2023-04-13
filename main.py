@@ -36,11 +36,19 @@ if __name__ == "__main__":
         type=str,
         help='The absolute file path to output directory where the plots will'
              ' be saved')
+    parser.add_argument(
+        '--routes',
+        required=False,
+        type=str,
+        nargs='*',
+        help='List of routes to create plots for. Plots will be created for '
+             'all routes if this argument is not specified.')
 
     args = parser.parse_args()
 
     bus_data_path = args.bus_data_path
     output_dir = args.output_dir
+    routes = args.routes
 
     # ------------------------------------------------------------------------
     # ---INITIALIZE CONSTANT ARGUMENTS----------------------------------------
@@ -89,9 +97,12 @@ if __name__ == "__main__":
     logging.info("Preparing to create heatmap for the years 1999 to 2022")
     logging.info("Subsetting data")
     hm_rmy_data = cta_bus_data.copy()
-    hm_rmy_data = hm_rmy_data[
-        hm_rmy_data['ROUTE'].isin(
-            ['1', '2', '4', '155', '53', 'J14', '72', '80', '206'])]
+    if routes:
+        hm_rmy_data = hm_rmy_data[
+            hm_rmy_data['ROUTE'].isin(routes)]
+    # hm_rmy_data = hm_rmy_data[
+    #     hm_rmy_data['ROUTE'].isin(
+    #         ['1', '2', '4', '155', '53', 'J14', '72', '80', '206'])]
     hm_rmy_data = hm_rmy_data[hm_rmy_data['DAY_TYPE'] == 'Weekday']
 
     # Create output path for heatmap
