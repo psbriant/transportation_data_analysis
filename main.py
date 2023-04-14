@@ -37,6 +37,13 @@ if __name__ == "__main__":
         help='The absolute file path to output directory where the plots will'
              ' be saved')
     parser.add_argument(
+        '--day_type',
+        required=True,
+        choices=['Weekday', 'Saturday', 'Sunday - Holiday'],
+        type=str,
+        help='The type of day to create plots for. Must be one of Weekday, '
+             'Saturday or Sunday - Holiday')
+    parser.add_argument(
         '--routes',
         required=False,
         type=str,
@@ -48,6 +55,7 @@ if __name__ == "__main__":
 
     bus_data_path = args.bus_data_path
     output_dir = args.output_dir
+    day_type = args.day_type
     routes = args.routes
 
     # ------------------------------------------------------------------------
@@ -105,8 +113,8 @@ if __name__ == "__main__":
         hm_rmy_data = hm_rmy_data[
             hm_rmy_data['ROUTE'].isin(routes)]
 
-    # Subset by trip type (e.g. Weekday, Saturday, Sunday/Holiday).
-    hm_rmy_data = hm_rmy_data[hm_rmy_data['DAY_TYPE'] == 'Weekday']
+    # Subset by trip type (e.g. Weekday, Saturday, Sunday - Holiday).
+    hm_rmy_data = hm_rmy_data[hm_rmy_data['DAY_TYPE'] == day_type]
 
     # Create output path for heatmap
     heatmap_output_path = f'{output_dir}{heatmap_args.output_file}'
