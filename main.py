@@ -12,7 +12,8 @@ import logging
 import numpy as np
 import pandas as pd
 
-from constants import (HeatmapArguments,
+from constants import (BusDataArguments,
+                       HeatmapArguments,
                        HeatmapArguments_1999_2010,
                        HeatmapArguments_2011_2022)
 from visualizations import (create_heatmap)
@@ -62,6 +63,7 @@ if __name__ == "__main__":
     # ---INITIALIZE CONSTANT ARGUMENTS----------------------------------------
     # ------------------------------------------------------------------------
 
+    bus_data_args = BusDataArguments()
     heatmap_args = HeatmapArguments()
     heatmap_args_1999_2010 = HeatmapArguments_1999_2010()
     heatmap_args_2011_2022 = HeatmapArguments_2011_2022()
@@ -79,19 +81,7 @@ if __name__ == "__main__":
 
     # Change values in the month column so that they represent the actual
     # names of each month instead of the numerical representation.
-    cta_bus_data = cta_bus_data.replace(
-        {1: 'January',
-         2: 'February',
-         3: 'March',
-         4: 'April',
-         5: 'May',
-         6: 'June',
-         7: 'July',
-         8: 'August',
-         9: 'September',
-         10: 'October',
-         11: 'November',
-         12: 'December'})
+    cta_bus_data = cta_bus_data.replace(bus_data_args.alpha_to_numeric_months)
 
     # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2022)-----------
