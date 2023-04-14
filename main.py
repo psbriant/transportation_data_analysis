@@ -97,9 +97,15 @@ if __name__ == "__main__":
     logging.info("Preparing to create heatmap for the years 1999 to 2022")
     logging.info("Subsetting data")
     hm_rmy_data = cta_bus_data.copy()
+
+    # Optionally subset by route if specific route numbers are specified upon
+    # execution of this script. if no routes are specified, make plots for all
+    # routes.
     if routes:
         hm_rmy_data = hm_rmy_data[
             hm_rmy_data['ROUTE'].isin(routes)]
+
+    # Subset by trip type (e.g. Weekday, Saturday, Sunday/Holiday).
     hm_rmy_data = hm_rmy_data[hm_rmy_data['DAY_TYPE'] == 'Weekday']
 
     # Create output path for heatmap
