@@ -2,8 +2,7 @@
 Description: File for storing recurring settings
 """
 
-from dataclasses import dataclass
-from dataclasses import field
+from dataclasses import (dataclass, field)
 from typing import TypedDict
 
 
