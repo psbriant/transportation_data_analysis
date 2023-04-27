@@ -83,6 +83,12 @@ if __name__ == "__main__":
     # names of each month instead of the numerical representation.
     cta_bus_data = cta_bus_data.replace(bus_data_args.alpha_to_numeric_months)
 
+    # Create aggregate ridership data by route, year for each service type
+    agg_year_wd = cta_bus_data.copy()
+    agg_year_wd = agg_year_wd.drop(labels=['MONTH'], axis=1)
+    agg_year_wd = agg_year_wd.groupby(by=['ROUTE', 'YEAR', 'DAY_TYPE']).sum()
+
+
     # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2022)-----------
     # ------------------------------------------------------------------------
