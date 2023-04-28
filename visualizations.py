@@ -66,3 +66,42 @@ def create_heatmap(
 
     chart.save(output_path)
 
+
+def create_barchart(
+        data: pd.DataFrame,
+        output_path: str,
+        x_value: str,
+        y_value: str,
+        color_values: str) -> None:
+    """
+    Create a bar chart for specified data and columns.
+
+    Arguments:
+        data (DataFrame): Input data to visualize.
+        output_path (str): Absolute file path (including the name of the file)
+            to save the heatmap to.
+        x_value (str): The name of the column representing the x-axis of the
+            heatmap.
+        y_value (str): The name of the column representing the y-axis of the
+            heatmap.
+        color_values (str): The name of column representing the values to
+            plot.
+
+    Returns:
+        None
+
+    Raises:
+        None
+    """
+
+    chart = alt.Chart(data).mark_bar().encode(
+        alt.X(x_value),
+        alt.Y(y_value),
+        alt.Color(color_values),
+    )
+
+    chart.save(output_path)
+
+
+
+
