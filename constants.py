@@ -27,6 +27,53 @@ class BusDataArguments:
         12: 'December'})
 
 @dataclass
+class BarChartArguments:
+    x_value: str = 'AVG_RIDES'
+    y_value: str = 'ROUTE'
+    color_values: str = 'YEAR'
+
+
+@dataclass
+class WeekdayBarChartArguments_2022(BarChartArguments):
+    output_file: str = 'weekday_ridership_barchart_2022.png'
+    color_values: str = 'MONTH'
+
+@dataclass
+class SaturdayBarChartArguments_2022(BarChartArguments):
+    output_file: str = 'saturday_ridership_barchart_2022.png'
+    color_values: str = 'MONTH'
+
+@dataclass
+class SundayBarChartArguments_2022(BarChartArguments):
+    output_file: str = 'sunday_ridership_barchart_2022.png'
+    color_values: str = 'MONTH'
+
+@dataclass
+class WeekdayBarChartArguments_1999_2022(BarChartArguments):
+    output_file: str = 'weekday_ridership_barchart_1999_2022.png'
+
+@dataclass
+class SaturdayBarChartArguments_1999_2022(BarChartArguments):
+    output_file: str = 'saturday_ridership_barchart_1999_2022.png'
+
+@dataclass
+class SundayBarChartArguments_1999_2022(BarChartArguments):
+    output_file: str = 'sunday_ridership_barchart_1999_2022.png'
+
+
+@dataclass
+class WeekdayBarChartArguments_2020_2022(BarChartArguments):
+    output_file: str = 'weekday_ridership_barchart_2020_2022.png'
+
+@dataclass
+class SaturdayBarChartArguments_2020_2022(BarChartArguments):
+    output_file: str = 'saturday_ridership_barchart_2020_2022.png'
+
+@dataclass
+class SundayBarChartArguments_2020_2022(BarChartArguments):
+    output_file: str = 'sunday_ridership_barchart_2020_2022.png'
+
+@dataclass
 class HeatmapArguments:
     x_value: str = 'MONTH'
     y_value: str = 'YEAR'
