@@ -13,10 +13,19 @@ import numpy as np
 import pandas as pd
 
 from constants import (BusDataArguments,
+                       WeekdayBarChartArguments_2022,
+                       SaturdayBarChartArguments_2022,
+                       SundayBarChartArguments_2022,
+                       WeekdayBarChartArguments_1999_2022,
+                       SaturdayBarChartArguments_1999_2022,
+                       SundayBarChartArguments_1999_2022,
+                       WeekdayBarChartArguments_2020_2022,
+                       SaturdayBarChartArguments_2020_2022,
+                       SundayBarChartArguments_2020_2022,
                        HeatmapArguments,
                        HeatmapArguments_1999_2010,
                        HeatmapArguments_2011_2022)
-from visualizations import (create_heatmap)
+from visualizations import (create_barchart, create_heatmap)
 
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
@@ -64,6 +73,15 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     bus_data_args = BusDataArguments()
+    weekday_barchart_args_2022 = WeekdayBarChartArguments_2022()
+    saturday_barchart_args_2022 = SaturdayBarChartArguments_2022()
+    sunday_barchart_args_2022 = SundayBarChartArguments_2022()
+    weekday_barchart_args_1999_2022 = WeekdayBarChartArguments_1999_2022()
+    saturday_barchart_args_1999_2022 = SaturdayBarChartArguments_1999_2022()
+    sunday_barchart_args_1999_2022 = SundayBarChartArguments_1999_2022()
+    weekday_barchart_args_2020_2022 = WeekdayBarChartArguments_2020_2022()
+    saturday_barchart_args_2020_2022 = SaturdayBarChartArguments_2020_2022()
+    sunday_barchart_args_2020_2022 = SundayBarChartArguments_2020_2022()
     heatmap_args = HeatmapArguments()
     heatmap_args_1999_2010 = HeatmapArguments_1999_2010()
     heatmap_args_2011_2022 = HeatmapArguments_2011_2022()
@@ -81,20 +99,53 @@ if __name__ == "__main__":
 
     # Change values in the month column so that they represent the actual
     # names of each month instead of the numerical representation.
-    cta_bus_data = cta_bus_data.replace(bus_data_args.alpha_to_numeric_months)
+    cta_bus_data['MONTH'] = cta_bus_data['MONTH'].replace(
+        bus_data_args.alpha_to_numeric_months)
 
     # Create aggregate ridership data by route, year for each service type
-    agg_year_wd = cta_bus_data.copy()
-    agg_year_wd = agg_year_wd.drop(labels=['MONTH'], axis=1)
-    agg_year_wd = agg_year_wd.groupby(by=['ROUTE', 'YEAR', 'DAY_TYPE']).sum()
+    agg_year = cta_bus_data.copy()
+    agg_year = agg_year.drop(labels=['MONTH'], axis=1)
+    agg_year = agg_year.groupby(by=['ROUTE', 'YEAR', 'DAY_TYPE']).sum()
+    agg_year = agg_year.reset_index()
 
+    # Create subsets for weekday, saturday and sunday - holiday ridership for
+    # the years 1999 - 2022.
+    agg_year_wd, agg_year_sat, agg_year_sun = agg_year.copy(), \
+        agg_year.copy(), agg_year.copy()
+
+    agg_year_wd = agg_year_wd[agg_year_wd['DAY_TYPE'] == 'Weekday']
+    agg_year_sat = agg_year_sat[agg_year_sat['DAY_TYPE'] == 'Saturday']
+    agg_year_sun = agg_year_sun[agg_year_sun['DAY_TYPE'] == 'Sunday - Holiday']
+
+    # Create subsets for weekday, saturday and sunday - holiday ridership for
+    # the years 2020 - 2022.
+    agg_year_wd_2020_2022, agg_year_sat_2020_2022, agg_year_sun_2020_2022 = agg_year_wd.copy(), \
+        agg_year_sat.copy(), agg_year_sun.copy()
+
+    agg_year_wd_2020_2022 = agg_year_wd_2020_2022[
+        agg_year_wd_2020_2022['YEAR'].isin([2020, 2021, 2022])]
+    agg_year_sat_2020_2022 = agg_year_sat_2020_2022[
+        agg_year_sat_2020_2022['YEAR'].isin([2020, 2021, 2022])]
+    agg_year_sun_2020_2022 = agg_year_sun_2020_2022[
+        agg_year_sun_2020_2022['YEAR'].isin([2020, 2021, 2022])]
+
+    # Create subsets for weekday, saturday and sunday - holiday ridership for
+    # the year 2022.
+    bus_data_2022 = cta_bus_data.copy()
+    bus_data_2022 = bus_data_2022[bus_data_2022['YEAR'] == 2022]
+    bus_data_2022_wd, bus_data_2022_sat, bus_data_2022_sun = bus_data_2022.copy(), \
+        bus_data_2022.copy(), bus_data_2022.copy()
+    bus_data_2022_wd = bus_data_2022[bus_data_2022['DAY_TYPE'] == 'Weekday']
+    bus_data_2022_sat = bus_data_2022[bus_data_2022['DAY_TYPE'] == 'Saturday']
+    bus_data_2022_sun = bus_data_2022[
+        bus_data_2022['DAY_TYPE'] == 'Sunday - Holiday']
 
     # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2022)-----------
     # ------------------------------------------------------------------------
     # Currently heatmaps are only for weekday ridership
     # TODO: Determine how much of this code can be moved to functions in
-    # data_processing.py
+    #   data_processing.py
     # ------------------------------------------------------------------------
 
     # Heatmap by weekday ridership, month and year.
@@ -131,7 +182,7 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
     # Currently heatmaps are only for weekday ridership
     # TODO: Determine how much of this code can be moved to functions in
-    # data_processing.py
+    #   data_processing.py
     # ------------------------------------------------------------------------
 
     # Heatmap by weekday ridership, month and year.
@@ -185,10 +236,34 @@ if __name__ == "__main__":
         x_axis_sort_order=heatmap_args_2011_2022.x_axis_sort_order)
 
     # ------------------------------------------------------------------------
+    # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY WEEKDAY RIDERSHIP IN 2022-----
+    # ------------------------------------------------------------------------
+    # TBD
+    # ------------------------------------------------------------------------
+
+    barchart_output_path = f'{output_dir}{weekday_barchart_args_2022.output_file}'
+
+    create_barchart(
+        data=bus_data_2022_wd,
+        output_path=barchart_output_path,
+        x_value=weekday_barchart_args_2022.x_value,
+        y_value=weekday_barchart_args_2022.y_value,
+        color_values=weekday_barchart_args_2022.color_values)
+
+    # ------------------------------------------------------------------------
     # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY SATURDAY RIDERSHIP IN 2022----
     # ------------------------------------------------------------------------
     # TBD
     # ------------------------------------------------------------------------
+
+    barchart_output_path = f'{output_dir}{saturday_barchart_args_2022.output_file}'
+
+    create_barchart(
+        data=bus_data_2022_sat,
+        output_path=barchart_output_path,
+        x_value=saturday_barchart_args_2022.x_value,
+        y_value=saturday_barchart_args_2022.y_value,
+        color_values=saturday_barchart_args_2022.color_values)
 
     # ------------------------------------------------------------------------
     # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY SUNDAY RIDERSHIP IN 2022------
@@ -196,11 +271,44 @@ if __name__ == "__main__":
     # TBD
     # ------------------------------------------------------------------------
 
+    barchart_output_path = f'{output_dir}{sunday_barchart_args_2022.output_file}'
+
+    create_barchart(
+        data=bus_data_2022_sun,
+        output_path=barchart_output_path,
+        x_value=sunday_barchart_args_2022.x_value,
+        y_value=sunday_barchart_args_2022.y_value,
+        color_values=sunday_barchart_args_2022.color_values)
+
+    # ------------------------------------------------------------------------
+    # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY WEEKDAY RIDERSHIP (1999-2022)-
+    # ------------------------------------------------------------------------
+    # TBD
+    # ------------------------------------------------------------------------
+
+    barchart_output_path = f'{output_dir}{weekday_barchart_args_1999_2022.output_file}'
+
+    create_barchart(
+        data=agg_year_wd,
+        output_path=barchart_output_path,
+        x_value=weekday_barchart_args_1999_2022.x_value,
+        y_value=weekday_barchart_args_1999_2022.y_value,
+        color_values=weekday_barchart_args_1999_2022.color_values)
+
     # ------------------------------------------------------------------------
     # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY SATURDAY RIDERSHIP (1999-2022)
     # ------------------------------------------------------------------------
     # TBD
     # ------------------------------------------------------------------------
+
+    barchart_output_path = f'{output_dir}{saturday_barchart_args_1999_2022.output_file}'
+
+    create_barchart(
+        data=agg_year_sat,
+        output_path=barchart_output_path,
+        x_value=saturday_barchart_args_1999_2022.x_value,
+        y_value=saturday_barchart_args_1999_2022.y_value,
+        color_values=saturday_barchart_args_1999_2022.color_values)
 
     # ------------------------------------------------------------------------
     # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY SUNDAY RIDERSHIP (1999-2022)--
@@ -208,8 +316,56 @@ if __name__ == "__main__":
     # TBD
     # ------------------------------------------------------------------------
 
+    barchart_output_path = f'{output_dir}{sunday_barchart_args_1999_2022.output_file}'
+
+    create_barchart(
+        data=agg_year_sun,
+        output_path=barchart_output_path,
+        x_value=sunday_barchart_args_1999_2022.x_value,
+        y_value=sunday_barchart_args_1999_2022.y_value,
+        color_values=sunday_barchart_args_1999_2022.color_values)
+
     # ------------------------------------------------------------------------
-    # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY RIDERSHIP (1999-2022)---------
+    # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY WEEKDAY RIDERSHIP (2020-2022)-
     # ------------------------------------------------------------------------
     # TBD
     # ------------------------------------------------------------------------
+
+    barchart_output_path = f'{output_dir}{weekday_barchart_args_2020_2022.output_file}'
+
+    create_barchart(
+        data=agg_year_wd_2020_2022,
+        output_path=barchart_output_path,
+        x_value=weekday_barchart_args_2020_2022.x_value,
+        y_value=weekday_barchart_args_2020_2022.y_value,
+        color_values=weekday_barchart_args_2020_2022.color_values)
+
+    # ------------------------------------------------------------------------
+    # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY SATURDAY RIDERSHIP (2020-2022)
+    # ------------------------------------------------------------------------
+    # TBD
+    # ------------------------------------------------------------------------
+
+    barchart_output_path = f'{output_dir}{saturday_barchart_args_2020_2022.output_file}'
+
+    create_barchart(
+        data=agg_year_sat_2020_2022,
+        output_path=barchart_output_path,
+        x_value=saturday_barchart_args_2020_2022.x_value,
+        y_value=saturday_barchart_args_2020_2022.y_value,
+        color_values=saturday_barchart_args_2020_2022.color_values)
+
+    # ------------------------------------------------------------------------
+    # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY SUNDAY RIDERSHIP (2020-2022)--
+    # ------------------------------------------------------------------------
+    # TBD
+    # ------------------------------------------------------------------------
+
+    barchart_output_path = f'{output_dir}{sunday_barchart_args_2020_2022.output_file}'
+
+    create_barchart(
+        data=agg_year_sun_2020_2022,
+        output_path=barchart_output_path,
+        x_value=sunday_barchart_args_2020_2022.x_value,
+        y_value=sunday_barchart_args_2020_2022.y_value,
+        color_values=sunday_barchart_args_2020_2022.color_values)
