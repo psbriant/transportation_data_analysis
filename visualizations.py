@@ -72,7 +72,8 @@ def create_barchart(
         output_path: str,
         x_value: str,
         y_value: str,
-        color_values: str) -> None:
+        color_values: str,
+        sort_order: str | list[str] = 'ascending') -> None:
     """
     Create a bar chart for specified data and columns.
 
@@ -86,6 +87,9 @@ def create_barchart(
             heatmap.
         color_values (str): The name of column representing the values to
             plot.
+        sort_order (str or strlist): The sort order. One of "ascending",
+            "descending", or a list of strings containing a custom order.
+            Defaults to ascending.
 
     Returns:
         None
@@ -97,11 +101,7 @@ def create_barchart(
     chart = alt.Chart(data).mark_bar().encode(
         alt.X(x_value),
         alt.Y(y_value),
-        alt.Color(color_values),
+        alt.Color(color_values, sort=sort_order),
     )
 
     chart.save(output_path)
-
-
-
-
