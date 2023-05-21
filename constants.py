@@ -32,7 +32,6 @@ class BarChartArguments:
     y_value: str = 'ROUTE'
     color_values: str = 'YEAR'
 
-
 @dataclass
 class WeekdayBarChartArguments_2022(BarChartArguments):
     output_file: str = 'weekday_ridership_barchart_2022.png'
