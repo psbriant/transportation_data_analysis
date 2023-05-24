@@ -298,7 +298,7 @@ if __name__ == "__main__":
             sort_order=barchart_args_2022.sort_order)
 
     # ------------------------------------------------------------------------
-    # ---CREATE STACKED BARCHARTS FOR ROUTES BY RIDERSHIP---------------------
+    # ---CREATE STACKED BAR CHARTS FOR ROUTES BY RIDERSHIP--------------------
     # ------------------------------------------------------------------------
     # -Weekday ridership, 1999-2022
     # -Saturday ridership, 1999-2022
