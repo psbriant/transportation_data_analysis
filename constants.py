@@ -33,19 +33,31 @@ class BarChartArguments:
     color_values: str = 'YEAR'
 
 @dataclass
-class WeekdayBarChartArguments_2022(BarChartArguments):
-    output_file: str = 'weekday_ridership_barchart_2022.png'
+class BarChartArguments_2022(BarChartArguments):
     color_values: str = 'MONTH'
+    sort_order: list[str] = field(default_factory=lambda:[
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October'])
 
 @dataclass
-class SaturdayBarChartArguments_2022(BarChartArguments):
+class WeekdayBarChartArguments_2022(BarChartArguments_2022):
+    output_file: str = 'weekday_ridership_barchart_2022.png'
+
+@dataclass
+class SaturdayBarChartArguments_2022(BarChartArguments_2022):
     output_file: str = 'saturday_ridership_barchart_2022.png'
-    color_values: str = 'MONTH'
 
 @dataclass
 class SundayBarChartArguments_2022(BarChartArguments):
     output_file: str = 'sunday_ridership_barchart_2022.png'
-    color_values: str = 'MONTH'
 
 @dataclass
 class WeekdayBarChartArguments_1999_2022(BarChartArguments):
@@ -58,7 +70,6 @@ class SaturdayBarChartArguments_1999_2022(BarChartArguments):
 @dataclass
 class SundayBarChartArguments_1999_2022(BarChartArguments):
     output_file: str = 'sunday_ridership_barchart_1999_2022.png'
-
 
 @dataclass
 class WeekdayBarChartArguments_2020_2022(BarChartArguments):
