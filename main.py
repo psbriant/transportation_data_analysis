@@ -277,9 +277,14 @@ if __name__ == "__main__":
         x_axis_sort_order=heatmap_args_2011_2022.x_axis_sort_order)
 
     # ------------------------------------------------------------------------
-    # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY SUNDAY RIDERSHIP IN 2022------
+    # ---CREATE STACKED BAR CHARTS FOR ROUTES BY RIDERSHIP IN 2022------------
     # ------------------------------------------------------------------------
-    # TBD
+    # Bar charts are stacked by month for the first ten months of 2022 (data
+    # for November and December is unavailable).
+    #
+    # -Weekday ridership: 2022
+    # -Saturday ridership: 2022
+    # -Sunday ridership: 2022
     # ------------------------------------------------------------------------
 
     for df, op in zip(bc_2022_dfs, bc_2022_file_paths):
