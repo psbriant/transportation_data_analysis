@@ -14,6 +14,7 @@ import pandas as pd
 
 from constants import (BusDataArguments,
                        BarChartArguments,
+                       BarChartArguments_2022,
                        WeekdayBarChartArguments_2022,
                        SaturdayBarChartArguments_2022,
                        SundayBarChartArguments_2022,
@@ -77,6 +78,7 @@ if __name__ == "__main__":
 
     bus_data_args = BusDataArguments()
     barchart_args = BarChartArguments()
+    barchart_args_2022 = BarChartArguments_2022()
     weekday_barchart_args_2022 = WeekdayBarChartArguments_2022()
     saturday_barchart_args_2022 = SaturdayBarChartArguments_2022()
     sunday_barchart_args_2022 = SundayBarChartArguments_2022()
@@ -147,6 +149,14 @@ if __name__ == "__main__":
         col='YEAR',
         datatype='str')
 
+    # Create absolute file paths for bar charts covering the first 10 months
+    # of 2022.
+    bc_2022_file_paths = create_absolute_file_paths(
+        file_list=[weekday_barchart_args_2022.output_file,
+                   saturday_barchart_args_2022.output_file,
+                   sunday_barchart_args_2022.output_file],
+        file_path=output_dir)
+
     # Create absolute file paths for bar charts covering multiple years
     ts_bc_file_paths = create_absolute_file_paths(
         file_list=[weekday_barchart_args_1999_2022.output_file,
@@ -159,6 +169,7 @@ if __name__ == "__main__":
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the year 2022.
+    # TODO: Create a function to do this.
     bus_data_2022 = cta_bus_data.copy()
     bus_data_2022 = bus_data_2022[bus_data_2022['YEAR'] == 2022]
     bus_data_2022_wd, bus_data_2022_sat, bus_data_2022_sun = bus_data_2022.copy(), \
@@ -167,6 +178,8 @@ if __name__ == "__main__":
     bus_data_2022_sat = bus_data_2022[bus_data_2022['DAY_TYPE'] == 'Saturday']
     bus_data_2022_sun = bus_data_2022[
         bus_data_2022['DAY_TYPE'] == 'Sunday - Holiday']
+
+    bc_2022_dfs = [bus_data_2022_wd, bus_data_2022_sat, bus_data_2022_sun]
 
     # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2022)-----------
@@ -264,49 +277,20 @@ if __name__ == "__main__":
         x_axis_sort_order=heatmap_args_2011_2022.x_axis_sort_order)
 
     # ------------------------------------------------------------------------
-    # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY WEEKDAY RIDERSHIP IN 2022-----
-    # ------------------------------------------------------------------------
-    # TBD
-    # ------------------------------------------------------------------------
-
-    barchart_output_path = f'{output_dir}{weekday_barchart_args_2022.output_file}'
-
-    create_barchart(
-        data=bus_data_2022_wd,
-        output_path=barchart_output_path,
-        x_value=weekday_barchart_args_2022.x_value,
-        y_value=weekday_barchart_args_2022.y_value,
-        color_values=weekday_barchart_args_2022.color_values)
-
-    # ------------------------------------------------------------------------
-    # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY SATURDAY RIDERSHIP IN 2022----
-    # ------------------------------------------------------------------------
-    # TBD
-    # ------------------------------------------------------------------------
-
-    barchart_output_path = f'{output_dir}{saturday_barchart_args_2022.output_file}'
-
-    create_barchart(
-        data=bus_data_2022_sat,
-        output_path=barchart_output_path,
-        x_value=saturday_barchart_args_2022.x_value,
-        y_value=saturday_barchart_args_2022.y_value,
-        color_values=saturday_barchart_args_2022.color_values)
-
-    # ------------------------------------------------------------------------
     # ---CREATE PLOTS FOR THE TOP TEN ROUTES BY SUNDAY RIDERSHIP IN 2022------
     # ------------------------------------------------------------------------
     # TBD
     # ------------------------------------------------------------------------
 
-    barchart_output_path = f'{output_dir}{sunday_barchart_args_2022.output_file}'
+    for df, op in zip(bc_2022_dfs, bc_2022_file_paths):
 
-    create_barchart(
-        data=bus_data_2022_sun,
-        output_path=barchart_output_path,
-        x_value=sunday_barchart_args_2022.x_value,
-        y_value=sunday_barchart_args_2022.y_value,
-        color_values=sunday_barchart_args_2022.color_values)
+        create_barchart(
+            data=df,
+            output_path=op,
+            x_value=barchart_args.x_value,
+            y_value=barchart_args.y_value,
+            color_values=barchart_args_2022.color_values,
+            sort_order=barchart_args_2022.sort_order)
 
     # ------------------------------------------------------------------------
     # ---CREATE BARCHARTS FOR ROUTES BY RIDERSHIP-----------------------------
