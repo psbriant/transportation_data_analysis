@@ -3,7 +3,7 @@ Description: Executes transportation data analysis and creates all
 visualizations.
 
 TODO: Determine how to handle the year 2022 since some months do not have
-ridership data (the values are represented by nans).
+    ridership data (the values are represented by nans).
 """
 
 import argparse
@@ -185,8 +185,7 @@ if __name__ == "__main__":
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2022)-----------
     # ------------------------------------------------------------------------
     # Currently heatmaps are only for weekday ridership
-    # TODO: Determine how much of this code can be moved to functions in
-    #   data_processing.py
+    # TODO: Create heatmaps for saturdays and sundays - holidays
     # ------------------------------------------------------------------------
 
     # Heatmap by weekday ridership, month and year.
@@ -222,8 +221,7 @@ if __name__ == "__main__":
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2010)-----------
     # ------------------------------------------------------------------------
     # Currently heatmaps are only for weekday ridership
-    # TODO: Determine how much of this code can be moved to functions in
-    #   data_processing.py
+    # TODO: Create heatmaps for saturdays and sundays - holidays
     # ------------------------------------------------------------------------
 
     # Heatmap by weekday ridership, month and year.
@@ -251,8 +249,7 @@ if __name__ == "__main__":
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (2011-2022)-----------
     # ------------------------------------------------------------------------
     # Currently heatmaps are only for weekday ridership
-    # TODO: Determine how much of this code can be moved to functions in
-    # data_processing.py
+    # TODO: Create heatmaps for saturdays and sundays - holidays
     # ------------------------------------------------------------------------
 
     # Heatmap by weekday ridership, month and year.
