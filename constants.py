@@ -72,6 +72,30 @@ class SundayBarChartArguments_1999_2022(BarChartArguments):
     output_file: str = 'sunday_ridership_barchart_1999_2022.png'
 
 @dataclass
+class WeekdayBarChartArguments_1999_2009(BarChartArguments):
+    output_file: str = 'weekday_ridership_barchart_1999_2009.png'
+
+@dataclass
+class SaturdayBarChartArguments_1999_2009(BarChartArguments):
+    output_file: str = 'saturday_ridership_barchart_1999_2009.png'
+
+@dataclass
+class SundayBarChartArguments_1999_2009(BarChartArguments):
+    output_file: str = 'sunday_ridership_barchart_1999_2009.png'
+
+@dataclass
+class WeekdayBarChartArguments_2010_2019(BarChartArguments):
+    output_file: str = 'weekday_ridership_barchart_2010_2019.png'
+
+@dataclass
+class SaturdayBarChartArguments_2010_2019(BarChartArguments):
+    output_file: str = 'saturday_ridership_barchart_2010_2019.png'
+
+@dataclass
+class SundayBarChartArguments_2010_2019(BarChartArguments):
+    output_file: str = 'sunday_ridership_barchart_2010_2019.png'
+
+@dataclass
 class WeekdayBarChartArguments_2020_2022(BarChartArguments):
     output_file: str = 'weekday_ridership_barchart_2020_2022.png'
 
