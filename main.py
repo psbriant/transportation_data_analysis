@@ -21,6 +21,12 @@ from constants import (BusDataArguments,
                        WeekdayBarChartArguments_1999_2022,
                        SaturdayBarChartArguments_1999_2022,
                        SundayBarChartArguments_1999_2022,
+                       WeekdayBarChartArguments_1999_2009,
+                       SaturdayBarChartArguments_1999_2009,
+                       SundayBarChartArguments_1999_2009,
+                       WeekdayBarChartArguments_2010_2019,
+                       SaturdayBarChartArguments_2010_2019,
+                       SundayBarChartArguments_2010_2019,
                        WeekdayBarChartArguments_2020_2022,
                        SaturdayBarChartArguments_2020_2022,
                        SundayBarChartArguments_2020_2022,
@@ -85,6 +91,12 @@ if __name__ == "__main__":
     weekday_barchart_args_1999_2022 = WeekdayBarChartArguments_1999_2022()
     saturday_barchart_args_1999_2022 = SaturdayBarChartArguments_1999_2022()
     sunday_barchart_args_1999_2022 = SundayBarChartArguments_1999_2022()
+    weekday_barchart_args_1999_2009 = WeekdayBarChartArguments_1999_2009()
+    saturday_barchart_args_1999_2009 = SaturdayBarChartArguments_1999_2009()
+    sunday_barchart_args_1999_2009 = SundayBarChartArguments_1999_2009()
+    weekday_barchart_args_2010_2019 = WeekdayBarChartArguments_2010_2019()
+    saturday_barchart_args_2010_2019 = SaturdayBarChartArguments_2010_2019()
+    sunday_barchart_args_2010_2019 = SundayBarChartArguments_2010_2019()
     weekday_barchart_args_2020_2022 = WeekdayBarChartArguments_2020_2022()
     saturday_barchart_args_2020_2022 = SaturdayBarChartArguments_2020_2022()
     sunday_barchart_args_2020_2022 = SundayBarChartArguments_2020_2022()
@@ -124,6 +136,30 @@ if __name__ == "__main__":
     agg_year_sun = agg_year_sun[agg_year_sun['DAY_TYPE'] == 'Sunday - Holiday']
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
+    # the years 1999 - 2009.
+    agg_year_wd_1999_2009, agg_year_sat_1999_2009, agg_year_sun_1999_2009 = agg_year_wd.copy(), \
+        agg_year_sat.copy(), agg_year_sun.copy()
+
+    agg_year_wd_1999_2009 = agg_year_wd_1999_2009[
+        agg_year_wd_1999_2009['YEAR'] < 2010]
+    agg_year_sat_1999_2009 = agg_year_sat_1999_2009[
+        agg_year_sat_1999_2009['YEAR'] < 2010]
+    agg_year_sun_1999_2009 = agg_year_sun_1999_2009[
+        agg_year_sun_1999_2009['YEAR'] < 2010]
+
+    # Create subsets for weekday, saturday and sunday - holiday ridership for
+    # the years 2010 - 2019.
+    agg_year_wd_2010_2019, agg_year_sat_2010_2019, agg_year_sun_2010_2019 = agg_year_wd.copy(), \
+        agg_year_sat.copy(), agg_year_sun.copy()
+
+    agg_year_wd_2010_2019 = agg_year_wd_2010_2019[
+        (agg_year_wd_2010_2019['YEAR'] > 2009) & (agg_year_wd_2010_2019['YEAR'] < 2020)]
+    agg_year_sat_2010_2019 = agg_year_sat_2010_2019[
+        (agg_year_sat_2010_2019['YEAR'] > 2009) & (agg_year_sat_2010_2019['YEAR'] < 2020)]
+    agg_year_sun_2010_2019 = agg_year_sun_2010_2019[
+        (agg_year_sun_2010_2019['YEAR'] > 2009) & (agg_year_sun_2010_2019['YEAR'] < 2020)]
+
+    # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 2020 - 2022.
     agg_year_wd_2020_2022, agg_year_sat_2020_2022, agg_year_sun_2020_2022 = agg_year_wd.copy(), \
         agg_year_sat.copy(), agg_year_sun.copy()
@@ -143,6 +179,12 @@ if __name__ == "__main__":
         df_list=[agg_year_wd,
                  agg_year_sat,
                  agg_year_sun,
+                 agg_year_wd_1999_2009,
+                 agg_year_sat_1999_2009,
+                 agg_year_sun_1999_2009,
+                 agg_year_wd_2010_2019,
+                 agg_year_sat_2010_2019,
+                 agg_year_sun_2010_2019,
                  agg_year_wd_2020_2022,
                  agg_year_sat_2020_2022,
                  agg_year_sun_2020_2022],
@@ -162,6 +204,12 @@ if __name__ == "__main__":
         file_list=[weekday_barchart_args_1999_2022.output_file,
                    saturday_barchart_args_1999_2022.output_file,
                    sunday_barchart_args_1999_2022.output_file,
+                   weekday_barchart_args_1999_2009.output_file,
+                   saturday_barchart_args_1999_2009.output_file,
+                   sunday_barchart_args_1999_2009.output_file,
+                   weekday_barchart_args_2010_2019.output_file,
+                   saturday_barchart_args_2010_2019.output_file,
+                   sunday_barchart_args_2010_2019.output_file,
                    weekday_barchart_args_2020_2022.output_file,
                    saturday_barchart_args_2020_2022.output_file,
                    sunday_barchart_args_2020_2022.output_file],
@@ -300,6 +348,12 @@ if __name__ == "__main__":
     # -Weekday ridership, 1999-2022
     # -Saturday ridership, 1999-2022
     # -Sunday ridership, 1999-2022
+    # -Weekday ridership, 1999-2009
+    # -Saturday ridership, 1999-2009
+    # -Sunday ridership, 1999-2009
+    # -Weekday ridership, 2010-2019
+    # -Saturday ridership, 2010-2019
+    # -Sunday ridership, 2010-2019
     # -Weekday ridership, 2020-2022
     # -Saturday ridership, 2020-2022
     # -Sunday ridership, 2020-2022
