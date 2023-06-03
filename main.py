@@ -340,6 +340,7 @@ if __name__ == "__main__":
             x_value=barchart_args.x_value,
             y_value=barchart_args.y_value,
             color_values=barchart_args_2022.color_values,
+            title=barchart_args.title,
             sort_order=barchart_args_2022.sort_order)
 
     # ------------------------------------------------------------------------
@@ -366,4 +367,5 @@ if __name__ == "__main__":
             output_path=op,
             x_value=barchart_args.x_value,
             y_value=barchart_args.y_value,
-            color_values=barchart_args.color_values)
+            color_values=barchart_args.color_values,
+            title=barchart_args.title)
