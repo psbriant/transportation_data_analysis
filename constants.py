@@ -31,6 +31,7 @@ class BarChartArguments:
     x_value: str = 'AVG_RIDES'
     y_value: str = 'ROUTE'
     color_values: str = 'YEAR'
+    title: str = "Number of rides per CTA bus route"
 
 @dataclass
 class BarChartArguments_2022(BarChartArguments):
