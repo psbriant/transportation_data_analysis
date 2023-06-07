@@ -346,18 +346,10 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
     # ---CREATE STACKED BAR CHARTS FOR ROUTES BY RIDERSHIP--------------------
     # ------------------------------------------------------------------------
-    # -Weekday ridership, 1999-2022
-    # -Saturday ridership, 1999-2022
-    # -Sunday ridership, 1999-2022
-    # -Weekday ridership, 1999-2009
-    # -Saturday ridership, 1999-2009
-    # -Sunday ridership, 1999-2009
-    # -Weekday ridership, 2010-2019
-    # -Saturday ridership, 2010-2019
-    # -Sunday ridership, 2010-2019
-    # -Weekday ridership, 2020-2022
-    # -Saturday ridership, 2020-2022
-    # -Sunday ridership, 2020-2022
+    # - 1999-2022 (Weekday, Saturday, Sunday)
+    # - 1999-2009 (Weekday, Saturday, Sunday)
+    # - 2010-2019 (Weekday, Saturday, Sunday)
+    # - 2020-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
     for df, op in zip(ts_bc_dfs, ts_bc_file_paths):
