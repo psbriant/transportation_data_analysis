@@ -30,12 +30,16 @@ from constants import (BusDataArguments,
                        WeekdayBarChartArguments_2020_2022,
                        SaturdayBarChartArguments_2020_2022,
                        SundayBarChartArguments_2020_2022,
+                       BumpChartArguments,
+                       WeekdayBumpChartArguments,
+                       SaturdayBumpChartArguments,
+                       SundayBumpChartArguments,
                        HeatmapArguments,
                        HeatmapArguments_1999_2010,
                        HeatmapArguments_2011_2022)
 from data_processing import (change_column_datatype,
                              create_absolute_file_paths)
-from visualizations import (create_barchart, create_heatmap)
+from visualizations import (create_barchart, create_bumpchart, create_heatmap)
 
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
@@ -100,6 +104,10 @@ if __name__ == "__main__":
     weekday_barchart_args_2020_2022 = WeekdayBarChartArguments_2020_2022()
     saturday_barchart_args_2020_2022 = SaturdayBarChartArguments_2020_2022()
     sunday_barchart_args_2020_2022 = SundayBarChartArguments_2020_2022()
+    bumpchart_args = BumpChartArguments()
+    weekday_bumpchart_args = WeekdayBumpChartArguments()
+    saturday_bumpchart_args = SaturdayBumpChartArguments()
+    sunday_bumpchart_args = SundayBumpChartArguments()
     heatmap_args = HeatmapArguments()
     heatmap_args_1999_2010 = HeatmapArguments_1999_2010()
     heatmap_args_2011_2022 = HeatmapArguments_2011_2022()
@@ -171,6 +179,22 @@ if __name__ == "__main__":
     agg_year_sun_2020_2022 = agg_year_sun_2020_2022[
         agg_year_sun_2020_2022['YEAR'].isin([2020, 2021, 2022])]
 
+    # Add a rank column based off of ridership.
+    wd_rankings, sat_rankings, sun_rankings = agg_year_wd.copy(), \
+        agg_year_sat.copy(), agg_year_sun.copy()
+
+    wd_rankings['RANK'] = wd_rankings.groupby('YEAR')[
+        'AVG_RIDES'].rank(ascending=False)
+    sat_rankings['RANK'] = sat_rankings.groupby('YEAR')[
+        'AVG_RIDES'].rank(ascending=False)
+    sun_rankings['RANK'] = sun_rankings.groupby('YEAR')[
+        'AVG_RIDES'].rank(ascending=False)
+
+    # Subset dataframe so that only the top 10 bus routes per year are present
+    wd_rankings = wd_rankings[wd_rankings['RANK'] <= 10]
+    sat_rankings = sat_rankings[sat_rankings['RANK'] <= 10]
+    sun_rankings = sun_rankings[sun_rankings['RANK'] <= 10]
+
     # Change values in the "YEAR" column from integers to strings to improve
     # plot readability for barcharts representing more than one year of data.
     # Please note that this must be executed after subsetting each dataframe
@@ -188,6 +212,15 @@ if __name__ == "__main__":
                  agg_year_wd_2020_2022,
                  agg_year_sat_2020_2022,
                  agg_year_sun_2020_2022],
+        col='YEAR',
+        datatype='str')
+
+    # Change values in the "YEAR" column from integers to strings to improve
+    # plot readability for bump charts representing more than one year of data.
+    # Please note that this must be executed after subsetting each dataframe
+    # by the relevant years to avoid raising a TypeError.
+    ts_bpc_dfs = change_column_datatype(
+        df_list=[wd_rankings, sat_rankings, sun_rankings],
         col='YEAR',
         datatype='str')
 
@@ -213,6 +246,13 @@ if __name__ == "__main__":
                    weekday_barchart_args_2020_2022.output_file,
                    saturday_barchart_args_2020_2022.output_file,
                    sunday_barchart_args_2020_2022.output_file],
+        file_path=output_dir)
+
+    # Create absolute file paths for bump charts covering 1999 to 2022
+    bpc_file_paths = create_absolute_file_paths(
+        file_list=[weekday_bumpchart_args.output_file,
+                   saturday_bumpchart_args.output_file,
+                   sunday_bumpchart_args.output_file],
         file_path=output_dir)
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
@@ -361,3 +401,22 @@ if __name__ == "__main__":
             y_value=barchart_args.y_value,
             color_values=barchart_args.color_values,
             title=barchart_args.title)
+
+    # ------------------------------------------------------------------------
+    # ---CREATE BUMP CHARTS FOR ROUTES BY RIDERSHIP AND YEAR------------------
+    # ------------------------------------------------------------------------
+    # - 1999-2022 (Weekday, Saturday, Sunday)
+    # - 1999-2009 (Weekday, Saturday, Sunday)
+    # - 2010-2019 (Weekday, Saturday, Sunday)
+    # - 2020-2022 (Weekday, Saturday, Sunday)
+    # ------------------------------------------------------------------------
+
+    for df, op in zip(ts_bpc_dfs, bpc_file_paths):
+        create_bumpchart(
+            data=df,
+            output_path=op,
+            x_value=bumpchart_args.x_value,
+            y_value=bumpchart_args.y_value,
+            color_values=bumpchart_args.color_values,
+            title=bumpchart_args.title,
+            scheme=bumpchart_args.scheme)
