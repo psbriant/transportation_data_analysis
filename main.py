@@ -18,10 +18,9 @@ from file_io import create_absolute_file_paths
 from visualizations import (create_barchart, create_bumpchart, create_heatmap)
 
 
-logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
-
-
 if __name__ == "__main__":
+
+    logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
     parser = argparse.ArgumentParser(
         description='Arguments for visualizing data')
