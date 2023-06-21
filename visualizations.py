@@ -23,8 +23,7 @@ def create_heatmap(
     """
     Create a heatmap for specified data and columns.
 
-    TODO: Figure out how to best set up kwargs for pandas and altair
-    functions.
+    TODO: Figure out how to best set up kwargs for pandas and altair functions
 
     Arguments:
         data (DataFrame): Input data to visualize.
