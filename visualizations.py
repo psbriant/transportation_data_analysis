@@ -23,9 +23,8 @@ def create_heatmap(
     """
     Create a heatmap for specified data and columns.
 
-    TODO: Figure out how to best set up kwargs for pandas and seaborn
+    TODO: Figure out how to best set up kwargs for pandas and altair
     functions.
-    TODO: Figure out what type hints would look like for a list of strings.
 
     Arguments:
         data (DataFrame): Input data to visualize.
