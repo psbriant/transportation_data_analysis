@@ -12,31 +12,7 @@ import logging
 import numpy as np
 import pandas as pd
 
-from constants import (BusDataArguments,
-                       BarChartArguments,
-                       BarChartArguments_2022,
-                       WeekdayBarChartArguments_2022,
-                       SaturdayBarChartArguments_2022,
-                       SundayBarChartArguments_2022,
-                       WeekdayBarChartArguments_1999_2022,
-                       SaturdayBarChartArguments_1999_2022,
-                       SundayBarChartArguments_1999_2022,
-                       WeekdayBarChartArguments_1999_2009,
-                       SaturdayBarChartArguments_1999_2009,
-                       SundayBarChartArguments_1999_2009,
-                       WeekdayBarChartArguments_2010_2019,
-                       SaturdayBarChartArguments_2010_2019,
-                       SundayBarChartArguments_2010_2019,
-                       WeekdayBarChartArguments_2020_2022,
-                       SaturdayBarChartArguments_2020_2022,
-                       SundayBarChartArguments_2020_2022,
-                       BumpChartArguments,
-                       WeekdayBumpChartArguments,
-                       SaturdayBumpChartArguments,
-                       SundayBumpChartArguments,
-                       HeatmapArguments,
-                       HeatmapArguments_1999_2010,
-                       HeatmapArguments_2011_2022)
+import constants as cst
 from data_processing import change_column_datatype
 from file_io import create_absolute_file_paths
 from visualizations import (create_barchart, create_bumpchart, create_heatmap)
@@ -86,31 +62,31 @@ if __name__ == "__main__":
     # ---INITIALIZE CONSTANT ARGUMENTS----------------------------------------
     # ------------------------------------------------------------------------
 
-    bus_data_args = BusDataArguments()
-    barchart_args = BarChartArguments()
-    barchart_args_2022 = BarChartArguments_2022()
-    weekday_barchart_args_2022 = WeekdayBarChartArguments_2022()
-    saturday_barchart_args_2022 = SaturdayBarChartArguments_2022()
-    sunday_barchart_args_2022 = SundayBarChartArguments_2022()
-    weekday_barchart_args_1999_2022 = WeekdayBarChartArguments_1999_2022()
-    saturday_barchart_args_1999_2022 = SaturdayBarChartArguments_1999_2022()
-    sunday_barchart_args_1999_2022 = SundayBarChartArguments_1999_2022()
-    weekday_barchart_args_1999_2009 = WeekdayBarChartArguments_1999_2009()
-    saturday_barchart_args_1999_2009 = SaturdayBarChartArguments_1999_2009()
-    sunday_barchart_args_1999_2009 = SundayBarChartArguments_1999_2009()
-    weekday_barchart_args_2010_2019 = WeekdayBarChartArguments_2010_2019()
-    saturday_barchart_args_2010_2019 = SaturdayBarChartArguments_2010_2019()
-    sunday_barchart_args_2010_2019 = SundayBarChartArguments_2010_2019()
-    weekday_barchart_args_2020_2022 = WeekdayBarChartArguments_2020_2022()
-    saturday_barchart_args_2020_2022 = SaturdayBarChartArguments_2020_2022()
-    sunday_barchart_args_2020_2022 = SundayBarChartArguments_2020_2022()
-    bumpchart_args = BumpChartArguments()
-    weekday_bumpchart_args = WeekdayBumpChartArguments()
-    saturday_bumpchart_args = SaturdayBumpChartArguments()
-    sunday_bumpchart_args = SundayBumpChartArguments()
-    heatmap_args = HeatmapArguments()
-    heatmap_args_1999_2010 = HeatmapArguments_1999_2010()
-    heatmap_args_2011_2022 = HeatmapArguments_2011_2022()
+    bus_data_args = cst.BusDataArguments()
+    barchart_args = cst.BarChartArguments()
+    barchart_args_2022 = cst.BarChartArguments_2022()
+    weekday_barchart_args_2022 = cst.WeekdayBarChartArguments_2022()
+    saturday_barchart_args_2022 = cst.SaturdayBarChartArguments_2022()
+    sunday_barchart_args_2022 = cst.SundayBarChartArguments_2022()
+    weekday_barchart_args_1999_2022 = cst.WeekdayBarChartArguments_1999_2022()
+    saturday_barchart_args_1999_2022 = cst.SaturdayBarChartArguments_1999_2022()
+    sunday_barchart_args_1999_2022 = cst.SundayBarChartArguments_1999_2022()
+    weekday_barchart_args_1999_2009 = cst.WeekdayBarChartArguments_1999_2009()
+    saturday_barchart_args_1999_2009 = cst.SaturdayBarChartArguments_1999_2009()
+    sunday_barchart_args_1999_2009 = cst.SundayBarChartArguments_1999_2009()
+    weekday_barchart_args_2010_2019 = cst.WeekdayBarChartArguments_2010_2019()
+    saturday_barchart_args_2010_2019 = cst.SaturdayBarChartArguments_2010_2019()
+    sunday_barchart_args_2010_2019 = cst.SundayBarChartArguments_2010_2019()
+    weekday_barchart_args_2020_2022 = cst.WeekdayBarChartArguments_2020_2022()
+    saturday_barchart_args_2020_2022 = cst.SaturdayBarChartArguments_2020_2022()
+    sunday_barchart_args_2020_2022 = cst.SundayBarChartArguments_2020_2022()
+    bumpchart_args = cst.BumpChartArguments()
+    weekday_bumpchart_args = cst.WeekdayBumpChartArguments()
+    saturday_bumpchart_args = cst.SaturdayBumpChartArguments()
+    sunday_bumpchart_args = cst.SundayBumpChartArguments()
+    heatmap_args = cst.HeatmapArguments()
+    heatmap_args_1999_2010 = cst.HeatmapArguments_1999_2010()
+    heatmap_args_2011_2022 = cst.HeatmapArguments_2011_2022()
 
     # ------------------------------------------------------------------------
     # ---LOAD DATASET---------------------------------------------------------
