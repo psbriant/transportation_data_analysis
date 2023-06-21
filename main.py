@@ -43,20 +43,12 @@ if __name__ == "__main__":
         type=str,
         help='The type of day to create plots for. Must be one of Weekday, '
              'Saturday or Sunday - Holiday')
-    parser.add_argument(
-        '--routes',
-        required=False,
-        type=str,
-        nargs='*',
-        help='List of routes to create plots for. Plots will be created for '
-             'all routes if this argument is not specified.')
 
     args = parser.parse_args()
 
     bus_data_path = args.bus_data_path
     output_dir = args.output_dir
     day_type = args.day_type
-    routes = args.routes
 
     # ------------------------------------------------------------------------
     # ---INITIALIZE CONSTANT ARGUMENTS----------------------------------------
@@ -260,13 +252,6 @@ if __name__ == "__main__":
     logging.info("Preparing to create heatmap for the years 1999 to 2022")
     logging.info("Subsetting data")
     hm_rmy_data = cta_bus_data.copy()
-
-    # Optionally subset by route if specific route numbers are specified upon
-    # execution of this script. if no routes are specified, make plots for all
-    # routes.
-    if routes:
-        hm_rmy_data = hm_rmy_data[
-            hm_rmy_data['ROUTE'].isin(routes)]
 
     # Subset by trip type (e.g. Weekday, Saturday, Sunday - Holiday).
     hm_rmy_data = hm_rmy_data[hm_rmy_data['DAY_TYPE'] == day_type]
