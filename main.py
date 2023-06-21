@@ -235,12 +235,16 @@ if __name__ == "__main__":
     # TODO: Create a function to do this.
     bus_data_2022 = cta_bus_data.copy()
     bus_data_2022 = bus_data_2022[bus_data_2022['YEAR'] == 2022]
+
     bus_data_2022_wd, bus_data_2022_sat, bus_data_2022_sun = bus_data_2022.copy(), \
         bus_data_2022.copy(), bus_data_2022.copy()
-    bus_data_2022_wd = bus_data_2022[bus_data_2022['DAY_TYPE'] == 'Weekday']
-    bus_data_2022_sat = bus_data_2022[bus_data_2022['DAY_TYPE'] == 'Saturday']
-    bus_data_2022_sun = bus_data_2022[
-        bus_data_2022['DAY_TYPE'] == 'Sunday - Holiday']
+
+    bus_data_2022_wd = bus_data_2022_wd[
+        bus_data_2022_wd['DAY_TYPE'] == 'Weekday']
+    bus_data_2022_sat = bus_data_2022_sat[
+        bus_data_2022_sat['DAY_TYPE'] == 'Saturday']
+    bus_data_2022_sun = bus_data_2022_sun[
+        bus_data_2022_sun['DAY_TYPE'] == 'Sunday - Holiday']
 
     bc_2022_dfs = [bus_data_2022_wd, bus_data_2022_sat, bus_data_2022_sun]
 
