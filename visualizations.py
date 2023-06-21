@@ -28,11 +28,9 @@ def create_heatmap(
     Arguments:
         data (DataFrame): Input data to visualize.
         output_path (str): Absolute file path (including the name of the file)
-            to save the heatmap to.
-        x_value (str): The name of the column representing the x-axis of the
-            heatmap.
-        y_value (str): The name of the column representing the y-axis of the
-            heatmap.
+            to save the plot to.
+        x_value (str): The name of the column representing the x-axis.
+        y_value (str): The name of the column representing the y-axis.
         color_values (str): The name of column representing the values to
             plot.
         facet_values (str): The name of the column representing the values to
@@ -79,11 +77,9 @@ def create_barchart(
     Arguments:
         data (DataFrame): Input data to visualize.
         output_path (str): Absolute file path (including the name of the file)
-            to save the heatmap to.
-        x_value (str): The name of the column representing the x-axis of the
-            heatmap.
-        y_value (str): The name of the column representing the y-axis of the
-            heatmap.
+            to save the plot to.
+        x_value (str): The name of the column representing the x-axis.
+        y_value (str): The name of the column representing the y-axis.
         color_values (str): The name of column representing the values to
             plot.
         title (str): The title of the plot.
