@@ -152,9 +152,38 @@ class HeatmapArguments:
         'December'])
 
 @dataclass
-class HeatmapArguments_1999_2010(HeatmapArguments):
-    output_file: str = 'ridership_heatmap_1999_2010.png'
+class WeekdayHeatmapArguments_1999_2010(HeatmapArguments):
+    output_file: str = 'weekday_ridership_heatmap_1999_2010.png'
 
 @dataclass
-class HeatmapArguments_2011_2022(HeatmapArguments):
-    output_file: str = 'ridership_heatmap_2011_2022.png'
+class SaturdayHeatmapArguments_1999_2010(HeatmapArguments):
+    output_file: str = 'saturday_ridership_heatmap_1999_2010.png'
+
+@dataclass
+class SundayHeatmapArguments_1999_2010(HeatmapArguments):
+    output_file: str = 'sunday_ridership_heatmap_1999_2010.png'
+
+
+@dataclass
+class WeekdayHeatmapArguments_2011_2022(HeatmapArguments):
+    output_file: str = 'weekday_ridership_heatmap_2011_2022.png'
+
+@dataclass
+class SaturdayHeatmapArguments_2011_2022(HeatmapArguments):
+    output_file: str = 'saturday_ridership_heatmap_2011_2022.png'
+
+@dataclass
+class SundayHeatmapArguments_2011_2022(HeatmapArguments):
+    output_file: str = 'sunday_ridership_heatmap_2011_2022.png'
+
+@dataclass
+class WeekdayHeatmapArguments_1999_2022(HeatmapArguments):
+    output_file: str = 'weekday_ridership_heatmap_1999_2022.png'
+
+@dataclass
+class SaturdayHeatmapArguments_1999_2022(HeatmapArguments):
+    output_file: str = 'saturday_ridership_heatmap_1999_2022.png'
+
+@dataclass
+class SundayHeatmapArguments_1999_2022(HeatmapArguments):
+    output_file: str = 'sunday_ridership_heatmap_1999_2022.png'
