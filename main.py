@@ -36,19 +36,11 @@ if __name__ == "__main__":
         type=str,
         help='The absolute file path to output directory where the plots will'
              ' be saved')
-    parser.add_argument(
-        '--day_type',
-        required=True,
-        choices=['Weekday', 'Saturday', 'Sunday - Holiday'],
-        type=str,
-        help='The type of day to create plots for. Must be one of Weekday, '
-             'Saturday or Sunday - Holiday')
 
     args = parser.parse_args()
 
     bus_data_path = args.bus_data_path
     output_dir = args.output_dir
-    day_type = args.day_type
 
     # ------------------------------------------------------------------------
     # ---INITIALIZE CONSTANT ARGUMENTS----------------------------------------
