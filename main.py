@@ -245,6 +245,20 @@ if __name__ == "__main__":
         col='YEAR',
         datatype='str')
 
+    # Create absolute file paths for heatmaps covering the first 10 months
+    # of 2022.
+    hm_file_paths = create_absolute_file_paths(
+        file_list=[weekday_heatmap_args_1999_2022.output_file,
+                   saturday_heatmap_args_1999_2022.output_file,
+                   sunday_heatmap_args_1999_2022.output_file,
+                   weekday_heatmap_args_1999_2010.output_file,
+                   saturday_heatmap_args_1999_2010.output_file,
+                   sunday_heatmap_args_1999_2010.output_file,
+                   weekday_heatmap_args_2011_2022.output_file,
+                   saturday_heatmap_args_2011_2022.output_file,
+                   sunday_heatmap_args_2011_2022.output_file],
+        file_path=output_dir)
+
     # Create absolute file paths for bar charts covering the first 10 months
     # of 2022.
     bc_2022_file_paths = create_absolute_file_paths(
