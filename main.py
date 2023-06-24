@@ -69,8 +69,15 @@ if __name__ == "__main__":
     saturday_bumpchart_args = cst.SaturdayBumpChartArguments()
     sunday_bumpchart_args = cst.SundayBumpChartArguments()
     heatmap_args = cst.HeatmapArguments()
-    heatmap_args_1999_2010 = cst.HeatmapArguments_1999_2010()
-    heatmap_args_2011_2022 = cst.HeatmapArguments_2011_2022()
+    weekday_heatmap_args_1999_2022 = cst.WeekdayHeatmapArguments_1999_2022()
+    saturday_heatmap_args_1999_2022 = cst.SaturdayHeatmapArguments_1999_2022()
+    sunday_heatmap_args_1999_2022 = cst.SundayHeatmapArguments_1999_2022()
+    weekday_heatmap_args_1999_2010 = cst.WeekdayHeatmapArguments_1999_2010()
+    saturday_heatmap_args_1999_2010 = cst.SaturdayHeatmapArguments_1999_2010()
+    sunday_heatmap_args_1999_2010 = cst.SundayHeatmapArguments_1999_2010()
+    weekday_heatmap_args_2011_2022 = cst.WeekdayHeatmapArguments_2011_2022()
+    saturday_heatmap_args_2011_2022 = cst.SaturdayHeatmapArguments_2011_2022()
+    sunday_heatmap_args_2011_2022 = cst.SundayHeatmapArguments_2011_2022()
 
     # ------------------------------------------------------------------------
     # ---LOAD DATASET---------------------------------------------------------
