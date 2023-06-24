@@ -311,87 +311,22 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2022)-----------
     # ------------------------------------------------------------------------
-    # Currently heatmaps are only for weekday ridership
-    # TODO: Create heatmaps for saturdays and sundays - holidays
+    # - 1999-2022 (Weekday, Saturday, Sunday)
+    # - 1999-2010 (Weekday, Saturday, Sunday)
+    # - 2011-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
-    # Heatmap by weekday ridership, month and year.
-    logging.info("Preparing to create heatmap for the years 1999 to 2022")
-    logging.info("Subsetting data")
-    hm_rmy_data = cta_bus_data.copy()
+    for df, op in zip(hm_dfs, hm_file_paths):
 
-    # Subset by trip type (e.g. Weekday, Saturday, Sunday - Holiday).
-    hm_rmy_data = hm_rmy_data[hm_rmy_data['DAY_TYPE'] == day_type]
-
-    # Create output path for heatmap
-    heatmap_output_path = f'{output_dir}{heatmap_args.output_file}'
-
-    logging.info("Creating Heatmap for the years 1999 to 2022")
-    create_heatmap(
-        data=hm_rmy_data,
-        output_path=heatmap_output_path,
-        x_value=heatmap_args.x_value,
-        y_value=heatmap_args.y_value,
-        color_values=heatmap_args.color_values,
-        facet_values=heatmap_args.facet_values,
-        facet_columns=heatmap_args.facet_columns,
-        x_axis_sort_order=heatmap_args.x_axis_sort_order)
-
-    # ------------------------------------------------------------------------
-    # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2010)-----------
-    # ------------------------------------------------------------------------
-    # Currently heatmaps are only for weekday ridership
-    # TODO: Create heatmaps for saturdays and sundays - holidays
-    # ------------------------------------------------------------------------
-
-    # Heatmap by weekday ridership, month and year.
-    logging.info("Preparing to create heatmap for the years 1999 to 2010")
-    logging.info("Subsetting data")
-    hm_rmy_data_1999_2010 = hm_rmy_data.copy()
-    hm_rmy_data_1999_2010 = hm_rmy_data_1999_2010[
-        hm_rmy_data_1999_2010['YEAR'] < 2011]
-
-    # Create output path for heatmap
-    heatmap_output_path = f'{output_dir}{heatmap_args_1999_2010.output_file}'
-
-    logging.info("Creating Heatmap for the years 1999 to 2010")
-    create_heatmap(
-        data=hm_rmy_data_1999_2010,
-        output_path=heatmap_output_path,
-        x_value=heatmap_args_1999_2010.x_value,
-        y_value=heatmap_args_1999_2010.y_value,
-        color_values=heatmap_args_1999_2010.color_values,
-        facet_values=heatmap_args_1999_2010.facet_values,
-        facet_columns=heatmap_args_1999_2010.facet_columns,
-        x_axis_sort_order=heatmap_args_1999_2010.x_axis_sort_order)
-
-    # ------------------------------------------------------------------------
-    # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (2011-2022)-----------
-    # ------------------------------------------------------------------------
-    # Currently heatmaps are only for weekday ridership
-    # TODO: Create heatmaps for saturdays and sundays - holidays
-    # ------------------------------------------------------------------------
-
-    # Heatmap by weekday ridership, month and year.
-    logging.info("Preparing to create heatmap for the years 2011 to 2022")
-    logging.info("Subsetting data")
-    hm_rmy_data_2011_2022 = hm_rmy_data.copy()
-    hm_rmy_data_2011_2022 = hm_rmy_data_2011_2022[
-        hm_rmy_data_2011_2022['YEAR'] > 2010]
-
-    # Create output path for heatmap
-    heatmap_output_path = f'{output_dir}{heatmap_args_2011_2022.output_file}'
-
-    logging.info("Creating Heatmap for the years 2011 to 2022")
-    create_heatmap(
-        data=hm_rmy_data_2011_2022,
-        output_path=heatmap_output_path,
-        x_value=heatmap_args_2011_2022.x_value,
-        y_value=heatmap_args_2011_2022.y_value,
-        color_values=heatmap_args_2011_2022.color_values,
-        facet_values=heatmap_args_2011_2022.facet_values,
-        facet_columns=heatmap_args_2011_2022.facet_columns,
-        x_axis_sort_order=heatmap_args_2011_2022.x_axis_sort_order)
+        create_heatmap(
+            data=df,
+            output_path=op,
+            x_value=heatmap_args.x_value,
+            y_value=heatmap_args.y_value,
+            color_values=heatmap_args.color_values,
+            facet_values=heatmap_args.facet_values,
+            facet_columns=heatmap_args.facet_columns,
+            x_axis_sort_order=heatmap_args.x_axis_sort_order)
 
     # ------------------------------------------------------------------------
     # ---CREATE STACKED BAR CHARTS FOR ROUTES BY RIDERSHIP IN 2022------------
