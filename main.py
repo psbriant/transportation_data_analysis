@@ -95,6 +95,60 @@ if __name__ == "__main__":
     cta_bus_data['MONTH'] = cta_bus_data['MONTH'].replace(
         bus_data_args.alpha_to_numeric_months)
 
+    # Create dataframe for making heatmaps.
+    logging.info("Preparing to create heatmap for the years 1999 to 2022")
+    logging.info("Subsetting data")
+    hm_rmy_data = cta_bus_data.copy()
+
+    # Subset by trip type (e.g. Weekday, Saturday, Sunday - Holiday).
+    hm_rmy_data_1999_2022_wd, hm_rmy_data_1999_2022_sat, \
+        hm_rmy_data_1999_2022_sun = hm_rmy_data.copy(), hm_rmy_data.copy(), \
+        hm_rmy_data.copy()
+
+    hm_rmy_data_1999_2022_wd = hm_rmy_data_1999_2022_wd[
+        hm_rmy_data_1999_2022_wd['DAY_TYPE'] == 'Weekday']
+    hm_rmy_data_1999_2022_sat = hm_rmy_data_1999_2022_sat[
+        hm_rmy_data_1999_2022_sat['DAY_TYPE'] == 'Saturday']
+    hm_rmy_data_1999_2022_sun = hm_rmy_data_1999_2022_sun[
+        hm_rmy_data_1999_2022_sun['DAY_TYPE'] == 'Sunday - Holiday']
+
+    # Create subsets for weekday, saturday and sunday - holiday ridership for
+    # the years 1999 - 2010.
+    hm_rmy_data_1999_2010_wd, hm_rmy_data_1999_2010_sat, \
+        hm_rmy_data_1999_2010_sun = hm_rmy_data_1999_2022_wd.copy(), \
+        hm_rmy_data_1999_2022_sat.copy(), hm_rmy_data_1999_2022_sun.copy()
+
+    hm_rmy_data_1999_2010_wd = hm_rmy_data_1999_2010_wd[
+        hm_rmy_data_1999_2010_wd['YEAR'] <= 2010]
+    hm_rmy_data_1999_2010_sat = hm_rmy_data_1999_2010_sat[
+        hm_rmy_data_1999_2010_sat['YEAR'] <= 2010]
+    hm_rmy_data_1999_2010_sun = hm_rmy_data_1999_2010_sun[
+        hm_rmy_data_1999_2010_sun['YEAR'] <= 2010]
+
+    # Create subsets for weekday, saturday and sunday - holiday ridership for
+    # the years 2011 - 2022.
+    hm_rmy_data_2011_2022_wd, hm_rmy_data_2011_2022_sat, \
+        hm_rmy_data_2011_2022_sun = hm_rmy_data_1999_2022_wd.copy(), \
+        hm_rmy_data_1999_2022_sat.copy(), hm_rmy_data_1999_2022_sun.copy()
+
+    hm_rmy_data_2011_2022_wd = hm_rmy_data_2011_2022_wd[
+        hm_rmy_data_2011_2022_wd['YEAR'] >= 2011]
+    hm_rmy_data_2011_2022_sat = hm_rmy_data_2011_2022_sat[
+        hm_rmy_data_2011_2022_sat['YEAR'] >= 2011]
+    hm_rmy_data_2011_2022_sun = hm_rmy_data_2011_2022_sun[
+        hm_rmy_data_2011_2022_sun['YEAR'] >= 2011]
+
+    # Create list of heatmap dataframes
+    hm_dfs = [hm_rmy_data_1999_2022_wd,
+              hm_rmy_data_1999_2022_sat,
+              hm_rmy_data_1999_2022_sun,
+              hm_rmy_data_1999_2010_wd,
+              hm_rmy_data_1999_2010_sat,
+              hm_rmy_data_1999_2010_sun,
+              hm_rmy_data_2011_2022_wd,
+              hm_rmy_data_2011_2022_sat,
+              hm_rmy_data_2011_2022_sun]
+
     # Create aggregate ridership data by route, year for each service type
     agg_year = cta_bus_data.copy()
     agg_year = agg_year.drop(labels=['MONTH'], axis=1)
