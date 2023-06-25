@@ -36,27 +36,11 @@ if __name__ == "__main__":
         type=str,
         help='The absolute file path to output directory where the plots will'
              ' be saved')
-    parser.add_argument(
-        '--day_type',
-        required=True,
-        choices=['Weekday', 'Saturday', 'Sunday - Holiday'],
-        type=str,
-        help='The type of day to create plots for. Must be one of Weekday, '
-             'Saturday or Sunday - Holiday')
-    parser.add_argument(
-        '--routes',
-        required=False,
-        type=str,
-        nargs='*',
-        help='List of routes to create plots for. Plots will be created for '
-             'all routes if this argument is not specified.')
 
     args = parser.parse_args()
 
     bus_data_path = args.bus_data_path
     output_dir = args.output_dir
-    day_type = args.day_type
-    routes = args.routes
 
     # ------------------------------------------------------------------------
     # ---INITIALIZE CONSTANT ARGUMENTS----------------------------------------
@@ -85,8 +69,15 @@ if __name__ == "__main__":
     saturday_bumpchart_args = cst.SaturdayBumpChartArguments()
     sunday_bumpchart_args = cst.SundayBumpChartArguments()
     heatmap_args = cst.HeatmapArguments()
-    heatmap_args_1999_2010 = cst.HeatmapArguments_1999_2010()
-    heatmap_args_2011_2022 = cst.HeatmapArguments_2011_2022()
+    weekday_heatmap_args_1999_2022 = cst.WeekdayHeatmapArguments_1999_2022()
+    saturday_heatmap_args_1999_2022 = cst.SaturdayHeatmapArguments_1999_2022()
+    sunday_heatmap_args_1999_2022 = cst.SundayHeatmapArguments_1999_2022()
+    weekday_heatmap_args_1999_2010 = cst.WeekdayHeatmapArguments_1999_2010()
+    saturday_heatmap_args_1999_2010 = cst.SaturdayHeatmapArguments_1999_2010()
+    sunday_heatmap_args_1999_2010 = cst.SundayHeatmapArguments_1999_2010()
+    weekday_heatmap_args_2011_2022 = cst.WeekdayHeatmapArguments_2011_2022()
+    saturday_heatmap_args_2011_2022 = cst.SaturdayHeatmapArguments_2011_2022()
+    sunday_heatmap_args_2011_2022 = cst.SundayHeatmapArguments_2011_2022()
 
     # ------------------------------------------------------------------------
     # ---LOAD DATASET---------------------------------------------------------
@@ -103,6 +94,60 @@ if __name__ == "__main__":
     # names of each month instead of the numerical representation.
     cta_bus_data['MONTH'] = cta_bus_data['MONTH'].replace(
         bus_data_args.alpha_to_numeric_months)
+
+    # Create dataframe for making heatmaps.
+    logging.info("Preparing to create heatmap for the years 1999 to 2022")
+    logging.info("Subsetting data")
+    hm_rmy_data = cta_bus_data.copy()
+
+    # Subset by trip type (e.g. Weekday, Saturday, Sunday - Holiday).
+    hm_rmy_data_1999_2022_wd, hm_rmy_data_1999_2022_sat, \
+        hm_rmy_data_1999_2022_sun = hm_rmy_data.copy(), hm_rmy_data.copy(), \
+        hm_rmy_data.copy()
+
+    hm_rmy_data_1999_2022_wd = hm_rmy_data_1999_2022_wd[
+        hm_rmy_data_1999_2022_wd['DAY_TYPE'] == 'Weekday']
+    hm_rmy_data_1999_2022_sat = hm_rmy_data_1999_2022_sat[
+        hm_rmy_data_1999_2022_sat['DAY_TYPE'] == 'Saturday']
+    hm_rmy_data_1999_2022_sun = hm_rmy_data_1999_2022_sun[
+        hm_rmy_data_1999_2022_sun['DAY_TYPE'] == 'Sunday - Holiday']
+
+    # Create subsets for weekday, saturday and sunday - holiday ridership for
+    # the years 1999 - 2010.
+    hm_rmy_data_1999_2010_wd, hm_rmy_data_1999_2010_sat, \
+        hm_rmy_data_1999_2010_sun = hm_rmy_data_1999_2022_wd.copy(), \
+        hm_rmy_data_1999_2022_sat.copy(), hm_rmy_data_1999_2022_sun.copy()
+
+    hm_rmy_data_1999_2010_wd = hm_rmy_data_1999_2010_wd[
+        hm_rmy_data_1999_2010_wd['YEAR'] <= 2010]
+    hm_rmy_data_1999_2010_sat = hm_rmy_data_1999_2010_sat[
+        hm_rmy_data_1999_2010_sat['YEAR'] <= 2010]
+    hm_rmy_data_1999_2010_sun = hm_rmy_data_1999_2010_sun[
+        hm_rmy_data_1999_2010_sun['YEAR'] <= 2010]
+
+    # Create subsets for weekday, saturday and sunday - holiday ridership for
+    # the years 2011 - 2022.
+    hm_rmy_data_2011_2022_wd, hm_rmy_data_2011_2022_sat, \
+        hm_rmy_data_2011_2022_sun = hm_rmy_data_1999_2022_wd.copy(), \
+        hm_rmy_data_1999_2022_sat.copy(), hm_rmy_data_1999_2022_sun.copy()
+
+    hm_rmy_data_2011_2022_wd = hm_rmy_data_2011_2022_wd[
+        hm_rmy_data_2011_2022_wd['YEAR'] >= 2011]
+    hm_rmy_data_2011_2022_sat = hm_rmy_data_2011_2022_sat[
+        hm_rmy_data_2011_2022_sat['YEAR'] >= 2011]
+    hm_rmy_data_2011_2022_sun = hm_rmy_data_2011_2022_sun[
+        hm_rmy_data_2011_2022_sun['YEAR'] >= 2011]
+
+    # Create list of heatmap dataframes
+    hm_dfs = [hm_rmy_data_1999_2022_wd,
+              hm_rmy_data_1999_2022_sat,
+              hm_rmy_data_1999_2022_sun,
+              hm_rmy_data_1999_2010_wd,
+              hm_rmy_data_1999_2010_sat,
+              hm_rmy_data_1999_2010_sun,
+              hm_rmy_data_2011_2022_wd,
+              hm_rmy_data_2011_2022_sat,
+              hm_rmy_data_2011_2022_sun]
 
     # Create aggregate ridership data by route, year for each service type
     agg_year = cta_bus_data.copy()
@@ -200,6 +245,20 @@ if __name__ == "__main__":
         col='YEAR',
         datatype='str')
 
+    # Create absolute file paths for heatmaps covering the first 10 months
+    # of 2022.
+    hm_file_paths = create_absolute_file_paths(
+        file_list=[weekday_heatmap_args_1999_2022.output_file,
+                   saturday_heatmap_args_1999_2022.output_file,
+                   sunday_heatmap_args_1999_2022.output_file,
+                   weekday_heatmap_args_1999_2010.output_file,
+                   saturday_heatmap_args_1999_2010.output_file,
+                   sunday_heatmap_args_1999_2010.output_file,
+                   weekday_heatmap_args_2011_2022.output_file,
+                   saturday_heatmap_args_2011_2022.output_file,
+                   sunday_heatmap_args_2011_2022.output_file],
+        file_path=output_dir)
+
     # Create absolute file paths for bar charts covering the first 10 months
     # of 2022.
     bc_2022_file_paths = create_absolute_file_paths(
@@ -252,94 +311,22 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2022)-----------
     # ------------------------------------------------------------------------
-    # Currently heatmaps are only for weekday ridership
-    # TODO: Create heatmaps for saturdays and sundays - holidays
+    # - 1999-2022 (Weekday, Saturday, Sunday)
+    # - 1999-2010 (Weekday, Saturday, Sunday)
+    # - 2011-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
-    # Heatmap by weekday ridership, month and year.
-    logging.info("Preparing to create heatmap for the years 1999 to 2022")
-    logging.info("Subsetting data")
-    hm_rmy_data = cta_bus_data.copy()
+    for df, op in zip(hm_dfs, hm_file_paths):
 
-    # Optionally subset by route if specific route numbers are specified upon
-    # execution of this script. if no routes are specified, make plots for all
-    # routes.
-    if routes:
-        hm_rmy_data = hm_rmy_data[
-            hm_rmy_data['ROUTE'].isin(routes)]
-
-    # Subset by trip type (e.g. Weekday, Saturday, Sunday - Holiday).
-    hm_rmy_data = hm_rmy_data[hm_rmy_data['DAY_TYPE'] == day_type]
-
-    # Create output path for heatmap
-    heatmap_output_path = f'{output_dir}{heatmap_args.output_file}'
-
-    logging.info("Creating Heatmap for the years 1999 to 2022")
-    create_heatmap(
-        data=hm_rmy_data,
-        output_path=heatmap_output_path,
-        x_value=heatmap_args.x_value,
-        y_value=heatmap_args.y_value,
-        color_values=heatmap_args.color_values,
-        facet_values=heatmap_args.facet_values,
-        facet_columns=heatmap_args.facet_columns,
-        x_axis_sort_order=heatmap_args.x_axis_sort_order)
-
-    # ------------------------------------------------------------------------
-    # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2010)-----------
-    # ------------------------------------------------------------------------
-    # Currently heatmaps are only for weekday ridership
-    # TODO: Create heatmaps for saturdays and sundays - holidays
-    # ------------------------------------------------------------------------
-
-    # Heatmap by weekday ridership, month and year.
-    logging.info("Preparing to create heatmap for the years 1999 to 2010")
-    logging.info("Subsetting data")
-    hm_rmy_data_1999_2010 = hm_rmy_data.copy()
-    hm_rmy_data_1999_2010 = hm_rmy_data_1999_2010[
-        hm_rmy_data_1999_2010['YEAR'] < 2011]
-
-    # Create output path for heatmap
-    heatmap_output_path = f'{output_dir}{heatmap_args_1999_2010.output_file}'
-
-    logging.info("Creating Heatmap for the years 1999 to 2010")
-    create_heatmap(
-        data=hm_rmy_data_1999_2010,
-        output_path=heatmap_output_path,
-        x_value=heatmap_args_1999_2010.x_value,
-        y_value=heatmap_args_1999_2010.y_value,
-        color_values=heatmap_args_1999_2010.color_values,
-        facet_values=heatmap_args_1999_2010.facet_values,
-        facet_columns=heatmap_args_1999_2010.facet_columns,
-        x_axis_sort_order=heatmap_args_1999_2010.x_axis_sort_order)
-
-    # ------------------------------------------------------------------------
-    # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (2011-2022)-----------
-    # ------------------------------------------------------------------------
-    # Currently heatmaps are only for weekday ridership
-    # TODO: Create heatmaps for saturdays and sundays - holidays
-    # ------------------------------------------------------------------------
-
-    # Heatmap by weekday ridership, month and year.
-    logging.info("Preparing to create heatmap for the years 2011 to 2022")
-    logging.info("Subsetting data")
-    hm_rmy_data_2011_2022 = hm_rmy_data.copy()
-    hm_rmy_data_2011_2022 = hm_rmy_data_2011_2022[
-        hm_rmy_data_2011_2022['YEAR'] > 2010]
-
-    # Create output path for heatmap
-    heatmap_output_path = f'{output_dir}{heatmap_args_2011_2022.output_file}'
-
-    logging.info("Creating Heatmap for the years 2011 to 2022")
-    create_heatmap(
-        data=hm_rmy_data_2011_2022,
-        output_path=heatmap_output_path,
-        x_value=heatmap_args_2011_2022.x_value,
-        y_value=heatmap_args_2011_2022.y_value,
-        color_values=heatmap_args_2011_2022.color_values,
-        facet_values=heatmap_args_2011_2022.facet_values,
-        facet_columns=heatmap_args_2011_2022.facet_columns,
-        x_axis_sort_order=heatmap_args_2011_2022.x_axis_sort_order)
+        create_heatmap(
+            data=df,
+            output_path=op,
+            x_value=heatmap_args.x_value,
+            y_value=heatmap_args.y_value,
+            color_values=heatmap_args.color_values,
+            facet_values=heatmap_args.facet_values,
+            facet_columns=heatmap_args.facet_columns,
+            x_axis_sort_order=heatmap_args.x_axis_sort_order)
 
     # ------------------------------------------------------------------------
     # ---CREATE STACKED BAR CHARTS FOR ROUTES BY RIDERSHIP IN 2022------------
