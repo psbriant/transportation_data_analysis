@@ -391,7 +391,19 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
     # ---CREATE LINE PLOTS FOR ROUTES BY RIDERSHIP AND YEAR-------------------
     # ------------------------------------------------------------------------
+    # The plots created below represent a time series analysis of route
+    # ridership or for our purposes a route ridership time series analysis
+    # (rrtsa).
+    #
     # - 1999-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
-    
+    for df, op in zip(ts_bpc_dfs, bpc_file_paths):
+        create_bumpchart(
+            data=df,
+            output_path=op,
+            x_value=rrtsa_args.x_value,
+            y_value=rrtsa_args.y_value,
+            color_values=rrtsa_args.color_values,
+            title=rrtsa_args.title,
+            scheme=rrtsa_args.scheme)
