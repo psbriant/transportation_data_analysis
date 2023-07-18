@@ -387,3 +387,11 @@ if __name__ == "__main__":
             color_values=bumpchart_args.color_values,
             title=bumpchart_args.title,
             scheme=bumpchart_args.scheme)
+
+    # ------------------------------------------------------------------------
+    # ---CREATE LINE PLOTS FOR ROUTES BY RIDERSHIP AND YEAR-------------------
+    # ------------------------------------------------------------------------
+    # - 1999-2022 (Weekday, Saturday, Sunday)
+    # ------------------------------------------------------------------------
+
+    
