@@ -31,6 +31,7 @@ class BarChartArguments:
     x_value: str = 'AVG_RIDES'
     y_value: str = 'ROUTE'
     color_values: str = 'YEAR'
+    scheme: str = 'tableau20'
     title: str = "Number of rides per CTA bus route"
 
 @dataclass
@@ -157,6 +158,7 @@ class HeatmapArguments:
     color_values: str = 'AVG_RIDES'
     facet_values: str = 'ROUTE'
     facet_columns: int = 3
+    scheme: str = 'yelloworangebrown'
     output_file: str = 'ridership_heatmap.png'
     x_axis_sort_order: list[str] = field(default_factory=lambda: [
         'January',
