@@ -130,6 +130,27 @@ class SundayBumpChartArguments(BumpChartArguments):
     output_file: str = 'sunday_ridership_bump_chart.png'
 
 @dataclass
+class LineChartArguments:
+    x_value: str = 'YEAR'
+    y_value: str = 'AVG_RIDES'
+    color_values: str = 'ROUTE'
+    title: str = "Highest performing CTA bus routes by number of rides " \
+                 "(1999-2022)"
+    scheme: str = 'category20'
+
+@dataclass
+class WeekdayLineChartArguments(LineChartArguments):
+    output_file: str = 'weekday_ridership_time_series_analysis.png'
+
+@dataclass
+class SaturdayLineChartArguments(LineChartArguments):
+    output_file: str = 'saturday_ridership_time_series_analysis.png'
+
+@dataclass
+class SundayLineChartArguments(LineChartArguments):
+    output_file: str = 'sunday_ridership_time_series_analysis.png'
+
+@dataclass
 class HeatmapArguments:
     x_value: str = 'MONTH'
     y_value: str = 'YEAR'
