@@ -141,3 +141,44 @@ def create_bumpchart(
     ).properties(title=title, width=600, height=150)
 
     chart.save(output_path)
+
+
+def create_linechart(
+        data: pd.DataFrame,
+        output_path: str,
+        x_value: str,
+        y_value: str,
+        color_values: str,
+        title: str,
+        scheme: str) -> None:
+    """
+    Create a line chart for specified data and columns.
+
+    Arguments:
+        data (DataFrame): Input data to visualize.
+        output_path (str): Absolute file path (including the name of the file)
+            to save the plot to.
+        x_value (str): The name of the column representing the x-axis.
+        y_value (str): The name of the column representing the y-axis.
+        color_values (str): The name of column representing the values to
+            plot.
+        title (str): The title of the plot.
+        scheme (str): The color scheme to use. Please refer to the full
+            gallery of available color schemes at
+            https://vega.github.io/vega/docs/schemes/
+
+    Returns:
+        None
+
+    Raises:
+        None
+    """
+
+    chart = alt.Chart(data).mark_line(point=True).encode(
+        x=alt.X(x_value),
+        y=alt.Y(y_value, type='quantitative'),
+        color=alt.Color(color_values, scale=alt.Scale(scheme=scheme))
+    ).properties(title=title)
+
+    chart.save(output_path)
+
