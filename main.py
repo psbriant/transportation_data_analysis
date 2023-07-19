@@ -15,7 +15,10 @@ import pandas as pd
 import constants as cst
 from data_processing import change_column_datatype
 from file_io import create_absolute_file_paths
-from visualizations import (create_barchart, create_bumpchart, create_heatmap)
+from visualizations import (create_barchart,
+                            create_bumpchart,
+                            create_heatmap,
+                            create_line_plots)
 
 
 if __name__ == "__main__":
@@ -68,6 +71,10 @@ if __name__ == "__main__":
     weekday_bumpchart_args = cst.WeekdayBumpChartArguments()
     saturday_bumpchart_args = cst.SaturdayBumpChartArguments()
     sunday_bumpchart_args = cst.SundayBumpChartArguments()
+    rrtsa_args = cst.LineChartArguments()
+    weekday_rrtsa_args = cst.WeekdayLineChartArguments()
+    saturday_rrtsa_args = cst.SaturdayLineChartArguments()
+    sunday_rrtsa_args = cst.SundayLineChartArguments()
     heatmap_args = cst.HeatmapArguments()
     weekday_heatmap_args_1999_2022 = cst.WeekdayHeatmapArguments_1999_2022()
     saturday_heatmap_args_1999_2022 = cst.SaturdayHeatmapArguments_1999_2022()
@@ -290,6 +297,14 @@ if __name__ == "__main__":
                    sunday_bumpchart_args.output_file],
         file_path=output_dir)
 
+    # Create absolute file paths for ridership time series analysis (rrtsa)
+    # line plots covering 1999 to 2022.
+    rrtsa_file_paths = create_absolute_file_paths(
+        file_list=[weekday_rrtsa_args.output_file,
+                   saturday_rrtsa_args.output_file,
+                   sunday_rrtsa_args.output_file],
+        file_path=output_dir)
+
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the year 2022.
     # TODO: Create a function to do this.
@@ -398,8 +413,8 @@ if __name__ == "__main__":
     # - 1999-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
-    for df, op in zip(ts_bpc_dfs, bpc_file_paths):
-        create_bumpchart(
+    for df, op in zip(ts_bpc_dfs, rrtsa_file_paths):
+        create_line_plots(
             data=df,
             output_path=op,
             x_value=rrtsa_args.x_value,
