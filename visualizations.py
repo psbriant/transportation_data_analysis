@@ -19,7 +19,8 @@ def create_heatmap(
     color_values: str,
     facet_values: str,
     facet_columns: int,
-    x_axis_sort_order: list[str]) -> None:
+    x_axis_sort_order: list[str],
+    scheme: str,) -> None:
     """
     Create a heatmap for specified data and columns.
 
@@ -39,6 +40,9 @@ def create_heatmap(
             contain.
         x_axis_sort_order (strList): A list of strings representing the order
             of values on the x-axis.
+        scheme (str): The color scheme to use. Please refer to the full
+            gallery of available color schemes at
+            https://vega.github.io/vega/docs/schemes/
 
     Returns:
         None
@@ -52,7 +56,9 @@ def create_heatmap(
     chart = alt.Chart(data).mark_rect().encode(
         alt.X(x_value, type='ordinal', sort=x_axis_sort_order),
         alt.Y(y_value, type='ordinal'),
-        alt.Color(color_values, type='quantitative'),
+        alt.Color(color_values,
+                  type='quantitative',
+                  scale=alt.Scale(scheme=scheme)),
         alt.Facet(facet_values,
                   type='ordinal',
                   columns=facet_columns),
@@ -70,6 +76,7 @@ def create_barchart(
         y_value: str,
         color_values: str,
         title: str,
+        scheme: str,
         sort_order: str | list[str] = 'ascending') -> None:
     """
     Create a bar chart for specified data and columns.
@@ -83,6 +90,9 @@ def create_barchart(
         color_values (str): The name of column representing the values to
             plot.
         title (str): The title of the plot.
+        scheme (str): The color scheme to use. Please refer to the full
+            gallery of available color schemes at
+            https://vega.github.io/vega/docs/schemes/
         sort_order (str or strlist): The sort order. One of "ascending",
             "descending", or a list of strings containing a custom order.
             Defaults to ascending.
@@ -97,7 +107,9 @@ def create_barchart(
     chart = alt.Chart(data).mark_bar().encode(
         alt.X(x_value),
         alt.Y(y_value),
-        alt.Color(color_values, sort=sort_order),
+        alt.Color(color_values,
+                  sort=sort_order,
+                  scale=alt.Scale(scheme=scheme)),
     ).properties(title=title)
 
     chart.save(output_path)
