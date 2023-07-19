@@ -171,7 +171,6 @@ def create_line_plots(
 
     Raises:
         None
-
     """
 
     chart = alt.Chart(data).mark_line(point=True).encode(
