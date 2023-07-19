@@ -152,6 +152,7 @@ def create_line_plots(
         title: str,
         scheme: str) -> None:
     """
+    Create a line chart for specified data and columns.
 
     Arguments:
         data (DataFrame): Input data to visualize.
