@@ -143,7 +143,7 @@ def create_bumpchart(
     chart.save(output_path)
 
 
-def create_line_plots(
+def create_linechart(
         data: pd.DataFrame,
         output_path: str,
         x_value: str,

@@ -18,7 +18,7 @@ from file_io import create_absolute_file_paths
 from visualizations import (create_barchart,
                             create_bumpchart,
                             create_heatmap,
-                            create_line_plots)
+                            create_linechart)
 
 
 if __name__ == "__main__":
@@ -414,7 +414,7 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     for df, op in zip(ts_bpc_dfs, rrtsa_file_paths):
-        create_line_plots(
+        create_linechart(
             data=df,
             output_path=op,
             x_value=rrtsa_args.x_value,
