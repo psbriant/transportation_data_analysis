@@ -113,8 +113,8 @@ class BumpChartArguments:
     x_value: str = 'YEAR'
     y_value: str = 'RANK'
     color_values: str = 'ROUTE'
-    title: str = "Highest performing CTA bus routes by number of rides " \
-                 "(1999-2022)"
+    title: str = "Chicago Transit Authority bus routes with the highest " \
+                 "number of riders (1999-2022)"
     scheme: str = 'category20'
 
 @dataclass
