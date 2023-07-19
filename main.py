@@ -341,6 +341,7 @@ if __name__ == "__main__":
             color_values=heatmap_args.color_values,
             facet_values=heatmap_args.facet_values,
             facet_columns=heatmap_args.facet_columns,
+            scheme=heatmap_args.scheme,
             x_axis_sort_order=heatmap_args.x_axis_sort_order)
 
     # ------------------------------------------------------------------------
@@ -363,6 +364,7 @@ if __name__ == "__main__":
             y_value=barchart_args.y_value,
             color_values=barchart_args_2022.color_values,
             title=barchart_args.title,
+            scheme=barchart_args.scheme,
             sort_order=barchart_args_2022.sort_order)
 
     # ------------------------------------------------------------------------
@@ -382,7 +384,8 @@ if __name__ == "__main__":
             x_value=barchart_args.x_value,
             y_value=barchart_args.y_value,
             color_values=barchart_args.color_values,
-            title=barchart_args.title)
+            title=barchart_args.title,
+            scheme=barchart_args.scheme)
 
     # ------------------------------------------------------------------------
     # ---CREATE BUMP CHARTS FOR ROUTES BY RIDERSHIP AND YEAR------------------
