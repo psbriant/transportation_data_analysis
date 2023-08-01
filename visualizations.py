@@ -20,7 +20,9 @@ def create_heatmap(
     facet_values: str,
     facet_columns: int,
     x_axis_sort_order: list[str],
-    scheme: str,) -> None:
+    scheme: str,
+    x_value_type: str,
+    y_value_type: str) -> None:
     """
     Create a heatmap for specified data and columns.
 
@@ -43,6 +45,12 @@ def create_heatmap(
         scheme (str): The color scheme to use. Please refer to the full
             gallery of available color schemes at
             https://vega.github.io/vega/docs/schemes/
+        x_value_type (str): The type of data that will be plotted on the
+            x-axis. Must be one of quantitative, ordinal, nominal, temporal,
+            or geojson.
+        y_value_type (str): The type of data that will be plotted on the
+            y-axis. Must be one of quantitative, ordinal, nominal, temporal,
+            or geojson.
 
     Returns:
         None
@@ -54,8 +62,8 @@ def create_heatmap(
     data = data.copy()
 
     chart = alt.Chart(data).mark_rect().encode(
-        alt.X(x_value, type='ordinal', sort=x_axis_sort_order),
-        alt.Y(y_value, type='ordinal'),
+        alt.X(x_value, type=x_value_type, sort=x_axis_sort_order),
+        alt.Y(y_value, type=y_value_type),
         alt.Color(color_values,
                   type='quantitative',
                   scale=alt.Scale(scheme=scheme)),
@@ -77,6 +85,8 @@ def create_barchart(
         color_values: str,
         title: str,
         scheme: str,
+        x_value_type: str,
+        y_value_type: str,
         sort_order: str | list[str] = 'ascending') -> None:
     """
     Create a bar chart for specified data and columns.
@@ -93,6 +103,12 @@ def create_barchart(
         scheme (str): The color scheme to use. Please refer to the full
             gallery of available color schemes at
             https://vega.github.io/vega/docs/schemes/
+        x_value_type (str): The type of data that will be plotted on the
+            x-axis. Must be one of quantitative, ordinal, nominal, temporal,
+            or geojson.
+        y_value_type (str): The type of data that will be plotted on the
+            y-axis. Must be one of quantitative, ordinal, nominal, temporal,
+            or geojson.
         sort_order (str or strlist): The sort order. One of "ascending",
             "descending", or a list of strings containing a custom order.
             Defaults to ascending.
@@ -105,8 +121,8 @@ def create_barchart(
     """
 
     chart = alt.Chart(data).mark_bar().encode(
-        alt.X(x_value),
-        alt.Y(y_value),
+        alt.X(x_value, type=x_value_type),
+        alt.Y(y_value, type=y_value_type),
         alt.Color(color_values,
                   sort=sort_order,
                   scale=alt.Scale(scheme=scheme)),
@@ -122,7 +138,9 @@ def create_bumpchart(
     y_value: str,
     color_values: str,
     title: str,
-    scheme: str) -> None:
+    scheme: str,
+    x_value_type: str,
+    y_value_type: str) -> None:
     """
     Create a bump chart for specified data and columns.
 
@@ -138,6 +156,12 @@ def create_bumpchart(
         scheme (str): The color scheme to use. Please refer to the full
             gallery of available color schemes at
             https://vega.github.io/vega/docs/schemes/
+        x_value_type (str): The type of data that will be plotted on the
+            x-axis. Must be one of quantitative, ordinal, nominal, temporal,
+            or geojson.
+        y_value_type (str): The type of data that will be plotted on the
+            y-axis. Must be one of quantitative, ordinal, nominal, temporal,
+            or geojson.
 
     Returns:
         None
@@ -147,8 +171,8 @@ def create_bumpchart(
     """
 
     chart = alt.Chart(data).mark_line(point=True).encode(
-        x=alt.X(x_value),
-        y=alt.Y(y_value, type='ordinal'),
+        x=alt.X(x_value, type=x_value_type),
+        y=alt.Y(y_value, type=y_value_type),
         color=alt.Color(color_values, scale=alt.Scale(scheme=scheme))
     ).properties(title=title, width=600, height=150)
 
@@ -162,7 +186,9 @@ def create_linechart(
         y_value: str,
         color_values: str,
         title: str,
-        scheme: str) -> None:
+        scheme: str,
+        x_value_type: str,
+        y_value_type: str) -> None:
     """
     Create a line chart for specified data and columns.
 
@@ -178,6 +204,12 @@ def create_linechart(
         scheme (str): The color scheme to use. Please refer to the full
             gallery of available color schemes at
             https://vega.github.io/vega/docs/schemes/
+        x_value_type (str): The type of data that will be plotted on the
+            x-axis. Must be one of quantitative, ordinal, nominal, temporal,
+            or geojson.
+        y_value_type (str): The type of data that will be plotted on the
+            y-axis. Must be one of quantitative, ordinal, nominal, temporal,
+            or geojson.
 
     Returns:
         None
@@ -187,8 +219,8 @@ def create_linechart(
     """
 
     chart = alt.Chart(data).mark_line(point=True).encode(
-        x=alt.X(x_value),
-        y=alt.Y(y_value, type='quantitative'),
+        x=alt.X(x_value, type=x_value_type),
+        y=alt.Y(y_value, type=y_value_type),
         color=alt.Color(color_values, scale=alt.Scale(scheme=scheme))
     ).properties(title=title)
 

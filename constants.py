@@ -30,6 +30,8 @@ class BusDataArguments:
 class BarChartArguments:
     x_value: str = 'AVG_RIDES'
     y_value: str = 'ROUTE'
+    x_value_type: str = 'quantitative'
+    y_value_type: str = 'ordinal'
     color_values: str = 'YEAR'
     scheme: str = 'tableau20'
     title: str = "Number of rides per CTA bus route"
@@ -113,6 +115,8 @@ class SundayBarChartArguments_2020_2022(BarChartArguments):
 class BumpChartArguments:
     x_value: str = 'YEAR'
     y_value: str = 'RANK'
+    x_value_type: str = 'ordinal'
+    y_value_type: str = 'ordinal'
     color_values: str = 'ROUTE'
     title: str = "Chicago Transit Authority bus routes with the highest " \
                  "number of riders (1999-2022)"
@@ -134,6 +138,8 @@ class SundayBumpChartArguments(BumpChartArguments):
 class LineChartArguments:
     x_value: str = 'YEAR'
     y_value: str = 'AVG_RIDES'
+    x_value_type: str = 'ordinal'
+    y_value_type: str = 'quantitative'
     color_values: str = 'ROUTE'
     title: str = "Chicago Transit Authority bus routes with the highest " \
                  "number of riders (1999-2022)"
@@ -154,7 +160,9 @@ class SundayLineChartArguments(LineChartArguments):
 @dataclass
 class HeatmapArguments:
     x_value: str = 'MONTH'
+    x_value_type: str = 'ordinal'
     y_value: str = 'YEAR'
+    y_value_type: str = 'ordinal'
     color_values: str = 'AVG_RIDES'
     facet_values: str = 'ROUTE'
     facet_columns: int = 3
@@ -185,7 +193,6 @@ class SaturdayHeatmapArguments_1999_2010(HeatmapArguments):
 @dataclass
 class SundayHeatmapArguments_1999_2010(HeatmapArguments):
     output_file: str = 'sunday_ridership_heatmap_1999_2010.png'
-
 
 @dataclass
 class WeekdayHeatmapArguments_2011_2022(HeatmapArguments):
