@@ -144,6 +144,10 @@ class LineChartArguments:
     title: str = "Chicago Transit Authority bus routes with the highest " \
                  "number of riders (1999-2022)"
     scheme: str = 'category20'
+    value_col: str = 'AVG_RIDES'
+    rank_col: str = 'RANK'
+    group_col: list[str] = field(default_factory=lambda:['YEAR'])
+    num_rankings: int = 10
 
 @dataclass
 class WeekdayLineChartArguments(LineChartArguments):
