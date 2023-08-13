@@ -49,6 +49,10 @@ def change_column_datatype(
         f'Changing the data type of values in {col} to the type {datatype}')
     for df in df_list:
 
+        if type(df) is not pd.core.frame.DataFrame:
+            raise TypeError("The type of 'col' should be a pandas "
+                            "dataframe")
+
         updated_df = df.copy()
         updated_df[col] = updated_df[col].astype(datatype)
         updated_dfs.append(updated_df)
