@@ -13,7 +13,8 @@ import numpy as np
 import pandas as pd
 
 import constants as cst
-from data_processing import change_column_datatype
+from data_processing import (change_column_datatype,
+                             create_rankings)
 from file_io import create_absolute_file_paths
 from visualizations import (create_barchart,
                             create_bumpchart,
@@ -208,20 +209,17 @@ if __name__ == "__main__":
         agg_year_sun_2020_2022['YEAR'].isin([2020, 2021, 2022])]
 
     # Add a rank column based off of ridership.
-    wd_rankings, sat_rankings, sun_rankings = agg_year_wd.copy(), \
-        agg_year_sat.copy(), agg_year_sun.copy()
+    ts_dfs = []
 
-    wd_rankings['RANK'] = wd_rankings.groupby('YEAR')[
-        'AVG_RIDES'].rank(ascending=False)
-    sat_rankings['RANK'] = sat_rankings.groupby('YEAR')[
-        'AVG_RIDES'].rank(ascending=False)
-    sun_rankings['RANK'] = sun_rankings.groupby('YEAR')[
-        'AVG_RIDES'].rank(ascending=False)
+    for df in [agg_year_wd, agg_year_sat, agg_year_sun]:
+        ts_rankings = create_rankings(
+            df=df,
+            value_col=rrtsa_args.value_col,
+            rank_col=rrtsa_args.rank_col,
+            group_col=rrtsa_args.group_col,
+            num_rankings=rrtsa_args.num_rankings)
 
-    # Subset dataframe so that only the top 10 bus routes per year are present
-    wd_rankings = wd_rankings[wd_rankings['RANK'] <= 10]
-    sat_rankings = sat_rankings[sat_rankings['RANK'] <= 10]
-    sun_rankings = sun_rankings[sun_rankings['RANK'] <= 10]
+        ts_dfs.append(ts_rankings)
 
     # Change values in the "YEAR" column from integers to strings to improve
     # plot readability for barcharts representing more than one year of data.
@@ -248,7 +246,7 @@ if __name__ == "__main__":
     # Please note that this must be executed after subsetting each dataframe
     # by the relevant years to avoid raising a TypeError.
     ts_bpc_dfs = change_column_datatype(
-        df_list=[wd_rankings, sat_rankings, sun_rankings],
+        df_list=ts_dfs,
         col='YEAR',
         datatype='str')
 
