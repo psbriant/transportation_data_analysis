@@ -410,7 +410,11 @@ if __name__ == "__main__":
             y_value_type=bumpchart_args.y_value_type,
             color_values=bumpchart_args.color_values,
             title=bumpchart_args.title,
-            scheme=bumpchart_args.scheme)
+            scheme=bumpchart_args.scheme,
+            value_col=bumpchart_args.value_col,
+            rank_col=bumpchart_args.rank_col,
+            group_col=bumpchart_args.group_col,
+            num_rankings=bumpchart_args.num_rankings)
 
     # ------------------------------------------------------------------------
     # ---CREATE LINE PLOTS FOR ROUTES BY RIDERSHIP AND YEAR-------------------
