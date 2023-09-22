@@ -5,7 +5,39 @@ Description: File for storing recurring settings
 from dataclasses import (dataclass, field)
 from typing import TypedDict
 
+viz_file_names = {
+    'bar_chart_args': ['weekday_ridership_barchart_1999_2022.png',
+                       'saturday_ridership_barchart_1999_2022.png',
+                       'sunday_ridership_barchart_1999_2022.png',
+                       'weekday_ridership_barchart_1999_2009.png',
+                       'saturday_ridership_barchart_1999_2009.png',
+                       'sunday_ridership_barchart_1999_2009.png',
+                       'weekday_ridership_barchart_2010_2019.png',
+                       'saturday_ridership_barchart_2010_2019.png',
+                       'sunday_ridership_barchart_2010_2019.png',
+                       'weekday_ridership_barchart_2020_2022.png',
+                       'saturday_ridership_barchart_2020_2022.png',
+                       'sunday_ridership_barchart_2020_2022.png'],
+    'bar_chart_args_2022': ['weekday_ridership_barchart_2022.png',
+                            'saturday_ridership_barchart_2022.png',
+                            'sunday_ridership_barchart_2022.png'],
+    'bump_chart_args': ['weekday_ridership_bump_chart.png',
+                        'saturday_ridership_bump_chart.png',
+                        'sunday_ridership_bump_chart.png'],
+    'line_chart_args': ['weekday_ridership_time_series_analysis.png',
+                        'saturday_ridership_time_series_analysis.png',
+                        'sunday_ridership_time_series_analysis.png'],
+    'heatmap_args': ['weekday_ridership_heatmap_1999_2010.png',
+                     'saturday_ridership_heatmap_1999_2010.png',
+                     'sunday_ridership_heatmap_1999_2010.png',
+                     'weekday_ridership_heatmap_2011_2022.png',
+                     'saturday_ridership_heatmap_2011_2022.png',
+                     'sunday_ridership_heatmap_2011_2022.png',
+                     'weekday_ridership_heatmap_1999_2022.png',
+                     'saturday_ridership_heatmap_1999_2022.png',
+                     'sunday_ridership_heatmap_1999_2022.png']}
 
+@dataclass
 class Months(TypedDict):
    name_numeric: int
    name_alpha: str
@@ -52,66 +84,6 @@ class BarChartArguments_2022(BarChartArguments):
         'October'])
 
 @dataclass
-class WeekdayBarChartArguments_2022(BarChartArguments_2022):
-    output_file: str = 'weekday_ridership_barchart_2022.png'
-
-@dataclass
-class SaturdayBarChartArguments_2022(BarChartArguments_2022):
-    output_file: str = 'saturday_ridership_barchart_2022.png'
-
-@dataclass
-class SundayBarChartArguments_2022(BarChartArguments):
-    output_file: str = 'sunday_ridership_barchart_2022.png'
-
-@dataclass
-class WeekdayBarChartArguments_1999_2022(BarChartArguments):
-    output_file: str = 'weekday_ridership_barchart_1999_2022.png'
-
-@dataclass
-class SaturdayBarChartArguments_1999_2022(BarChartArguments):
-    output_file: str = 'saturday_ridership_barchart_1999_2022.png'
-
-@dataclass
-class SundayBarChartArguments_1999_2022(BarChartArguments):
-    output_file: str = 'sunday_ridership_barchart_1999_2022.png'
-
-@dataclass
-class WeekdayBarChartArguments_1999_2009(BarChartArguments):
-    output_file: str = 'weekday_ridership_barchart_1999_2009.png'
-
-@dataclass
-class SaturdayBarChartArguments_1999_2009(BarChartArguments):
-    output_file: str = 'saturday_ridership_barchart_1999_2009.png'
-
-@dataclass
-class SundayBarChartArguments_1999_2009(BarChartArguments):
-    output_file: str = 'sunday_ridership_barchart_1999_2009.png'
-
-@dataclass
-class WeekdayBarChartArguments_2010_2019(BarChartArguments):
-    output_file: str = 'weekday_ridership_barchart_2010_2019.png'
-
-@dataclass
-class SaturdayBarChartArguments_2010_2019(BarChartArguments):
-    output_file: str = 'saturday_ridership_barchart_2010_2019.png'
-
-@dataclass
-class SundayBarChartArguments_2010_2019(BarChartArguments):
-    output_file: str = 'sunday_ridership_barchart_2010_2019.png'
-
-@dataclass
-class WeekdayBarChartArguments_2020_2022(BarChartArguments):
-    output_file: str = 'weekday_ridership_barchart_2020_2022.png'
-
-@dataclass
-class SaturdayBarChartArguments_2020_2022(BarChartArguments):
-    output_file: str = 'saturday_ridership_barchart_2020_2022.png'
-
-@dataclass
-class SundayBarChartArguments_2020_2022(BarChartArguments):
-    output_file: str = 'sunday_ridership_barchart_2020_2022.png'
-
-@dataclass
 class BumpChartArguments:
     x_value: str = 'YEAR'
     y_value: str = 'RANK'
@@ -127,18 +99,6 @@ class BumpChartArguments:
     num_rankings: int = 10
 
 @dataclass
-class WeekdayBumpChartArguments(BumpChartArguments):
-    output_file: str = 'weekday_ridership_bump_chart.png'
-
-@dataclass
-class SaturdayBumpChartArguments(BumpChartArguments):
-    output_file: str = 'saturday_ridership_bump_chart.png'
-
-@dataclass
-class SundayBumpChartArguments(BumpChartArguments):
-    output_file: str = 'sunday_ridership_bump_chart.png'
-
-@dataclass
 class LineChartArguments:
     x_value: str = 'YEAR'
     y_value: str = 'AVG_RIDES'
@@ -152,18 +112,6 @@ class LineChartArguments:
     rank_col: str = 'RANK'
     group_col: list[str] = field(default_factory=lambda:['YEAR'])
     num_rankings: int = 10
-
-@dataclass
-class WeekdayLineChartArguments(LineChartArguments):
-    output_file: str = 'weekday_ridership_time_series_analysis.png'
-
-@dataclass
-class SaturdayLineChartArguments(LineChartArguments):
-    output_file: str = 'saturday_ridership_time_series_analysis.png'
-
-@dataclass
-class SundayLineChartArguments(LineChartArguments):
-    output_file: str = 'sunday_ridership_time_series_analysis.png'
 
 @dataclass
 class HeatmapArguments:
@@ -189,39 +137,3 @@ class HeatmapArguments:
         'October',
         'November',
         'December'])
-
-@dataclass
-class WeekdayHeatmapArguments_1999_2010(HeatmapArguments):
-    output_file: str = 'weekday_ridership_heatmap_1999_2010.png'
-
-@dataclass
-class SaturdayHeatmapArguments_1999_2010(HeatmapArguments):
-    output_file: str = 'saturday_ridership_heatmap_1999_2010.png'
-
-@dataclass
-class SundayHeatmapArguments_1999_2010(HeatmapArguments):
-    output_file: str = 'sunday_ridership_heatmap_1999_2010.png'
-
-@dataclass
-class WeekdayHeatmapArguments_2011_2022(HeatmapArguments):
-    output_file: str = 'weekday_ridership_heatmap_2011_2022.png'
-
-@dataclass
-class SaturdayHeatmapArguments_2011_2022(HeatmapArguments):
-    output_file: str = 'saturday_ridership_heatmap_2011_2022.png'
-
-@dataclass
-class SundayHeatmapArguments_2011_2022(HeatmapArguments):
-    output_file: str = 'sunday_ridership_heatmap_2011_2022.png'
-
-@dataclass
-class WeekdayHeatmapArguments_1999_2022(HeatmapArguments):
-    output_file: str = 'weekday_ridership_heatmap_1999_2022.png'
-
-@dataclass
-class SaturdayHeatmapArguments_1999_2022(HeatmapArguments):
-    output_file: str = 'saturday_ridership_heatmap_1999_2022.png'
-
-@dataclass
-class SundayHeatmapArguments_1999_2022(HeatmapArguments):
-    output_file: str = 'sunday_ridership_heatmap_1999_2022.png'
