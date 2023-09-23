@@ -377,8 +377,7 @@ if __name__ == "__main__":
     # - 1999-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
-    for df, op in zip([agg_year_wd, agg_year_sat, agg_year_sun],
-                      rrtsa_file_paths):
+    for df, op in zip(ts_dfs, rrtsa_file_paths):
         create_linechart(
             data=df,
             output_path=op,
