@@ -12,7 +12,13 @@ import logging
 import numpy as np
 import pandas as pd
 
-import constants as cst
+from constants import (viz_file_names,
+                       BusDataArguments,
+                       BarChartArguments,
+                       BarChartArguments_2022,
+                       BumpChartArguments,
+                       LineChartArguments,
+                       HeatmapArguments)
 from data_processing import (change_column_datatype,
                              create_rankings)
 from file_io import create_absolute_file_paths
@@ -50,42 +56,12 @@ if __name__ == "__main__":
     # ---INITIALIZE CONSTANT ARGUMENTS----------------------------------------
     # ------------------------------------------------------------------------
 
-    bus_data_args = cst.BusDataArguments()
-    barchart_args = cst.BarChartArguments()
-    barchart_args_2022 = cst.BarChartArguments_2022()
-    weekday_barchart_args_2022 = cst.WeekdayBarChartArguments_2022()
-    saturday_barchart_args_2022 = cst.SaturdayBarChartArguments_2022()
-    sunday_barchart_args_2022 = cst.SundayBarChartArguments_2022()
-    weekday_barchart_args_1999_2022 = cst.WeekdayBarChartArguments_1999_2022()
-    saturday_barchart_args_1999_2022 = cst.SaturdayBarChartArguments_1999_2022()
-    sunday_barchart_args_1999_2022 = cst.SundayBarChartArguments_1999_2022()
-    weekday_barchart_args_1999_2009 = cst.WeekdayBarChartArguments_1999_2009()
-    saturday_barchart_args_1999_2009 = cst.SaturdayBarChartArguments_1999_2009()
-    sunday_barchart_args_1999_2009 = cst.SundayBarChartArguments_1999_2009()
-    weekday_barchart_args_2010_2019 = cst.WeekdayBarChartArguments_2010_2019()
-    saturday_barchart_args_2010_2019 = cst.SaturdayBarChartArguments_2010_2019()
-    sunday_barchart_args_2010_2019 = cst.SundayBarChartArguments_2010_2019()
-    weekday_barchart_args_2020_2022 = cst.WeekdayBarChartArguments_2020_2022()
-    saturday_barchart_args_2020_2022 = cst.SaturdayBarChartArguments_2020_2022()
-    sunday_barchart_args_2020_2022 = cst.SundayBarChartArguments_2020_2022()
-    bumpchart_args = cst.BumpChartArguments()
-    weekday_bumpchart_args = cst.WeekdayBumpChartArguments()
-    saturday_bumpchart_args = cst.SaturdayBumpChartArguments()
-    sunday_bumpchart_args = cst.SundayBumpChartArguments()
-    rrtsa_args = cst.LineChartArguments()
-    weekday_rrtsa_args = cst.WeekdayLineChartArguments()
-    saturday_rrtsa_args = cst.SaturdayLineChartArguments()
-    sunday_rrtsa_args = cst.SundayLineChartArguments()
-    heatmap_args = cst.HeatmapArguments()
-    weekday_heatmap_args_1999_2022 = cst.WeekdayHeatmapArguments_1999_2022()
-    saturday_heatmap_args_1999_2022 = cst.SaturdayHeatmapArguments_1999_2022()
-    sunday_heatmap_args_1999_2022 = cst.SundayHeatmapArguments_1999_2022()
-    weekday_heatmap_args_1999_2010 = cst.WeekdayHeatmapArguments_1999_2010()
-    saturday_heatmap_args_1999_2010 = cst.SaturdayHeatmapArguments_1999_2010()
-    sunday_heatmap_args_1999_2010 = cst.SundayHeatmapArguments_1999_2010()
-    weekday_heatmap_args_2011_2022 = cst.WeekdayHeatmapArguments_2011_2022()
-    saturday_heatmap_args_2011_2022 = cst.SaturdayHeatmapArguments_2011_2022()
-    sunday_heatmap_args_2011_2022 = cst.SundayHeatmapArguments_2011_2022()
+    bus_data_args = BusDataArguments()
+    barchart_args = BarChartArguments()
+    barchart_args_2022 = BarChartArguments_2022()
+    bumpchart_args = BumpChartArguments()
+    rrtsa_args = LineChartArguments()
+    heatmap_args = HeatmapArguments()
 
     # ------------------------------------------------------------------------
     # ---LOAD DATASET---------------------------------------------------------
@@ -253,54 +229,29 @@ if __name__ == "__main__":
     # Create absolute file paths for heatmaps covering the first 10 months
     # of 2022.
     hm_file_paths = create_absolute_file_paths(
-        file_list=[weekday_heatmap_args_1999_2022.output_file,
-                   saturday_heatmap_args_1999_2022.output_file,
-                   sunday_heatmap_args_1999_2022.output_file,
-                   weekday_heatmap_args_1999_2010.output_file,
-                   saturday_heatmap_args_1999_2010.output_file,
-                   sunday_heatmap_args_1999_2010.output_file,
-                   weekday_heatmap_args_2011_2022.output_file,
-                   saturday_heatmap_args_2011_2022.output_file,
-                   sunday_heatmap_args_2011_2022.output_file],
+        file_list=viz_file_names['heatmap_args'],
         file_path=output_dir)
 
     # Create absolute file paths for bar charts covering the first 10 months
     # of 2022.
     bc_2022_file_paths = create_absolute_file_paths(
-        file_list=[weekday_barchart_args_2022.output_file,
-                   saturday_barchart_args_2022.output_file,
-                   sunday_barchart_args_2022.output_file],
+        file_list=viz_file_names['bar_chart_args_2022'],
         file_path=output_dir)
 
     # Create absolute file paths for bar charts covering multiple years
     ts_bc_file_paths = create_absolute_file_paths(
-        file_list=[weekday_barchart_args_1999_2022.output_file,
-                   saturday_barchart_args_1999_2022.output_file,
-                   sunday_barchart_args_1999_2022.output_file,
-                   weekday_barchart_args_1999_2009.output_file,
-                   saturday_barchart_args_1999_2009.output_file,
-                   sunday_barchart_args_1999_2009.output_file,
-                   weekday_barchart_args_2010_2019.output_file,
-                   saturday_barchart_args_2010_2019.output_file,
-                   sunday_barchart_args_2010_2019.output_file,
-                   weekday_barchart_args_2020_2022.output_file,
-                   saturday_barchart_args_2020_2022.output_file,
-                   sunday_barchart_args_2020_2022.output_file],
+        file_list=viz_file_names['bar_chart_args'],
         file_path=output_dir)
 
     # Create absolute file paths for bump charts covering 1999 to 2022
     bpc_file_paths = create_absolute_file_paths(
-        file_list=[weekday_bumpchart_args.output_file,
-                   saturday_bumpchart_args.output_file,
-                   sunday_bumpchart_args.output_file],
+        file_list=viz_file_names['bump_chart_args'],
         file_path=output_dir)
 
     # Create absolute file paths for ridership time series analysis (rrtsa)
     # line plots covering 1999 to 2022.
     rrtsa_file_paths = create_absolute_file_paths(
-        file_list=[weekday_rrtsa_args.output_file,
-                   saturday_rrtsa_args.output_file,
-                   sunday_rrtsa_args.output_file],
+        file_list=viz_file_names['line_chart_args'],
         file_path=output_dir)
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
@@ -360,13 +311,13 @@ if __name__ == "__main__":
         create_barchart(
             data=df,
             output_path=op,
-            x_value=barchart_args.x_value,
-            y_value=barchart_args.y_value,
-            x_value_type=barchart_args.x_value_type,
-            y_value_type=barchart_args.y_value_type,
+            x_value=barchart_args_2022.x_value,
+            y_value=barchart_args_2022.y_value,
+            x_value_type=barchart_args_2022.x_value_type,
+            y_value_type=barchart_args_2022.y_value_type,
             color_values=barchart_args_2022.color_values,
-            title=barchart_args.title,
-            scheme=barchart_args.scheme,
+            title=barchart_args_2022.title,
+            scheme=barchart_args_2022.scheme,
             sort_order=barchart_args_2022.sort_order)
 
     # ------------------------------------------------------------------------
