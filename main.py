@@ -218,9 +218,9 @@ if __name__ == "__main__":
         datatype='str')
 
     # Change values in the "YEAR" column from integers to strings to improve
-    # plot readability for bump charts representing more than one year of data.
-    # Please note that this must be executed after subsetting each dataframe
-    # by the relevant years to avoid raising a TypeError.
+    # plot readability for bump charts representing more than one year of
+    # data. Please note that this must be executed after subsetting each
+    # dataframe by the relevant years to avoid raising a TypeError.
     ts_bpc_dfs = change_column_datatype(
         df_list=ts_dfs,
         col='YEAR',
