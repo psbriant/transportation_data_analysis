@@ -80,7 +80,6 @@ if __name__ == "__main__":
         bus_data_args.alpha_to_numeric_months)
 
     # Create dataframe for making heatmaps.
-    logging.info("Preparing to create heatmap for the years 1999 to 2022")
     logging.info("Subsetting data")
     hm_rmy_data = cta_bus_data.copy()
 
@@ -280,6 +279,8 @@ if __name__ == "__main__":
     # - 2011-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
+    llogging.info(
+        "Creating heatmaps for ridership by month and year (1999-2022)")
     for df, op in zip(hm_dfs, hm_file_paths):
 
         create_heatmap(
@@ -306,6 +307,7 @@ if __name__ == "__main__":
     # -Sunday ridership: 2022
     # ------------------------------------------------------------------------
 
+    logging.info("Creating heatmaps for routes by ridership in 2022")
     for df, op in zip(bc_2022_dfs, bc_2022_file_paths):
 
         create_barchart(
@@ -329,6 +331,7 @@ if __name__ == "__main__":
     # - 2020-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
+    logging.info("Creating stacked bar charts for routes by ridership")
     for df, op in zip(ts_bc_dfs, ts_bc_file_paths):
 
         create_barchart(
@@ -351,6 +354,7 @@ if __name__ == "__main__":
     # - 2020-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
+    logging.info("Creating bump charts for routes by ridership and year")
     for df, op in zip(ts_bpc_dfs, bpc_file_paths):
         create_bumpchart(
             data=df,
@@ -377,6 +381,7 @@ if __name__ == "__main__":
     # - 1999-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
+    logging.info("Creating line plots for routes by ridership and year")
     for df, op in zip(ts_dfs, rrtsa_file_paths):
         create_linechart(
             data=df,

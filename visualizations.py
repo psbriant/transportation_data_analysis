@@ -235,8 +235,7 @@ def create_bumpchart(
         None
     """
 
-    logging.info("Begin creating bumpcharts")
-    logging.info("Creating rankings")
+    logging.info("Creating rankings for bumpchart")
     ranked_data = create_rankings(
         df=data,
         value_col=value_col,
@@ -244,7 +243,7 @@ def create_bumpchart(
         group_col=group_col,
         num_rankings=num_rankings)
 
-    logging.info("Plotting data")
+    logging.info("Plotting bumpchart data")
     create_linechart(
         data=ranked_data,
         output_path=output_path,
