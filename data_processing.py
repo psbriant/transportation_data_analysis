@@ -49,6 +49,10 @@ def change_column_datatype(
         f'Changing the data type of values in {col} to the type {datatype}')
     for df in df_list:
 
+        if type(df) is not pd.core.frame.DataFrame:
+            raise TypeError("The value of 'col' should be a pandas "
+                            "dataframe")
+
         updated_df = df.copy()
         updated_df[col] = updated_df[col].astype(datatype)
         updated_dfs.append(updated_df)
@@ -58,3 +62,102 @@ def change_column_datatype(
         return updated_dfs
     else:
         return updated_dfs[0]
+
+
+def create_rankings(
+        df: pd.DataFrame,
+        value_col: str,
+        rank_col: str,
+        group_col: list[str],
+        num_rankings: int = 0) -> pd.DataFrame:
+    """
+    Ranks rows in a dataframe by a specified column.
+
+    Arguments:
+        df (DataFrame): Dataset to develop rankings for.
+        value_col (str): The name of the column rankings will be based off of.
+        rank_col (str): The name of the column containing the numerical
+            rankings.
+        group_col (strList): The columns used for ensuring rankings are made
+            across columns (e.g. specifying the year column in a dataset
+            containing bus routes, ridership numbers and years will rank each
+            bus route by ridership for each year).
+        num_rankings (int): The number of rows to return rankings for. If set
+            to zero, no limit will be applied and all rows will be ranked.
+            Defaults to zero.
+
+    Returns:
+        Dataframe with numerical rankings for each row.
+
+    Raises:
+        NONE
+    """
+
+    rank_df = df.copy()
+
+    # Add a rank column based off of the value of value_col.
+    rank_df[rank_col] = rank_df.groupby(group_col)[
+        value_col].rank(ascending=False)
+
+    # Subset dataframe by the value of limit. Do not specify if set to zero.
+    if num_rankings > 0:
+        rank_df = rank_df[rank_df[rank_col] <= num_rankings]
+
+    return rank_df
+
+
+def subset_dataframes_by_value(
+        dfs: list[pd.DataFrame],
+        operator: list[str],
+        target_col: list[str],
+        filter_val: list) -> list[pd.DataFrame] | pd.DataFrame:
+    """
+    Subset a dataframe or list of dataframes based on a specific condition.
+
+    Arguments:
+        dfs (DataFrameList): List of dataframes to subset.
+        operator (strlist): The operations to preform to execute the subset
+            (e.g. '>=', '==', '<=' or '!=').
+        target_col (strlist): The name of the columns to subset the dataframe
+            by.
+        filter_val (list): List of specific values to subset the dataframe
+            by.
+
+    Returns:
+        Dataframe or list of dataframes with subsetted estimates.
+
+    Raises:
+        ValueError if operator, target_col and filter_val are not the same
+            length.
+    """
+
+    # Ensure elements of the query statement are of the same length
+    if len(operator) == len(target_col) == len(filter_val):
+
+        # Build query statement
+        sub_queries = []
+
+        for op, tc, fv in zip(operator, target_col, filter_val):
+            sub_query = f"{tc} {op} {fv}"
+            sub_queries.append(sub_query)
+        query_statement = ' & '.join(sub_queries)
+
+        # Subset dataframes
+        filtered_dfs = []
+
+        for df in dfs:
+
+            sub_df = df.copy()
+            sub_df = sub_df.query(query_statement)
+            filtered_dfs.append(sub_df)
+
+        if len(filtered_dfs) == 1:
+            filtered_dfs = filtered_dfs[0]
+
+        return filtered_dfs
+
+    else:
+
+        raise ValueError(
+            "The variables 'operator', 'target_col', and 'filter_val' must be "
+            "the same length")
