@@ -104,3 +104,60 @@ def create_rankings(
         rank_df = rank_df[rank_df[rank_col] <= num_rankings]
 
     return rank_df
+
+
+def subset_dataframes_by_value(
+        dfs: list[pd.DataFrame],
+        operator: list[str],
+        target_col: list[str],
+        filter_val: list) -> list[pd.DataFrame] | pd.DataFrame:
+    """
+    Subset a dataframe or list of dataframes based on a specific condition.
+
+    Arguments:
+        dfs (DataFrameList): List of dataframes to subset.
+        operator (strlist): The operations to preform to execute the subset
+            (e.g. '>=', '==', '<=' or '!=').
+        target_col (strlist): The name of the columns to subset the dataframe
+            by.
+        filter_val (list): List of specific values to subset the dataframe
+            by.
+
+    Returns:
+        Dataframe or list of dataframes with subsetted estimates.
+
+    Raises:
+        ValueError if operator, target_col and filter_val are not the same
+            length.
+    """
+
+    # Ensure elements of the query statement are of the same length
+    if len(operator) == len(target_col) == len(filter_val):
+
+        # Build query statement
+        sub_queries = []
+
+        for op, tc, fv in zip(operator, target_col, filter_val):
+            sub_query = f"{tc} {op} {fv}"
+            sub_queries.append(sub_query)
+        query_statement = ' & '.join(sub_queries)
+
+        # Subset dataframes
+        filtered_dfs = []
+
+        for df in dfs:
+
+            sub_df = df.copy()
+            sub_df = sub_df.query(query_statement)
+            filtered_dfs.append(sub_df)
+
+        if len(filtered_dfs) == 1:
+            filtered_dfs = filtered_dfs[0]
+
+        return filtered_dfs
+
+    else:
+
+        raise ValueError(
+            "The variables 'operator', 'target_col', and 'filter_val' must be "
+            "the same length")
