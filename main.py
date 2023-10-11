@@ -95,42 +95,28 @@ if __name__ == "__main__":
     hm_rmy_data_1999_2022_sun = hm_rmy_data_1999_2022_sun[
         hm_rmy_data_1999_2022_sun['DAY_TYPE'] == 'Sunday - Holiday']
 
+    hm_rmy_1999_2022 = [hm_rmy_data_1999_2022_wd,
+                        hm_rmy_data_1999_2022_sat,
+                        hm_rmy_data_1999_2022_sun]
+
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 1999 - 2010.
-    hm_rmy_data_1999_2010_wd, hm_rmy_data_1999_2010_sat, \
-        hm_rmy_data_1999_2010_sun = hm_rmy_data_1999_2022_wd.copy(), \
-        hm_rmy_data_1999_2022_sat.copy(), hm_rmy_data_1999_2022_sun.copy()
-
-    hm_rmy_data_1999_2010_wd = hm_rmy_data_1999_2010_wd[
-        hm_rmy_data_1999_2010_wd['YEAR'] <= 2010]
-    hm_rmy_data_1999_2010_sat = hm_rmy_data_1999_2010_sat[
-        hm_rmy_data_1999_2010_sat['YEAR'] <= 2010]
-    hm_rmy_data_1999_2010_sun = hm_rmy_data_1999_2010_sun[
-        hm_rmy_data_1999_2010_sun['YEAR'] <= 2010]
+    hm_rmy_1999_2010 = subset_dataframes_by_value(
+        dfs=hm_rmy_1999_2022,
+        operator=['<='],
+        target_col=['YEAR'],
+        filter_val=[2010])
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 2011 - 2022.
-    hm_rmy_data_2011_2022_wd, hm_rmy_data_2011_2022_sat, \
-        hm_rmy_data_2011_2022_sun = hm_rmy_data_1999_2022_wd.copy(), \
-        hm_rmy_data_1999_2022_sat.copy(), hm_rmy_data_1999_2022_sun.copy()
-
-    hm_rmy_data_2011_2022_wd = hm_rmy_data_2011_2022_wd[
-        hm_rmy_data_2011_2022_wd['YEAR'] >= 2011]
-    hm_rmy_data_2011_2022_sat = hm_rmy_data_2011_2022_sat[
-        hm_rmy_data_2011_2022_sat['YEAR'] >= 2011]
-    hm_rmy_data_2011_2022_sun = hm_rmy_data_2011_2022_sun[
-        hm_rmy_data_2011_2022_sun['YEAR'] >= 2011]
+    hm_rmy_2011_2022 = subset_dataframes_by_value(
+        dfs=hm_rmy_1999_2022,
+        operator=['>='],
+        target_col=['YEAR'],
+        filter_val=[2011])
 
     # Create list of heatmap dataframes
-    hm_dfs = [hm_rmy_data_1999_2022_wd,
-              hm_rmy_data_1999_2022_sat,
-              hm_rmy_data_1999_2022_sun,
-              hm_rmy_data_1999_2010_wd,
-              hm_rmy_data_1999_2010_sat,
-              hm_rmy_data_1999_2010_sun,
-              hm_rmy_data_2011_2022_wd,
-              hm_rmy_data_2011_2022_sat,
-              hm_rmy_data_2011_2022_sun]
+    hm_dfs = hm_rmy_1999_2022 + hm_rmy_1999_2010 + hm_rmy_2011_2022
 
     # Create aggregate ridership data by route, year for each service type
     agg_year = cta_bus_data.copy()
@@ -147,46 +133,37 @@ if __name__ == "__main__":
     agg_year_sat = agg_year_sat[agg_year_sat['DAY_TYPE'] == 'Saturday']
     agg_year_sun = agg_year_sun[agg_year_sun['DAY_TYPE'] == 'Sunday - Holiday']
 
+    agg_year_dfs = [agg_year_wd, agg_year_sat, agg_year_sun]
+
+
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 1999 - 2009.
-    agg_year_wd_1999_2009, agg_year_sat_1999_2009, agg_year_sun_1999_2009 = agg_year_wd.copy(), \
-        agg_year_sat.copy(), agg_year_sun.copy()
-
-    agg_year_wd_1999_2009 = agg_year_wd_1999_2009[
-        agg_year_wd_1999_2009['YEAR'] < 2010]
-    agg_year_sat_1999_2009 = agg_year_sat_1999_2009[
-        agg_year_sat_1999_2009['YEAR'] < 2010]
-    agg_year_sun_1999_2009 = agg_year_sun_1999_2009[
-        agg_year_sun_1999_2009['YEAR'] < 2010]
+    agg_year_dfs_1999_2009 = subset_dataframes_by_value(
+        dfs=agg_year_dfs,
+        operator=['<'],
+        target_col=['YEAR'],
+        filter_val=[2010])
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 2010 - 2019.
-    agg_year_wd_2010_2019, agg_year_sat_2010_2019, agg_year_sun_2010_2019 = agg_year_wd.copy(), \
-        agg_year_sat.copy(), agg_year_sun.copy()
-
-    agg_year_wd_2010_2019 = agg_year_wd_2010_2019[
-        (agg_year_wd_2010_2019['YEAR'] > 2009) & (agg_year_wd_2010_2019['YEAR'] < 2020)]
-    agg_year_sat_2010_2019 = agg_year_sat_2010_2019[
-        (agg_year_sat_2010_2019['YEAR'] > 2009) & (agg_year_sat_2010_2019['YEAR'] < 2020)]
-    agg_year_sun_2010_2019 = agg_year_sun_2010_2019[
-        (agg_year_sun_2010_2019['YEAR'] > 2009) & (agg_year_sun_2010_2019['YEAR'] < 2020)]
+    agg_year_dfs_2010_2019 = subset_dataframes_by_value(
+        dfs=agg_year_dfs,
+        operator=['>', '<'],
+        target_col=['YEAR', 'YEAR'],
+        filter_val=[2009, 2020])
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 2020 - 2022.
-    agg_year_wd_2020_2022, agg_year_sat_2020_2022, agg_year_sun_2020_2022 = agg_year_wd.copy(), \
-        agg_year_sat.copy(), agg_year_sun.copy()
-
-    agg_year_wd_2020_2022 = agg_year_wd_2020_2022[
-        agg_year_wd_2020_2022['YEAR'].isin([2020, 2021, 2022])]
-    agg_year_sat_2020_2022 = agg_year_sat_2020_2022[
-        agg_year_sat_2020_2022['YEAR'].isin([2020, 2021, 2022])]
-    agg_year_sun_2020_2022 = agg_year_sun_2020_2022[
-        agg_year_sun_2020_2022['YEAR'].isin([2020, 2021, 2022])]
+    agg_year_dfs_2020_2022 = subset_dataframes_by_value(
+        dfs=agg_year_dfs,
+        operator=['>'],
+        target_col=['YEAR'],
+        filter_val=[2019])
 
     # Add a rank column based off of ridership.
     ts_dfs = []
 
-    for df in [agg_year_wd, agg_year_sat, agg_year_sun]:
+    for df in agg_year_dfs:
         ts_rankings = create_rankings(
             df=df,
             value_col=rrtsa_args.value_col,
@@ -200,19 +177,9 @@ if __name__ == "__main__":
     # plot readability for barcharts representing more than one year of data.
     # Please note that this must be executed after subsetting each dataframe
     # by the relevant years to avoid raising a TypeError.
+    ts_bc_dfs = agg_year_dfs + agg_year_dfs_1999_2009 + agg_year_dfs_2010_2019 + agg_year_dfs_2020_2022
     ts_bc_dfs = change_column_datatype(
-        df_list=[agg_year_wd,
-                 agg_year_sat,
-                 agg_year_sun,
-                 agg_year_wd_1999_2009,
-                 agg_year_sat_1999_2009,
-                 agg_year_sun_1999_2009,
-                 agg_year_wd_2010_2019,
-                 agg_year_sat_2010_2019,
-                 agg_year_sun_2010_2019,
-                 agg_year_wd_2020_2022,
-                 agg_year_sat_2020_2022,
-                 agg_year_sun_2020_2022],
+        df_list=ts_bc_dfs,
         col='YEAR',
         datatype='str')
 
