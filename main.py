@@ -84,7 +84,6 @@ if __name__ == "__main__":
     logging.info("Subsetting data")
     hm_rmy_data = cta_bus_data.copy()
 
-    # Subset by trip type (e.g. Weekday, Saturday, Sunday - Holiday).
     hm_rmy_data_1999_2022_wd, hm_rmy_data_1999_2022_sat, \
         hm_rmy_data_1999_2022_sun = hm_rmy_data.copy(), hm_rmy_data.copy(), \
         hm_rmy_data.copy()
