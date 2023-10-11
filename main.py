@@ -246,7 +246,7 @@ if __name__ == "__main__":
     # - 2011-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
-    llogging.info(
+    logging.info(
         "Creating heatmaps for ridership by month and year (1999-2022)")
     for df, op in zip(hm_dfs, hm_file_paths):
 
