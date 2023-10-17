@@ -88,12 +88,12 @@ if __name__ == "__main__":
         hm_rmy_data_1999_2022_sun = hm_rmy_data.copy(), hm_rmy_data.copy(), \
         hm_rmy_data.copy()
 
-    hm_rmy_data_1999_2022_wd = hm_rmy_data_1999_2022_wd[
-        hm_rmy_data_1999_2022_wd['DAY_TYPE'] == 'Weekday']
-    hm_rmy_data_1999_2022_sat = hm_rmy_data_1999_2022_sat[
-        hm_rmy_data_1999_2022_sat['DAY_TYPE'] == 'Saturday']
-    hm_rmy_data_1999_2022_sun = hm_rmy_data_1999_2022_sun[
-        hm_rmy_data_1999_2022_sun['DAY_TYPE'] == 'Sunday - Holiday']
+    hm_rmy_data_1999_2022_wd = hm_rmy_data_1999_2022_wd.query(
+        'DAY_TYPE == "Weekday"')
+    hm_rmy_data_1999_2022_sat = hm_rmy_data_1999_2022_sat.query(
+        'DAY_TYPE == "Saturday"')
+    hm_rmy_data_1999_2022_sun = hm_rmy_data_1999_2022_sun.query(
+        'DAY_TYPE == "Sunday - Holiday"')
 
     hm_rmy_1999_2022 = [hm_rmy_data_1999_2022_wd,
                         hm_rmy_data_1999_2022_sat,
@@ -129,9 +129,9 @@ if __name__ == "__main__":
     agg_year_wd, agg_year_sat, agg_year_sun = agg_year.copy(), \
         agg_year.copy(), agg_year.copy()
 
-    agg_year_wd = agg_year_wd[agg_year_wd['DAY_TYPE'] == 'Weekday']
-    agg_year_sat = agg_year_sat[agg_year_sat['DAY_TYPE'] == 'Saturday']
-    agg_year_sun = agg_year_sun[agg_year_sun['DAY_TYPE'] == 'Sunday - Holiday']
+    agg_year_wd = agg_year_wd.query('DAY_TYPE == "Weekday"')
+    agg_year_sat = agg_year_sat.query('DAY_TYPE == "Saturday"')
+    agg_year_sun = agg_year_sun.query('DAY_TYPE == "Sunday - Holiday"')
 
     agg_year_dfs = [agg_year_wd, agg_year_sat, agg_year_sun]
 
@@ -229,12 +229,10 @@ if __name__ == "__main__":
     bus_data_2022_wd, bus_data_2022_sat, bus_data_2022_sun = bus_data_2022.copy(), \
         bus_data_2022.copy(), bus_data_2022.copy()
 
-    bus_data_2022_wd = bus_data_2022_wd[
-        bus_data_2022_wd['DAY_TYPE'] == 'Weekday']
-    bus_data_2022_sat = bus_data_2022_sat[
-        bus_data_2022_sat['DAY_TYPE'] == 'Saturday']
-    bus_data_2022_sun = bus_data_2022_sun[
-        bus_data_2022_sun['DAY_TYPE'] == 'Sunday - Holiday']
+    bus_data_2022_wd = bus_data_2022_wd.query('DAY_TYPE == "Weekday"')
+    bus_data_2022_sat = bus_data_2022_sat.query('DAY_TYPE == "Saturday"')
+    bus_data_2022_sun = bus_data_2022_sun.query(
+        'DAY_TYPE == "Sunday - Holiday"')
 
     bc_2022_dfs = [bus_data_2022_wd, bus_data_2022_sat, bus_data_2022_sun]
 
