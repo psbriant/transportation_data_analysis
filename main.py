@@ -220,20 +220,21 @@ if __name__ == "__main__":
         file_list=viz_file_names['line_chart_args'],
         file_path=output_dir)
 
-    # Create subsets for weekday, saturday and sunday - holiday ridership for
-    # the year 2022.
-    bus_data_2022 = cta_bus_data.copy()
-    bus_data_2022 = bus_data_2022[bus_data_2022['YEAR'] == 2022]
-
-    bus_data_2022_wd, bus_data_2022_sat, bus_data_2022_sun = bus_data_2022.copy(), \
-        bus_data_2022.copy(), bus_data_2022.copy()
+    # Create subsets for weekday, saturday and sunday - holiday ridership and
+    # then subset by the year 2022.
+    bus_data_2022_wd, bus_data_2022_sat, bus_data_2022_sun = cta_bus_data.copy(), \
+        cta_bus_data.copy(), cta_bus_data.copy()
 
     bus_data_2022_wd = bus_data_2022_wd.query('DAY_TYPE == "Weekday"')
     bus_data_2022_sat = bus_data_2022_sat.query('DAY_TYPE == "Saturday"')
     bus_data_2022_sun = bus_data_2022_sun.query(
         'DAY_TYPE == "Sunday - Holiday"')
 
-    bc_2022_dfs = [bus_data_2022_wd, bus_data_2022_sat, bus_data_2022_sun]
+    bc_2022_dfs = subset_dataframes_by_value(
+        dfs=[bus_data_2022_wd, bus_data_2022_sat, bus_data_2022_sun],
+        operator=['=='],
+        target_col=['YEAR'],
+        filter_val=[2022])
 
     # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2022)-----------
