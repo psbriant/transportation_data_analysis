@@ -222,7 +222,6 @@ if __name__ == "__main__":
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the year 2022.
-    # TODO: Create a function to do this.
     bus_data_2022 = cta_bus_data.copy()
     bus_data_2022 = bus_data_2022[bus_data_2022['YEAR'] == 2022]
 
