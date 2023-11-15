@@ -35,7 +35,6 @@ def test_create_absolute_file_paths(
             'file_list' to.
         expected (StrList): The expected test case.
 
-
     Returns:
         NONE
 
