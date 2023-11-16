@@ -20,9 +20,9 @@ from file_io import (create_absolute_file_paths)
      ([""], "/dir1/", "/dir1/"),
      (["file1.csv"], "", "file1.csv")])
 def test_create_absolute_file_paths(
-        file_list,
-        file_path,
-        expected):
+        file_list: list[str],
+        file_path: str,
+        expected: list[str]) -> list[str] | str:
     """
     Tests the following:
     1. Tests whether specified files were correctly joined with a
@@ -51,9 +51,9 @@ def test_create_absolute_file_paths(
     [("file1.csv", "/dir1/", "/dir1/file1.csv"),
      (["file1.csv"], ["/dir1/"], "/dir1/file1.csv")])
 def test_create_absolute_file_paths_exceptions(
-        file_list,
-        file_path,
-        expected):
+        file_list: list[str],
+        file_path: str,
+        expected: list[str]) -> list[str] | str:
     """
     Tests the following:
     1. Tests whether TypeErrors are raised if the value of variable
