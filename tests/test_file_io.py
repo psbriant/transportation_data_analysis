@@ -2,7 +2,6 @@
 Description: Tests for file io functions.
 """
 
-from hypothesis import given, strategies as st
 import pytest
 
 from file_io import (create_absolute_file_paths)
