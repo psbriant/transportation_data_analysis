@@ -58,6 +58,8 @@ def test_create_absolute_file_paths_type_exceptions(
         'file_list' is not of type 'list'.
     2. Tests whether TypeErrors are raised if the value of variable
         'file_path' is not of type 'str'.
+    3. Tests whether TypeErrors are raised if elements of 'file_list' are not
+        strings.
 
     Arguments:
         file_list (strList): List of files to join with a specified absolute
