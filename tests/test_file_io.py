@@ -48,7 +48,7 @@ def test_create_absolute_file_paths(
     "file_list,file_path,expected",
     [("file1.csv", "/dir1/", "/dir1/file1.csv"),
      (["file1.csv"], ["/dir1/"], "/dir1/file1.csv")])
-def test_create_absolute_file_paths_exceptions(
+def test_create_absolute_file_paths_type_exceptions(
         file_list: list[str],
         file_path: str,
         expected: list[str]) -> list[str] | str:
