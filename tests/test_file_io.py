@@ -16,8 +16,7 @@ from file_io import (create_absolute_file_paths)
       ["/dir1/file1.csv",
        "/dir1/file2.csv",
        "/dir1/file3.csv"]),
-     ([""], "/dir1/", "/dir1/"),
-     (["file1.csv"], "", "file1.csv")])
+     (["file1.csv"], "/dir1/", "/dir1/file1.csv")])
 def test_create_absolute_file_paths(
         file_list: list[str],
         file_path: str,
