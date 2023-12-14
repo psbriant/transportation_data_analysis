@@ -50,7 +50,7 @@ def change_column_datatype(
     for df in df_list:
 
         if type(df) is not pd.core.frame.DataFrame:
-            raise TypeError("The value of 'col' should be a pandas "
+            raise TypeError("The value of 'df' should be a pandas "
                             "dataframe")
 
         updated_df = df.copy()
