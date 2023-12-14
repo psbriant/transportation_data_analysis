@@ -42,7 +42,6 @@ def create_absolute_file_paths(
     abs_file_paths = []
 
     for file_name in file_list:
-        print(file_name)
         if type(file_name) is not str:
             raise TypeError("Elements of 'file_list' should be of type str")
         if '.' not in file_name:
