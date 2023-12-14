@@ -47,7 +47,8 @@ def test_create_absolute_file_paths(
 @pytest.mark.parametrize(
     "file_list,file_path,expected",
     [("file1.csv", "/dir1/", "/dir1/file1.csv"),
-     (["file1.csv"], ["/dir1/"], "/dir1/file1.csv")])
+     (["file1.csv"], ["/dir1/"], "/dir1/file1.csv"),
+     (["file1.csv", 1], "/dir1/", "/dir1/file1.csv")])
 def test_create_absolute_file_paths_type_exceptions(
         file_list: list[str],
         file_path: str,
@@ -109,6 +110,7 @@ def test_create_absolute_file_paths_value_exceptions(
         NONE
 
     """
+
     with pytest.raises(ValueError):
 
         create_absolute_file_paths(
