@@ -75,6 +75,33 @@ if __name__ == "__main__":
     # ---PREP DATA------------------------------------------------------------
     # ------------------------------------------------------------------------
 
+    # Rename columns
+    cta_bus_data.rename(
+        columns={'route': 'ROUTE',
+                 'date': 'DATE',
+                 'daytype': 'DAY_TYPE',
+                 'rides': 'RIDES'},
+        inplace=True)
+
+    # Split out the DATE column into day, month and year (e.g. 01/01/2001
+    # becomes 01, 01, 2001).
+    cta_bus_data[['MONTH', 'DAY', 'YEAR']] = cta_bus_data[
+        'DATE'].str.split('/', expand=True)
+    cta_bus_data = cta_bus_data.drop(columns='DATE')
+
+    # Clean up the month and day columns by removing the leading zeros.
+    cta_bus_data.replace(
+        bus_data_args.sort_form_to_long_form_numeric_dates,
+        inplace=True)
+
+    cta_bus_data['DAY'] = cta_bus_data['DAY'].astype(int)
+    cta_bus_data['YEAR'] = cta_bus_data['YEAR'].astype(int)
+
+    # Rename the values in the DAY_TYPE column from W, A and U to Weekday,
+    # Saturday and Sunday
+    cta_bus_data['DAY_TYPE'] = cta_bus_data['DAY_TYPE'].replace(
+        bus_data_args.sort_form_to_long_form_day_types)
+
     # Change values in the month column so that they represent the actual
     # names of each month instead of the numerical representation.
     cta_bus_data['MONTH'] = cta_bus_data['MONTH'].replace(
