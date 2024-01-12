@@ -23,7 +23,7 @@ def input_df() -> pd.DataFrame:
             - MONTH: A subset of the months data was reported for.
             - DAY_TYPE: Each of the types of days that data was reported for
                 (Weekdays, Saturdays and Sunday Holidays).
-            - AVG_RIDES: A subset of ridership data.
+            - RIDES: A subset of ridership data.
 
     """
     input_df = {
@@ -31,7 +31,7 @@ def input_df() -> pd.DataFrame:
         'YEAR': [2022, 1999, 2022, 1999],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Sunday - Holiday', 'Weekday', 'Saturday'],
-        'AVG_RIDES': [812, 1076, 363, 312]
+        'RIDES': [812, 1076, 363, 312]
     }
 
     input_df = pd.DataFrame(input_df)
@@ -54,7 +54,7 @@ def input_updated_type_df() -> pd.DataFrame:
             - MONTH: A subset of the months data was reported for.
             - DAY_TYPE: Each of the types of days that data was reported for
                 (Weekdays, Saturdays and Sunday Holidays).
-            - AVG_RIDES: A subset of ridership data.
+            - RIDES: A subset of ridership data.
 
     """
     input_df = {
@@ -62,7 +62,7 @@ def input_updated_type_df() -> pd.DataFrame:
         'YEAR': [2022, 1999, 2022, 1999],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Sunday - Holiday', 'Weekday', 'Saturday'],
-        'AVG_RIDES': [812, 1076, 363, 312]
+        'RIDES': [812, 1076, 363, 312]
     }
 
     input_df = pd.DataFrame(input_df)
@@ -91,7 +91,7 @@ def input_dfs() -> list[pd.DataFrame]:
             - MONTH: A subset of the months data was reported for.
             - DAY_TYPE: Each of the types of days that data was reported for
                 (Weekdays, Saturdays and Sunday Holidays).
-            - AVG_RIDES: A subset of ridership data.
+            - RIDES: A subset of ridership data.
 
     """
     input_df1 = {
@@ -99,7 +99,7 @@ def input_dfs() -> list[pd.DataFrame]:
         'YEAR': [2010, 1999, 2022, 2011],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Weekday', 'Weekday', 'Weekday'],
-        'AVG_RIDES': [812, 1076, 363, 312]
+        'RIDES': [812, 1076, 363, 312]
     }
     input_df1 = pd.DataFrame(input_df1)
 
@@ -108,7 +108,7 @@ def input_dfs() -> list[pd.DataFrame]:
         'YEAR': [2010, 1999, 2022, 2011],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Saturday', 'Saturday', 'Saturday', 'Saturday'],
-        'AVG_RIDES': [266, 10760, 63, 712]
+        'RIDES': [266, 10760, 63, 712]
     }
     input_df2 = pd.DataFrame(input_df2)
 
@@ -120,7 +120,7 @@ def input_dfs() -> list[pd.DataFrame]:
                      'Sunday - Holiday',
                      'Sunday - Holiday',
                      'Sunday - Holiday'],
-        'AVG_RIDES': [1000, 93, 234, 312]
+        'RIDES': [1000, 93, 234, 312]
     }
     input_df3 = pd.DataFrame(input_df3)
 
@@ -146,7 +146,7 @@ def expected_rankings_df() -> pd.DataFrame:
             - MONTH: A subset of the months data was reported for.
             - DAY_TYPE: Each of the types of days that data was reported for
                 (Weekdays, Saturdays and Sunday Holidays).
-            - AVG_RIDES: A subset of ridership data.
+            - RIDES: A subset of ridership data.
             - RANK: A subset of ridership rankings for specified parameters.
                 In this case, they are by year meaning every year will have
                 its own rankings.
@@ -157,7 +157,7 @@ def expected_rankings_df() -> pd.DataFrame:
         'YEAR': [2022, 1999, 2022, 1999],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Sunday - Holiday', 'Weekday', 'Saturday'],
-        'AVG_RIDES': [812, 1076, 363, 312],
+        'RIDES': [812, 1076, 363, 312],
         'RANK': [1.0, 1.0, 2.0, 2.0]
     }
 
@@ -182,7 +182,7 @@ def expected_updated_type_df() -> pd.DataFrame:
             - MONTH: A subset of the months data was reported for.
             - DAY_TYPE: Each of the types of days that data was reported for
                 (Weekdays, Saturdays and Sunday Holidays).
-            - AVG_RIDES: A subset of ridership data.
+            - RIDES: A subset of ridership data.
 
     """
     expected_updated_type_df = {
@@ -190,7 +190,7 @@ def expected_updated_type_df() -> pd.DataFrame:
         'YEAR': ['2022', '1999', '2022', '1999'],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Sunday - Holiday', 'Weekday', 'Saturday'],
-        'AVG_RIDES': [812, 1076, 363, 312]
+        'RIDES': [812, 1076, 363, 312]
     }
 
     expected_updated_type_df = pd.DataFrame(expected_updated_type_df)
@@ -214,7 +214,7 @@ def expected_updated_type_dfs() -> list[pd.DataFrame]:
             - MONTH: A subset of the months data was reported for.
             - DAY_TYPE: Each of the types of days that data was reported for
                 (Weekdays, Saturdays and Sunday Holidays).
-            - AVG_RIDES: A subset of ridership data.
+            - RIDES: A subset of ridership data.
 
     """
     expected_df1 = {
@@ -222,7 +222,7 @@ def expected_updated_type_dfs() -> list[pd.DataFrame]:
         'YEAR': ['2010', '1999', '2022', '2011'],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Weekday', 'Weekday', 'Weekday'],
-        'AVG_RIDES': [812, 1076, 363, 312]
+        'RIDES': [812, 1076, 363, 312]
     }
     expected_df1 = pd.DataFrame(expected_df1)
 
@@ -231,7 +231,7 @@ def expected_updated_type_dfs() -> list[pd.DataFrame]:
         'YEAR': ['2010', '1999', '2022', '2011'],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Saturday', 'Saturday', 'Saturday', 'Saturday'],
-        'AVG_RIDES': [266, 10760, 63, 712]
+        'RIDES': [266, 10760, 63, 712]
     }
     expected_df2 = pd.DataFrame(expected_df2)
 
@@ -243,7 +243,7 @@ def expected_updated_type_dfs() -> list[pd.DataFrame]:
                      'Sunday - Holiday',
                      'Sunday - Holiday',
                      'Sunday - Holiday'],
-        'AVG_RIDES': [1000, 93, 234, 312]
+        'RIDES': [1000, 93, 234, 312]
     }
     expected_df3 = pd.DataFrame(expected_df3)
 
@@ -269,7 +269,7 @@ def expected_subset_dfs_gtet() -> list[pd.DataFrame]:
             - MONTH: A subset of the months data was reported for.
             - DAY_TYPE: Each of the types of days that data was reported for
                 (Weekdays, Saturdays and Sunday Holidays).
-            - AVG_RIDES: A subset of ridership data.
+            - RIDES: A subset of ridership data.
 
     """
     expected_subset_df1 = {
@@ -277,7 +277,7 @@ def expected_subset_dfs_gtet() -> list[pd.DataFrame]:
         'YEAR': [2022, 2011],
         'MONTH': ['October', 'January'],
         'DAY_TYPE': ['Weekday', 'Weekday'],
-        'AVG_RIDES': [363, 312]
+        'RIDES': [363, 312]
     }
     expected_subset_df1 = pd.DataFrame(expected_subset_df1)
 
@@ -286,7 +286,7 @@ def expected_subset_dfs_gtet() -> list[pd.DataFrame]:
         'YEAR': [2022, 2011],
         'MONTH': ['October', 'January'],
         'DAY_TYPE': ['Saturday', 'Saturday'],
-        'AVG_RIDES': [63, 712]
+        'RIDES': [63, 712]
     }
     expected_subset_df2 = pd.DataFrame(expected_subset_df2)
 
@@ -295,7 +295,7 @@ def expected_subset_dfs_gtet() -> list[pd.DataFrame]:
         'YEAR': [2022, 2011],
         'MONTH': ['October', 'January'],
         'DAY_TYPE': ['Sunday - Holiday', 'Sunday - Holiday'],
-        'AVG_RIDES': [234, 312]
+        'RIDES': [234, 312]
     }
     expected_subset_df3 = pd.DataFrame(expected_subset_df3)
 
@@ -323,7 +323,7 @@ def expected_subset_dfs_gtalt() -> list[pd.DataFrame]:
             - MONTH: A subset of the months data was reported for.
             - DAY_TYPE: Each of the types of days that data was reported for
                 (Weekdays, Saturdays and Sunday Holidays).
-            - AVG_RIDES: A subset of ridership data.
+            - RIDES: A subset of ridership data.
 
     """
     expected_subset_df1 = {
@@ -331,7 +331,7 @@ def expected_subset_dfs_gtalt() -> list[pd.DataFrame]:
         'YEAR': [2010, 2011],
         'MONTH': ['October', 'January'],
         'DAY_TYPE': ['Weekday', 'Weekday'],
-        'AVG_RIDES': [812, 312]
+        'RIDES': [812, 312]
     }
     expected_subset_df1 = pd.DataFrame(expected_subset_df1)
 
@@ -340,7 +340,7 @@ def expected_subset_dfs_gtalt() -> list[pd.DataFrame]:
         'YEAR': [2010, 2011],
         'MONTH': ['October', 'January'],
         'DAY_TYPE': ['Saturday', 'Saturday'],
-        'AVG_RIDES': [266, 712]
+        'RIDES': [266, 712]
     }
     expected_subset_df2 = pd.DataFrame(expected_subset_df2)
 
@@ -349,7 +349,7 @@ def expected_subset_dfs_gtalt() -> list[pd.DataFrame]:
         'YEAR': [2010, 2011],
         'MONTH': ['October', 'January'],
         'DAY_TYPE': ['Sunday - Holiday', 'Sunday - Holiday'],
-        'AVG_RIDES': [1000, 312]
+        'RIDES': [1000, 312]
     }
     expected_subset_df3 = pd.DataFrame(expected_subset_df3)
 
@@ -377,7 +377,7 @@ def expected_subset_dfs_et() -> list[pd.DataFrame]:
             - MONTH: A subset of the months data was reported for.
             - DAY_TYPE: Each of the types of days that data was reported for
                 (Weekdays, Saturdays and Sunday Holidays).
-            - AVG_RIDES: A subset of ridership data.
+            - RIDES: A subset of ridership data.
 
     """
     expected_subset_df1 = {
@@ -385,7 +385,7 @@ def expected_subset_dfs_et() -> list[pd.DataFrame]:
         'YEAR': [2011],
         'MONTH': ['January'],
         'DAY_TYPE': ['Weekday'],
-        'AVG_RIDES': [312]
+        'RIDES': [312]
     }
     expected_subset_df1 = pd.DataFrame(expected_subset_df1)
 
@@ -394,7 +394,7 @@ def expected_subset_dfs_et() -> list[pd.DataFrame]:
         'YEAR': [2011],
         'MONTH': ['January'],
         'DAY_TYPE': ['Saturday'],
-        'AVG_RIDES': [712]
+        'RIDES': [712]
     }
     expected_subset_df2 = pd.DataFrame(expected_subset_df2)
 
@@ -403,7 +403,7 @@ def expected_subset_dfs_et() -> list[pd.DataFrame]:
         'YEAR': [2011],
         'MONTH': ['January'],
         'DAY_TYPE': ['Sunday - Holiday'],
-        'AVG_RIDES': [312]
+        'RIDES': [312]
     }
     expected_subset_df3 = pd.DataFrame(expected_subset_df3)
 
