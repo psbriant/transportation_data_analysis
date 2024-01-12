@@ -412,3 +412,122 @@ def expected_subset_dfs_et() -> list[pd.DataFrame]:
                            expected_subset_df3]
 
     return expected_subset_dfs
+
+
+@pytest.fixture
+def input_agg_df() -> pd.DataFrame:
+    """
+    Creates a small dataframe of data that can be used for testing aggregation
+    functions.
+
+    Arguments:
+        NONE
+
+    Returns:
+        Dataframe of generic test ridership data that includes the following:
+            - ROUTE: A subset of bus route numbers.
+            - YEAR: A subset of the years data was reported for.
+            - MONTH: A subset of the months data was reported for.
+            - DAY: A subset of the days data was reported for.
+            - DAY_TYPE: Each of the types of days that data was reported for
+                (Weekdays, Saturdays and Sunday Holidays).
+            - RIDES: A subset of ridership data.
+
+    """
+    input_agg_df = {
+        'ROUTE': ['3', '3', '3', '3', '3', '3', '3', '3', '3'],
+        'YEAR': [2011, 2011, 2011, 2011, 2011, 2011, 2010, 2010, 2010],
+        'MONTH': ['February',
+                  'February',
+                  'January',
+                  'January',
+                  'January',
+                  'January',
+                  'December',
+                  'December',
+                  'December'],
+        'DAY': [1, 2, 1, 2, 3, 4, 29, 30, 31],
+        'DAY_TYPE': ['Weekday',
+                     'Weekday',
+                     'Saturday',
+                     'Sunday - Holiday',
+                     'Weekday',
+                     'Weekday',
+                     'Weekday',
+                     'Weekday',
+                     'Weekday'],
+        'RIDES': [691, 765, 107, 50, 419, 764, 800, 609, 1078]
+    }
+    input_agg_df = pd.DataFrame(input_agg_df)
+
+    return input_agg_df
+
+
+@pytest.fixture
+def expected_month_agg_df() -> pd.DataFrame:
+    """
+    Creates a small dataframe of data that can be used for testing aggregation
+    functions by providing an expected test case.
+
+    Arguments:
+        NONE
+
+    Returns:
+        Dataframe of generic test ridership data that includes the following:
+            - ROUTE: A subset of bus route numbers.
+            - YEAR: A subset of the years data was reported for.
+            - MONTH: A subset of the months data was reported for.
+            - DAY: A subset of the days data was reported for.
+            - DAY_TYPE: Each of the types of days that data was reported for
+                (Weekdays, Saturdays and Sunday Holidays).
+            - RIDES: A subset of ridership data.
+
+    """
+    expected_month_agg_df = {
+        'ROUTE': ['3', '3', '3', '3', '3'],
+        'MONTH': ['December', 'February', 'January', 'January', 'January'],
+        'YEAR': [2010, 2011, 2011, 2011, 2011],
+        'DAY_TYPE': ['Weekday',
+                     'Weekday',
+                     'Saturday',
+                     'Sunday - Holiday',
+                     'Weekday'],
+        'RIDES': [2487, 1456, 107, 50, 1183]
+    }
+    expected_month_agg_df = pd.DataFrame(expected_month_agg_df)
+
+    return expected_month_agg_df
+
+
+@pytest.fixture
+def expected_year_agg_df() -> pd.DataFrame:
+    """
+    Creates a small dataframe of data that can be used for testing aggregation
+    functions by providing an expected test case.
+
+    Arguments:
+        NONE
+
+    Returns:
+        Dataframe of generic test ridership data that includes the following:
+            - ROUTE: A subset of bus route numbers.
+            - YEAR: A subset of the years data was reported for.
+            - MONTH: A subset of the months data was reported for.
+            - DAY: A subset of the days data was reported for.
+            - DAY_TYPE: Each of the types of days that data was reported for
+                (Weekdays, Saturdays and Sunday Holidays).
+            - RIDES: A subset of ridership data.
+
+    """
+    expected_year_agg_df = {
+        'ROUTE': ['3', '3', '3', '3'],
+        'YEAR': [2010, 2011, 2011, 2011],
+        'DAY_TYPE': ['Weekday',
+                     'Saturday',
+                     'Sunday - Holiday',
+                     'Weekday'],
+        'RIDES': [2487, 107, 50, 2639]
+    }
+    expected_year_agg_df = pd.DataFrame(expected_year_agg_df)
+
+    return expected_year_agg_df
