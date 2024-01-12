@@ -161,3 +161,31 @@ def subset_dataframes_by_value(
         raise ValueError(
             "The variables 'operator', 'target_col', and 'filter_val' must be "
             "the same length")
+
+
+def aggregate_data(
+        df: pd.DataFrame,
+        agg_cols: list[str],
+        id_cols: list[str]):
+    """
+    # Create aggregate ridership data by route, year for each service type
+
+    Arguments:
+        df (DataFrame): Pandas dataframe to aggregate.
+        agg_cols (strList): The column to aggregate the data by.
+        id_cols (strList): The columns representing non-aggregated dimensions.
+
+    Returns:
+        Dataframe that has been aggregated by the specified dimensions.
+
+    Raises:
+        NONE
+
+    """
+
+    agg_df = df.copy()
+    agg_df = agg_df.drop(columns=agg_cols)
+    agg_df = agg_df.groupby(by=id_cols).sum()
+    agg_df = agg_df.reset_index()
+
+    return agg_df
