@@ -1,6 +1,6 @@
 """
-
-
+Description: File for storing testing configurations including fixtures that
+can be reused across all test scripts.
 """
 
 import numpy as np
