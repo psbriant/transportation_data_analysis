@@ -6,7 +6,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from data_processing import (change_column_datatype,
+from data_processing import (aggregate_data,
+                             change_column_datatype,
                              create_rankings,
                              subset_dataframes_by_value)
 
