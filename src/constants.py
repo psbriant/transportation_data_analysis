@@ -86,7 +86,7 @@ class BusDataArguments:
 
 @dataclass
 class BarChartArguments:
-    x_value: str = 'AVG_RIDES'
+    x_value: str = 'RIDES'
     y_value: str = 'ROUTE'
     x_value_type: str = 'quantitative'
     y_value_type: str = 'ordinal'
@@ -119,7 +119,7 @@ class BumpChartArguments:
     title: str = "Chicago Transit Authority bus routes with the highest " \
                  "number of riders (1999-2022)"
     scheme: str = 'category20'
-    value_col: str = 'AVG_RIDES'
+    value_col: str = 'RIDES'
     rank_col: str = 'RANK'
     group_col: list[str] = field(default_factory=lambda:['YEAR'])
     num_rankings: int = 10
@@ -127,14 +127,14 @@ class BumpChartArguments:
 @dataclass
 class LineChartArguments:
     x_value: str = 'YEAR'
-    y_value: str = 'AVG_RIDES'
+    y_value: str = 'RIDES'
     x_value_type: str = 'ordinal'
     y_value_type: str = 'quantitative'
     color_values: str = 'ROUTE'
     title: str = "Chicago Transit Authority bus routes with the highest " \
                  "number of riders (1999-2022)"
     scheme: str = 'category20'
-    value_col: str = 'AVG_RIDES'
+    value_col: str = 'RIDES'
     rank_col: str = 'RANK'
     group_col: list[str] = field(default_factory=lambda:['YEAR'])
     num_rankings: int = 10
@@ -145,7 +145,7 @@ class HeatmapArguments:
     x_value_type: str = 'ordinal'
     y_value: str = 'YEAR'
     y_value_type: str = 'ordinal'
-    color_values: str = 'AVG_RIDES'
+    color_values: str = 'RIDES'
     facet_values: str = 'ROUTE'
     facet_columns: int = 3
     scheme: str = 'yelloworangebrown'
