@@ -180,7 +180,6 @@ def aggregate_data(
 
     Raises:
         NONE
-
     """
 
     agg_df = df.copy()
