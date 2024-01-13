@@ -433,6 +433,10 @@ def input_agg_df() -> pd.DataFrame:
                 (Weekdays, Saturdays and Sunday Holidays).
             - RIDES: A subset of ridership data.
 
+    NOTE: The ridership numbers used for this test dataset were created
+        specifically for testing purposes instead of being taken from the
+        actual CTA dataset.
+
     """
     input_agg_df = {
         'ROUTE': ['3', '3', '3', '3', '3', '3', '3', '3', '3'],
@@ -482,6 +486,10 @@ def expected_month_agg_df() -> pd.DataFrame:
                 (Weekdays, Saturdays and Sunday Holidays).
             - RIDES: A subset of ridership data.
 
+    NOTE: The ridership numbers used for this test dataset were created
+        specifically for testing purposes instead of being taken from the
+        actual CTA dataset.
+
     """
     expected_month_agg_df = {
         'ROUTE': ['3', '3', '3', '3', '3'],
@@ -517,6 +525,10 @@ def expected_year_agg_df() -> pd.DataFrame:
             - DAY_TYPE: Each of the types of days that data was reported for
                 (Weekdays, Saturdays and Sunday Holidays).
             - RIDES: A subset of ridership data.
+
+    NOTE: The ridership numbers used for this test dataset were created
+        specifically for testing purposes instead of being taken from the
+        actual CTA dataset.
 
     """
     expected_year_agg_df = {
