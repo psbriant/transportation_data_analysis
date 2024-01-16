@@ -108,6 +108,12 @@ if __name__ == "__main__":
     cta_bus_data['MONTH'] = cta_bus_data['MONTH'].replace(
         bus_data_args.alpha_to_numeric_months)
 
+    # Create aggregate ridership data by route, year for each service type
+    cta_bus_data = aggregate_data(
+        df=cta_bus_data,
+        agg_cols=['DAY'],
+        id_cols=['ROUTE', 'MONTH', 'YEAR', 'DAY_TYPE'])
+
     # Create dataframe for making heatmaps.
     logging.info("Subsetting data")
     hm_rmy_data = cta_bus_data.copy()
@@ -147,10 +153,10 @@ if __name__ == "__main__":
     hm_dfs = hm_rmy_1999_2022 + hm_rmy_1999_2010 + hm_rmy_2011_2022
 
     # Create aggregate ridership data by route, year for each service type
-    agg_year = cta_bus_data.copy()
-    agg_year = agg_year.drop(labels=['MONTH'], axis=1)
-    agg_year = agg_year.groupby(by=['ROUTE', 'YEAR', 'DAY_TYPE']).sum()
-    agg_year = agg_year.reset_index()
+    agg_year = aggregate_data(
+        df=cta_bus_data,
+        agg_cols=['MONTH'],
+        id_cols=['ROUTE', 'YEAR', 'DAY_TYPE'])
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 1999 - 2022.
