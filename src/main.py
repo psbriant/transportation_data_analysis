@@ -19,7 +19,8 @@ from constants import (viz_file_names,
                        BumpChartArguments,
                        LineChartArguments,
                        HeatmapArguments)
-from data_processing import (change_column_datatype,
+from data_processing import (aggregate_data,
+                             change_column_datatype,
                              create_rankings,
                              subset_dataframes_by_value)
 from file_io import create_absolute_file_paths
