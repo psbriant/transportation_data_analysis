@@ -6,12 +6,12 @@ from dataclasses import (dataclass, field)
 from typing import TypedDict
 
 viz_file_names = {
-    'bar_chart_args': ['weekday_ridership_barchart_1999_2022.png',
-                       'saturday_ridership_barchart_1999_2022.png',
-                       'sunday_ridership_barchart_1999_2022.png',
-                       'weekday_ridership_barchart_1999_2009.png',
-                       'saturday_ridership_barchart_1999_2009.png',
-                       'sunday_ridership_barchart_1999_2009.png',
+    'bar_chart_args': ['weekday_ridership_barchart_2001_2022.png',
+                       'saturday_ridership_barchart_2001_2022.png',
+                       'sunday_ridership_barchart_2001_2022.png',
+                       'weekday_ridership_barchart_2001_2009.png',
+                       'saturday_ridership_barchart_2001_2009.png',
+                       'sunday_ridership_barchart_2001_2009.png',
                        'weekday_ridership_barchart_2010_2019.png',
                        'saturday_ridership_barchart_2010_2019.png',
                        'sunday_ridership_barchart_2010_2019.png',
@@ -27,15 +27,15 @@ viz_file_names = {
     'line_chart_args': ['weekday_ridership_time_series_analysis.png',
                         'saturday_ridership_time_series_analysis.png',
                         'sunday_ridership_time_series_analysis.png'],
-    'heatmap_args': ['weekday_ridership_heatmap_1999_2010.png',
-                     'saturday_ridership_heatmap_1999_2010.png',
-                     'sunday_ridership_heatmap_1999_2010.png',
+    'heatmap_args': ['weekday_ridership_heatmap_2001_2010.png',
+                     'saturday_ridership_heatmap_2001_2010.png',
+                     'sunday_ridership_heatmap_2001_2010.png',
                      'weekday_ridership_heatmap_2011_2022.png',
                      'saturday_ridership_heatmap_2011_2022.png',
                      'sunday_ridership_heatmap_2011_2022.png',
-                     'weekday_ridership_heatmap_1999_2022.png',
-                     'saturday_ridership_heatmap_1999_2022.png',
-                     'sunday_ridership_heatmap_1999_2022.png']}
+                     'weekday_ridership_heatmap_2001_2022.png',
+                     'saturday_ridership_heatmap_2001_2022.png',
+                     'sunday_ridership_heatmap_2001_2022.png']}
 
 @dataclass
 class Months(TypedDict):
@@ -117,7 +117,7 @@ class BumpChartArguments:
     y_value_type: str = 'ordinal'
     color_values: str = 'ROUTE'
     title: str = "Chicago Transit Authority bus routes with the highest " \
-                 "number of riders (1999-2022)"
+                 "number of riders (2001-2022)"
     scheme: str = 'category20'
     value_col: str = 'RIDES'
     rank_col: str = 'RANK'
@@ -132,7 +132,7 @@ class LineChartArguments:
     y_value_type: str = 'quantitative'
     color_values: str = 'ROUTE'
     title: str = "Chicago Transit Authority bus routes with the highest " \
-                 "number of riders (1999-2022)"
+                 "number of riders (2001-2022)"
     scheme: str = 'category20'
     value_col: str = 'RIDES'
     rank_col: str = 'RANK'

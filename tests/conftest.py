@@ -28,7 +28,7 @@ def input_df() -> pd.DataFrame:
     """
     input_df = {
         'ROUTE': [1, 97, 100, 'X21'],
-        'YEAR': [2022, 1999, 2022, 1999],
+        'YEAR': [2022, 2001, 2022, 2001],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Sunday - Holiday', 'Weekday', 'Saturday'],
         'RIDES': [812, 1076, 363, 312]
@@ -59,7 +59,7 @@ def input_updated_type_df() -> pd.DataFrame:
     """
     input_df = {
         'ROUTE': [1, 97, 100, 'X21'],
-        'YEAR': [2022, 1999, 2022, 1999],
+        'YEAR': [2022, 2001, 2022, 2001],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Sunday - Holiday', 'Weekday', 'Saturday'],
         'RIDES': [812, 1076, 363, 312]
@@ -96,7 +96,7 @@ def input_dfs() -> list[pd.DataFrame]:
     """
     input_df1 = {
         'ROUTE': [1, 97, 100, 'X21'],
-        'YEAR': [2010, 1999, 2022, 2011],
+        'YEAR': [2010, 2001, 2022, 2011],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Weekday', 'Weekday', 'Weekday'],
         'RIDES': [812, 1076, 363, 312]
@@ -105,7 +105,7 @@ def input_dfs() -> list[pd.DataFrame]:
 
     input_df2 = {
         'ROUTE': [1, 97, 100, 'X21'],
-        'YEAR': [2010, 1999, 2022, 2011],
+        'YEAR': [2010, 2001, 2022, 2011],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Saturday', 'Saturday', 'Saturday', 'Saturday'],
         'RIDES': [266, 10760, 63, 712]
@@ -114,7 +114,7 @@ def input_dfs() -> list[pd.DataFrame]:
 
     input_df3 = {
         'ROUTE': [1, 97, 100, 'X21'],
-        'YEAR': [2010, 1999, 2022, 2011],
+        'YEAR': [2010, 2001, 2022, 2011],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Sunday - Holiday',
                      'Sunday - Holiday',
@@ -154,7 +154,7 @@ def expected_rankings_df() -> pd.DataFrame:
     """
     expected_rankings_df = {
         'ROUTE': [1, 97, 100, 'X21'],
-        'YEAR': [2022, 1999, 2022, 1999],
+        'YEAR': [2022, 2001, 2022, 2001],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Sunday - Holiday', 'Weekday', 'Saturday'],
         'RIDES': [812, 1076, 363, 312],
@@ -187,7 +187,7 @@ def expected_updated_type_df() -> pd.DataFrame:
     """
     expected_updated_type_df = {
         'ROUTE': [1, 97, 100, 'X21'],
-        'YEAR': ['2022', '1999', '2022', '1999'],
+        'YEAR': ['2022', '2001', '2022', '2001'],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Sunday - Holiday', 'Weekday', 'Saturday'],
         'RIDES': [812, 1076, 363, 312]
@@ -219,7 +219,7 @@ def expected_updated_type_dfs() -> list[pd.DataFrame]:
     """
     expected_df1 = {
         'ROUTE': [1, 97, 100, 'X21'],
-        'YEAR': ['2010', '1999', '2022', '2011'],
+        'YEAR': ['2010', '2001', '2022', '2011'],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Weekday', 'Weekday', 'Weekday'],
         'RIDES': [812, 1076, 363, 312]
@@ -228,7 +228,7 @@ def expected_updated_type_dfs() -> list[pd.DataFrame]:
 
     expected_df2 = {
         'ROUTE': [1, 97, 100, 'X21'],
-        'YEAR': ['2010', '1999', '2022', '2011'],
+        'YEAR': ['2010', '2001', '2022', '2011'],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Saturday', 'Saturday', 'Saturday', 'Saturday'],
         'RIDES': [266, 10760, 63, 712]
@@ -237,7 +237,7 @@ def expected_updated_type_dfs() -> list[pd.DataFrame]:
 
     expected_df3 = {
         'ROUTE': [1, 97, 100, 'X21'],
-        'YEAR': ['2010', '1999', '2022', '2011'],
+        'YEAR': ['2010', '2001', '2022', '2011'],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Sunday - Holiday',
                      'Sunday - Holiday',
