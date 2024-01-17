@@ -95,6 +95,13 @@ if __name__ == "__main__":
     cta_bus_data['DAY'] = cta_bus_data['DAY'].astype(int)
     cta_bus_data['YEAR'] = cta_bus_data['YEAR'].astype(int)
 
+    # Remove 2023 data since it is currently only for a few months
+    cta_bus_data = subset_dataframes_by_value(
+        dfs=cta_bus_data,
+        operator=['<'],
+        target_col=['YEAR'],
+        filter_val=[2023])
+
     # Rename the values in the DAY_TYPE column from W, A and U to Weekday,
     # Saturday and Sunday
     cta_bus_data['DAY_TYPE'] = cta_bus_data['DAY_TYPE'].replace(
