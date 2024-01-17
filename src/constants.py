@@ -107,7 +107,9 @@ class BarChartArguments_2022(BarChartArguments):
         'July',
         'August',
         'September',
-        'October'])
+        'October',
+        'November',
+        'December'])
 
 @dataclass
 class BumpChartArguments:
