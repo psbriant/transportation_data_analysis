@@ -1,9 +1,6 @@
 """
 Description: Executes transportation data analysis and creates all
 visualizations.
-
-TODO: Determine how to handle the year 2022 since some months do not have
-    ridership data (the values are represented by nans).
 """
 
 import argparse
