@@ -120,7 +120,7 @@ def test_create_rankings(
      ('input_dfs',
       ['>', '<'],
       ['YEAR', 'YEAR'],
-      [2009, 2020],
+      [2010, 2020],
       'expected_subset_dfs_gtalt'),
      ('input_dfs', ['=='], ['YEAR'], [2011], 'expected_subset_dfs_et')])
 def test_subset_dataframes_by_value(

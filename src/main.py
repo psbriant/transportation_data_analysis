@@ -171,20 +171,20 @@ if __name__ == "__main__":
 
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
-    # the years 2001 - 2009.
-    agg_year_dfs_2001_2009 = subset_dataframes_by_value(
+    # the years 2001 - 2010.
+    agg_year_dfs_2001_2010 = subset_dataframes_by_value(
         dfs=agg_year_dfs,
         operator=['<'],
         target_col=['YEAR'],
-        filter_val=[2010])
+        filter_val=[2011])
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
-    # the years 2010 - 2019.
-    agg_year_dfs_2010_2019 = subset_dataframes_by_value(
+    # the years 2011 - 2019.
+    agg_year_dfs_2011_2019 = subset_dataframes_by_value(
         dfs=agg_year_dfs,
         operator=['>', '<'],
         target_col=['YEAR', 'YEAR'],
-        filter_val=[2009, 2020])
+        filter_val=[2010, 2020])
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 2020 - 2022.
@@ -211,7 +211,7 @@ if __name__ == "__main__":
     # plot readability for barcharts representing more than one year of data.
     # Please note that this must be executed after subsetting each dataframe
     # by the relevant years to avoid raising a TypeError.
-    ts_bc_dfs = agg_year_dfs + agg_year_dfs_2001_2009 + agg_year_dfs_2010_2019 + agg_year_dfs_2020_2022
+    ts_bc_dfs = agg_year_dfs + agg_year_dfs_2001_2010 + agg_year_dfs_2011_2019 + agg_year_dfs_2020_2022
     ts_bc_dfs = change_column_datatype(
         df_list=ts_bc_dfs,
         col='YEAR',
@@ -325,8 +325,8 @@ if __name__ == "__main__":
     # ---CREATE STACKED BAR CHARTS FOR ROUTES BY RIDERSHIP--------------------
     # ------------------------------------------------------------------------
     # - 2001-2022 (Weekday, Saturday, Sunday)
-    # - 2001-2009 (Weekday, Saturday, Sunday)
-    # - 2010-2019 (Weekday, Saturday, Sunday)
+    # - 2001-2010 (Weekday, Saturday, Sunday)
+    # - 2011-2019 (Weekday, Saturday, Sunday)
     # - 2020-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
@@ -348,8 +348,8 @@ if __name__ == "__main__":
     # ---CREATE BUMP CHARTS FOR ROUTES BY RIDERSHIP AND YEAR------------------
     # ------------------------------------------------------------------------
     # - 2001-2022 (Weekday, Saturday, Sunday)
-    # - 2001-2009 (Weekday, Saturday, Sunday)
-    # - 2010-2019 (Weekday, Saturday, Sunday)
+    # - 2001-2010 (Weekday, Saturday, Sunday)
+    # - 2011-2019 (Weekday, Saturday, Sunday)
     # - 2020-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
