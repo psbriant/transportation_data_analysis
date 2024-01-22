@@ -323,7 +323,7 @@ if __name__ == "__main__":
             color_values=barchart_args_2022.color_values,
             title=barchart_args_2022.title,
             scheme=barchart_args_2022.scheme,
-            sort_order=barchart_args_2022.sort_order)
+            sort_order_color=barchart_args_2022.sort_order_color)
 
     # ------------------------------------------------------------------------
     # ---CREATE STACKED BAR CHARTS FOR ROUTES BY RIDERSHIP--------------------
