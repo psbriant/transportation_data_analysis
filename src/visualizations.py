@@ -89,7 +89,8 @@ def create_barchart(
         scheme: str,
         x_value_type: str,
         y_value_type: str,
-        sort_order: str | list[str] = 'ascending') -> None:
+        sort_order_y_axis: str = '-x',
+        sort_order_color: str | list[str] = 'ascending') -> None:
     """
     Create a bar chart for specified data and columns.
 
@@ -111,9 +112,11 @@ def create_barchart(
         y_value_type (str): The type of data that will be plotted on the
             y-axis. Must be one of quantitative, ordinal, nominal, temporal,
             or geojson.
-        sort_order (str or strlist): The sort order. One of "ascending",
-            "descending", or a list of strings containing a custom order.
-            Defaults to ascending.
+        sort_order_y_axis (str): The sort order for the y-axis. Defaults to
+            '-x'.
+        sort_order_color (str or strlist): The sort order for the color scheme
+            and legend. One of "ascending", "descending", or a list of strings
+            containing a custom order. Defaults to ascending.
 
     Returns:
         None
@@ -124,9 +127,9 @@ def create_barchart(
 
     chart = alt.Chart(data).mark_bar().encode(
         alt.X(x_value, type=x_value_type),
-        alt.Y(y_value, type=y_value_type),
+        alt.Y(y_value, type=y_value_type, sort=sort_order_y_axis),
         alt.Color(color_values,
-                  sort=sort_order,
+                  sort=sort_order_color,
                   scale=alt.Scale(scheme=scheme))
     ).properties(title=title)
 
