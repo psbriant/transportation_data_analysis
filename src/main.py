@@ -97,7 +97,7 @@ if __name__ == "__main__":
 
     # Remove 2023 data since it is currently only for a few months
     cta_bus_data = subset_dataframes_by_value(
-        dfs=cta_bus_data,
+        dfs=[cta_bus_data],
         operator=['<'],
         target_col=['YEAR'],
         filter_val=[2023])
