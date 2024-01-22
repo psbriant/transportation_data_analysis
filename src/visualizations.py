@@ -127,7 +127,7 @@ def create_barchart(
         alt.Y(y_value, type=y_value_type),
         alt.Color(color_values,
                   sort=sort_order,
-                  scale=alt.Scale(scheme=scheme)),
+                  scale=alt.Scale(scheme=scheme))
     ).properties(title=title)
 
     chart.save(output_path)
