@@ -97,7 +97,7 @@ class BarChartArguments:
 @dataclass
 class BarChartArguments_2022(BarChartArguments):
     color_values: str = 'MONTH'
-    sort_order: list[str] = field(default_factory=lambda: [
+    sort_order_color: list[str] = field(default_factory=lambda: [
         'January',
         'February',
         'March',
