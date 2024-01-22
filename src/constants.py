@@ -97,7 +97,7 @@ class BarChartArguments:
 @dataclass
 class BarChartArguments_2022(BarChartArguments):
     color_values: str = 'MONTH'
-    sort_order: list[str] = field(default_factory=lambda:[
+    sort_order: list[str] = field(default_factory=lambda: [
         'January',
         'February',
         'March',
@@ -123,7 +123,7 @@ class BumpChartArguments:
     scheme: str = 'category20'
     value_col: str = 'RIDES'
     rank_col: str = 'RANK'
-    group_col: list[str] = field(default_factory=lambda:['YEAR'])
+    group_col: list[str] = field(default_factory=lambda: ['YEAR'])
     num_rankings: int = 10
 
 @dataclass
@@ -138,7 +138,7 @@ class LineChartArguments:
     scheme: str = 'category20'
     value_col: str = 'RIDES'
     rank_col: str = 'RANK'
-    group_col: list[str] = field(default_factory=lambda:['YEAR'])
+    group_col: list[str] = field(default_factory=lambda: ['YEAR'])
     num_rankings: int = 10
 
 @dataclass
