@@ -18,9 +18,6 @@ viz_file_names = {
                        'weekday_ridership_barchart_2020_2022.png',
                        'saturday_ridership_barchart_2020_2022.png',
                        'sunday_ridership_barchart_2020_2022.png'],
-    'bar_chart_args_2022': ['weekday_ridership_barchart_2022.png',
-                            'saturday_ridership_barchart_2022.png',
-                            'sunday_ridership_barchart_2022.png'],
     'bump_chart_args': ['weekday_ridership_bump_chart.png',
                         'saturday_ridership_bump_chart.png',
                         'sunday_ridership_bump_chart.png'],
@@ -93,23 +90,6 @@ class BarChartArguments:
     color_values: str = 'YEAR'
     scheme: str = 'tableau20'
     title: str = "Number of rides per CTA bus route"
-
-@dataclass
-class BarChartArguments_2022(BarChartArguments):
-    color_values: str = 'MONTH'
-    sort_order_color: list[str] = field(default_factory=lambda: [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'])
 
 @dataclass
 class BumpChartArguments:

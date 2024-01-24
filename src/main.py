@@ -12,7 +12,6 @@ import pandas as pd
 from constants import (viz_file_names,
                        BusDataArguments,
                        BarChartArguments,
-                       BarChartArguments_2022,
                        BumpChartArguments,
                        LineChartArguments,
                        HeatmapArguments)
@@ -57,7 +56,6 @@ if __name__ == "__main__":
 
     bus_data_args = BusDataArguments()
     barchart_args = BarChartArguments()
-    barchart_args_2022 = BarChartArguments_2022()
     bumpchart_args = BumpChartArguments()
     rrtsa_args = LineChartArguments()
     heatmap_args = HeatmapArguments()
@@ -236,12 +234,6 @@ if __name__ == "__main__":
         file_list=viz_file_names['heatmap_args'],
         file_path=output_dir)
 
-    # Create absolute file paths for bar charts covering the first 10 months
-    # of 2022.
-    bc_2022_file_paths = create_absolute_file_paths(
-        file_list=viz_file_names['bar_chart_args_2022'],
-        file_path=output_dir)
-
     # Create absolute file paths for bar charts covering multiple years
     ts_bc_file_paths = create_absolute_file_paths(
         file_list=viz_file_names['bar_chart_args'],
@@ -257,22 +249,6 @@ if __name__ == "__main__":
     rrtsa_file_paths = create_absolute_file_paths(
         file_list=viz_file_names['line_chart_args'],
         file_path=output_dir)
-
-    # Create subsets for weekday, saturday and sunday - holiday ridership and
-    # then subset by the year 2022.
-    bus_data_2022_wd, bus_data_2022_sat, bus_data_2022_sun = cta_bus_data.copy(), \
-        cta_bus_data.copy(), cta_bus_data.copy()
-
-    bus_data_2022_wd = bus_data_2022_wd.query('DAY_TYPE == "Weekday"')
-    bus_data_2022_sat = bus_data_2022_sat.query('DAY_TYPE == "Saturday"')
-    bus_data_2022_sun = bus_data_2022_sun.query(
-        'DAY_TYPE == "Sunday - Holiday"')
-
-    bc_2022_dfs = subset_dataframes_by_value(
-        dfs=[bus_data_2022_wd, bus_data_2022_sat, bus_data_2022_sun],
-        operator=['=='],
-        target_col=['YEAR'],
-        filter_val=[2022])
 
     # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (2001-2022)-----------
@@ -298,32 +274,6 @@ if __name__ == "__main__":
             facet_columns=heatmap_args.facet_columns,
             scheme=heatmap_args.scheme,
             x_axis_sort_order=heatmap_args.x_axis_sort_order)
-
-    # ------------------------------------------------------------------------
-    # ---CREATE STACKED BAR CHARTS FOR ROUTES BY RIDERSHIP IN 2022------------
-    # ------------------------------------------------------------------------
-    # Bar charts are stacked by month for the first ten months of 2022 (data
-    # for November and December is unavailable).
-    #
-    # -Weekday ridership: 2022
-    # -Saturday ridership: 2022
-    # -Sunday ridership: 2022
-    # ------------------------------------------------------------------------
-
-    logging.info("Creating heatmaps for routes by ridership in 2022")
-    for df, op in zip(bc_2022_dfs, bc_2022_file_paths):
-
-        create_barchart(
-            data=df,
-            output_path=op,
-            x_value=barchart_args_2022.x_value,
-            y_value=barchart_args_2022.y_value,
-            x_value_type=barchart_args_2022.x_value_type,
-            y_value_type=barchart_args_2022.y_value_type,
-            color_values=barchart_args_2022.color_values,
-            title=barchart_args_2022.title,
-            scheme=barchart_args_2022.scheme,
-            sort_order_color=barchart_args_2022.sort_order_color)
 
     # ------------------------------------------------------------------------
     # ---CREATE STACKED BAR CHARTS FOR ROUTES BY RIDERSHIP--------------------
