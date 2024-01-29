@@ -43,5 +43,8 @@ python main.py python --bus_data_path FILE_PATH --output_dir OUTPUT_DIRECTORY
 
 5. Run the updated command.
 
+## Contributing to this project
+
+
 
 
