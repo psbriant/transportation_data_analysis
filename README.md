@@ -42,6 +42,7 @@ python main.py python --bus_data_path FILE_PATH --output_dir OUTPUT_DIRECTORY
 ```
 
 5. Run the updated command.
+6. Check the output directory you specified and rerun the script as needed.
 
 ## Contributing to this project
 
