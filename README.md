@@ -28,7 +28,7 @@ This will install all of the packages required to run the analysis.
 ## Running an analyses
 
 1. Visit the link for Chicago bus ridership mentioned above and download the latest bus ridership dataset. Save this file in a designated directory for analysis inputs.
-2. Clone this repository. 
+2. Fork and clone this repository. 
 3. Activate the conda environment using the following command:
 
 ```
