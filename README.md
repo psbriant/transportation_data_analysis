@@ -46,6 +46,14 @@ python main.py python --bus_data_path FILE_PATH --output_dir OUTPUT_DIRECTORY
 
 ## Contributing to this project
 
+### Reporting a bug
+
+
+### Suggesting a new feature
+
+
+### Setting up an environment and running tests
+
 
 
 
