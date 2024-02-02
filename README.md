@@ -48,12 +48,24 @@ python main.py python --bus_data_path FILE_PATH --output_dir OUTPUT_DIRECTORY
 
 ### Reporting a bug
 
+To report a bug, please create an issue, tag it as a "bug" and write a short description of the problem and attach a screenshot of any error message.
 
 ### Suggesting a new feature
 
+To suggest a new feature, please create an issue, tag it as a "enhancement" and write a short description of what you would like to see added.
 
-### Setting up an environment and running tests
+### Setting up an development environment
 
+Since this project is not currently a package, you can use the transportation_data_analysis environment to make modifications and run tests.
 
+### Making modifications
 
+When making modifications, please create a new branch and submit a pull request when you are ready to merge with the main branch.
 
+### Running tests
+
+For any function you add, please add tests for any outputs and any exceptions that are raised. This project currently has a test framework that uses pytest as a test runner. Github actions is currently setup to run all tests when someone tries to merge a pull request. You can also run tests from any project directory using the following command:
+
+```
+pytest
+```
