@@ -327,29 +327,29 @@ def expected_subset_dfs_gtalt() -> list[pd.DataFrame]:
 
     """
     expected_subset_df1 = {
-        'ROUTE': [1, 'X21'],
-        'YEAR': [2010, 2011],
-        'MONTH': ['October', 'January'],
-        'DAY_TYPE': ['Weekday', 'Weekday'],
-        'RIDES': [812, 312]
+        'ROUTE': ['X21'],
+        'YEAR': [2011],
+        'MONTH': ['January'],
+        'DAY_TYPE': ['Weekday'],
+        'RIDES': [312]
     }
     expected_subset_df1 = pd.DataFrame(expected_subset_df1)
 
     expected_subset_df2 = {
-        'ROUTE': [1, 'X21'],
-        'YEAR': [2010, 2011],
-        'MONTH': ['October', 'January'],
-        'DAY_TYPE': ['Saturday', 'Saturday'],
-        'RIDES': [266, 712]
+        'ROUTE': ['X21'],
+        'YEAR': [2011],
+        'MONTH': ['January'],
+        'DAY_TYPE': ['Saturday'],
+        'RIDES': [712]
     }
     expected_subset_df2 = pd.DataFrame(expected_subset_df2)
 
     expected_subset_df3 = {
-        'ROUTE': [1, 'X21'],
-        'YEAR': [2010, 2011],
-        'MONTH': ['October', 'January'],
-        'DAY_TYPE': ['Sunday - Holiday', 'Sunday - Holiday'],
-        'RIDES': [1000, 312]
+        'ROUTE': ['X21'],
+        'YEAR': [2011],
+        'MONTH': ['January'],
+        'DAY_TYPE': ['Sunday - Holiday'],
+        'RIDES': [312]
     }
     expected_subset_df3 = pd.DataFrame(expected_subset_df3)
 
