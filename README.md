@@ -40,7 +40,7 @@ conda activate transportation_data_analysis
 3. Navigate to the src directory and in the below command, replace FILE_PATH with the absolute path to the bus ridership data and OUTPUT_DIRECTORY with the directory to where you would like all visualizations to be written to.
 
 ```
-python main.py python --bus_data_path FILE_PATH --output_dir OUTPUT_DIRECTORY
+python main.py --bus_data_path FILE_PATH --output_dir OUTPUT_DIRECTORY
 ```
 
 4. Run the updated command.
