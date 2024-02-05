@@ -6,7 +6,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from data_processing import (change_column_datatype,
+from data_processing import (aggregate_data,
+                             change_column_datatype,
                              create_rankings,
                              subset_dataframes_by_value)
 
@@ -66,7 +67,7 @@ def test_change_column_datatype(
 
 @pytest.mark.parametrize(
     "df,value_col,rank_col,group_col,num_rankings,expected",
-    [('input_df', 'AVG_RIDES', 'RANK', ['YEAR'], 0, 'expected_rankings_df')])
+    [('input_df', 'RIDES', 'RANK', ['YEAR'], 0, 'expected_rankings_df')])
 def test_create_rankings(
         df: pd.DataFrame,
         value_col: str,
@@ -119,7 +120,7 @@ def test_create_rankings(
      ('input_dfs',
       ['>', '<'],
       ['YEAR', 'YEAR'],
-      [2009, 2020],
+      [2010, 2020],
       'expected_subset_dfs_gtalt'),
      ('input_dfs', ['=='], ['YEAR'], [2011], 'expected_subset_dfs_et')])
 def test_subset_dataframes_by_value(
@@ -164,3 +165,49 @@ def test_subset_dataframes_by_value(
         test_case = test_dfs[i].reset_index(drop=True)
 
         assert test_case.equals(expected[i])
+
+
+@pytest.mark.parametrize(
+    "df,agg_cols,id_cols,expected",
+    [('input_agg_df',
+      ['DAY'],
+      ['ROUTE', 'MONTH', 'YEAR', 'DAY_TYPE'],
+      'expected_month_agg_df'),
+     ('input_agg_df',
+      ['DAY', 'MONTH'],
+      ['ROUTE', 'YEAR', 'DAY_TYPE'],
+      'expected_year_agg_df')])
+def test_aggregate_data(
+        df: pd.DataFrame,
+        agg_cols: list[str],
+        id_cols: list[str],
+        expected: pd.DataFrame,
+        request) -> pd.DataFrame:
+    """
+    Tests the following:
+    1. Aggregatiuon by month
+    2. Aggregation by year
+
+    Arguments:
+        df (DataFrame): Pandas dataframe to aggregate.
+        agg_cols (strList): The column to aggregate the data by.
+        id_cols (strList): The columns representing non-aggregated dimensions.
+        expected (DataFrame): Dataframe with the expected result of
+            aggregating the dataframe by specified dimensions.
+        request: A special fixture used to provide information regarding the
+            requesting test function. This is used to retrieve the value of
+            fixtures used in parameterized tests.
+
+    Returns:
+        NONE
+
+    """
+    df = request.getfixturevalue(df)
+    expected = request.getfixturevalue(expected)
+
+    test_df = aggregate_data(
+        df=df,
+        agg_cols=agg_cols,
+        id_cols=id_cols)
+
+    assert test_df.equals(expected)
