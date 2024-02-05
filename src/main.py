@@ -1,9 +1,6 @@
 """
 Description: Executes transportation data analysis and creates all
 visualizations.
-
-TODO: Determine how to handle the year 2022 since some months do not have
-    ridership data (the values are represented by nans).
 """
 
 import argparse
@@ -15,11 +12,11 @@ import pandas as pd
 from constants import (viz_file_names,
                        BusDataArguments,
                        BarChartArguments,
-                       BarChartArguments_2022,
                        BumpChartArguments,
                        LineChartArguments,
                        HeatmapArguments)
-from data_processing import (change_column_datatype,
+from data_processing import (aggregate_data,
+                             change_column_datatype,
                              create_rankings,
                              subset_dataframes_by_value)
 from file_io import create_absolute_file_paths
@@ -59,7 +56,6 @@ if __name__ == "__main__":
 
     bus_data_args = BusDataArguments()
     barchart_args = BarChartArguments()
-    barchart_args_2022 = BarChartArguments_2022()
     bumpchart_args = BumpChartArguments()
     rrtsa_args = LineChartArguments()
     heatmap_args = HeatmapArguments()
@@ -75,34 +71,74 @@ if __name__ == "__main__":
     # ---PREP DATA------------------------------------------------------------
     # ------------------------------------------------------------------------
 
+    # Rename columns
+    cta_bus_data.rename(
+        columns={'route': 'ROUTE',
+                 'date': 'DATE',
+                 'daytype': 'DAY_TYPE',
+                 'rides': 'RIDES'},
+        inplace=True)
+
+    # Split out the DATE column into day, month and year (e.g. 01/01/2001
+    # becomes 01, 01, 2001).
+    cta_bus_data[['MONTH', 'DAY', 'YEAR']] = cta_bus_data[
+        'DATE'].str.split('/', expand=True)
+    cta_bus_data = cta_bus_data.drop(columns='DATE')
+
+    # Clean up the month and day columns by removing the leading zeros.
+    cta_bus_data.replace(
+        bus_data_args.sort_form_to_long_form_numeric_dates,
+        inplace=True)
+
+    cta_bus_data['DAY'] = cta_bus_data['DAY'].astype(int)
+    cta_bus_data['YEAR'] = cta_bus_data['YEAR'].astype(int)
+
+    # Remove 2023 data since it is currently only for a few months
+    cta_bus_data = subset_dataframes_by_value(
+        dfs=[cta_bus_data],
+        operator=['<'],
+        target_col=['YEAR'],
+        filter_val=[2023])
+
+    # Rename the values in the DAY_TYPE column from W, A and U to Weekday,
+    # Saturday and Sunday
+    cta_bus_data['DAY_TYPE'] = cta_bus_data['DAY_TYPE'].replace(
+        bus_data_args.sort_form_to_long_form_day_types)
+
     # Change values in the month column so that they represent the actual
     # names of each month instead of the numerical representation.
     cta_bus_data['MONTH'] = cta_bus_data['MONTH'].replace(
         bus_data_args.alpha_to_numeric_months)
 
+    # Create aggregate ridership data by route, year for each service type
+    cta_bus_data = aggregate_data(
+        df=cta_bus_data,
+        agg_cols=['DAY'],
+        id_cols=['ROUTE', 'MONTH', 'YEAR', 'DAY_TYPE'])
+
     # Create dataframe for making heatmaps.
     logging.info("Subsetting data")
     hm_rmy_data = cta_bus_data.copy()
 
-    hm_rmy_data_1999_2022_wd, hm_rmy_data_1999_2022_sat, \
-        hm_rmy_data_1999_2022_sun = hm_rmy_data.copy(), hm_rmy_data.copy(), \
+    hm_rmy_data_2001_2022_wd, hm_rmy_data_2001_2022_sat, \
+        hm_rmy_data_2001_2022_sun = hm_rmy_data.copy(), hm_rmy_data.copy(), \
         hm_rmy_data.copy()
 
-    hm_rmy_data_1999_2022_wd = hm_rmy_data_1999_2022_wd.query(
+    hm_rmy_data_2001_2022_wd = hm_rmy_data_2001_2022_wd.query(
         'DAY_TYPE == "Weekday"')
-    hm_rmy_data_1999_2022_sat = hm_rmy_data_1999_2022_sat.query(
+    hm_rmy_data_2001_2022_sat = hm_rmy_data_2001_2022_sat.query(
         'DAY_TYPE == "Saturday"')
-    hm_rmy_data_1999_2022_sun = hm_rmy_data_1999_2022_sun.query(
+    hm_rmy_data_2001_2022_sun = hm_rmy_data_2001_2022_sun.query(
         'DAY_TYPE == "Sunday - Holiday"')
 
-    hm_rmy_1999_2022 = [hm_rmy_data_1999_2022_wd,
-                        hm_rmy_data_1999_2022_sat,
-                        hm_rmy_data_1999_2022_sun]
+    hm_rmy_2001_2022 = [hm_rmy_data_2001_2022_wd,
+                        hm_rmy_data_2001_2022_sat,
+                        hm_rmy_data_2001_2022_sun]
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
-    # the years 1999 - 2010.
-    hm_rmy_1999_2010 = subset_dataframes_by_value(
-        dfs=hm_rmy_1999_2022,
+    # the years 2001 - 2010.
+    hm_rmy_2001_2010 = subset_dataframes_by_value(
+        dfs=hm_rmy_2001_2022,
         operator=['<='],
         target_col=['YEAR'],
         filter_val=[2010])
@@ -110,22 +146,22 @@ if __name__ == "__main__":
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 2011 - 2022.
     hm_rmy_2011_2022 = subset_dataframes_by_value(
-        dfs=hm_rmy_1999_2022,
+        dfs=hm_rmy_2001_2022,
         operator=['>='],
         target_col=['YEAR'],
         filter_val=[2011])
 
     # Create list of heatmap dataframes
-    hm_dfs = hm_rmy_1999_2022 + hm_rmy_1999_2010 + hm_rmy_2011_2022
+    hm_dfs = hm_rmy_2001_2022 + hm_rmy_2001_2010 + hm_rmy_2011_2022
 
     # Create aggregate ridership data by route, year for each service type
-    agg_year = cta_bus_data.copy()
-    agg_year = agg_year.drop(labels=['MONTH'], axis=1)
-    agg_year = agg_year.groupby(by=['ROUTE', 'YEAR', 'DAY_TYPE']).sum()
-    agg_year = agg_year.reset_index()
+    agg_year = aggregate_data(
+        df=cta_bus_data,
+        agg_cols=['MONTH'],
+        id_cols=['ROUTE', 'YEAR', 'DAY_TYPE'])
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
-    # the years 1999 - 2022.
+    # the years 2001 - 2022.
     agg_year_wd, agg_year_sat, agg_year_sun = agg_year.copy(), \
         agg_year.copy(), agg_year.copy()
 
@@ -137,20 +173,20 @@ if __name__ == "__main__":
 
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
-    # the years 1999 - 2009.
-    agg_year_dfs_1999_2009 = subset_dataframes_by_value(
+    # the years 2001 - 2010.
+    agg_year_dfs_2001_2010 = subset_dataframes_by_value(
         dfs=agg_year_dfs,
         operator=['<'],
         target_col=['YEAR'],
-        filter_val=[2010])
+        filter_val=[2011])
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
-    # the years 2010 - 2019.
-    agg_year_dfs_2010_2019 = subset_dataframes_by_value(
+    # the years 2011 - 2019.
+    agg_year_dfs_2011_2019 = subset_dataframes_by_value(
         dfs=agg_year_dfs,
         operator=['>', '<'],
         target_col=['YEAR', 'YEAR'],
-        filter_val=[2009, 2020])
+        filter_val=[2010, 2020])
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 2020 - 2022.
@@ -177,7 +213,7 @@ if __name__ == "__main__":
     # plot readability for barcharts representing more than one year of data.
     # Please note that this must be executed after subsetting each dataframe
     # by the relevant years to avoid raising a TypeError.
-    ts_bc_dfs = agg_year_dfs + agg_year_dfs_1999_2009 + agg_year_dfs_2010_2019 + agg_year_dfs_2020_2022
+    ts_bc_dfs = agg_year_dfs + agg_year_dfs_2001_2010 + agg_year_dfs_2011_2019 + agg_year_dfs_2020_2022
     ts_bc_dfs = change_column_datatype(
         df_list=ts_bc_dfs,
         col='YEAR',
@@ -198,54 +234,32 @@ if __name__ == "__main__":
         file_list=viz_file_names['heatmap_args'],
         file_path=output_dir)
 
-    # Create absolute file paths for bar charts covering the first 10 months
-    # of 2022.
-    bc_2022_file_paths = create_absolute_file_paths(
-        file_list=viz_file_names['bar_chart_args_2022'],
-        file_path=output_dir)
-
     # Create absolute file paths for bar charts covering multiple years
     ts_bc_file_paths = create_absolute_file_paths(
         file_list=viz_file_names['bar_chart_args'],
         file_path=output_dir)
 
-    # Create absolute file paths for bump charts covering 1999 to 2022
+    # Create absolute file paths for bump charts covering 2001 to 2022
     bpc_file_paths = create_absolute_file_paths(
         file_list=viz_file_names['bump_chart_args'],
         file_path=output_dir)
 
     # Create absolute file paths for ridership time series analysis (rrtsa)
-    # line plots covering 1999 to 2022.
+    # line plots covering 2001 to 2022.
     rrtsa_file_paths = create_absolute_file_paths(
         file_list=viz_file_names['line_chart_args'],
         file_path=output_dir)
 
-    # Create subsets for weekday, saturday and sunday - holiday ridership and
-    # then subset by the year 2022.
-    bus_data_2022_wd, bus_data_2022_sat, bus_data_2022_sun = cta_bus_data.copy(), \
-        cta_bus_data.copy(), cta_bus_data.copy()
-
-    bus_data_2022_wd = bus_data_2022_wd.query('DAY_TYPE == "Weekday"')
-    bus_data_2022_sat = bus_data_2022_sat.query('DAY_TYPE == "Saturday"')
-    bus_data_2022_sun = bus_data_2022_sun.query(
-        'DAY_TYPE == "Sunday - Holiday"')
-
-    bc_2022_dfs = subset_dataframes_by_value(
-        dfs=[bus_data_2022_wd, bus_data_2022_sat, bus_data_2022_sun],
-        operator=['=='],
-        target_col=['YEAR'],
-        filter_val=[2022])
-
     # ------------------------------------------------------------------------
-    # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2022)-----------
+    # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (2001-2022)-----------
     # ------------------------------------------------------------------------
-    # - 1999-2022 (Weekday, Saturday, Sunday)
-    # - 1999-2010 (Weekday, Saturday, Sunday)
+    # - 2001-2022 (Weekday, Saturday, Sunday)
+    # - 2001-2010 (Weekday, Saturday, Sunday)
     # - 2011-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
     logging.info(
-        "Creating heatmaps for ridership by month and year (1999-2022)")
+        "Creating heatmaps for ridership by month and year (2001-2022)")
     for df, op in zip(hm_dfs, hm_file_paths):
 
         create_heatmap(
@@ -262,37 +276,11 @@ if __name__ == "__main__":
             x_axis_sort_order=heatmap_args.x_axis_sort_order)
 
     # ------------------------------------------------------------------------
-    # ---CREATE STACKED BAR CHARTS FOR ROUTES BY RIDERSHIP IN 2022------------
-    # ------------------------------------------------------------------------
-    # Bar charts are stacked by month for the first ten months of 2022 (data
-    # for November and December is unavailable).
-    #
-    # -Weekday ridership: 2022
-    # -Saturday ridership: 2022
-    # -Sunday ridership: 2022
-    # ------------------------------------------------------------------------
-
-    logging.info("Creating heatmaps for routes by ridership in 2022")
-    for df, op in zip(bc_2022_dfs, bc_2022_file_paths):
-
-        create_barchart(
-            data=df,
-            output_path=op,
-            x_value=barchart_args_2022.x_value,
-            y_value=barchart_args_2022.y_value,
-            x_value_type=barchart_args_2022.x_value_type,
-            y_value_type=barchart_args_2022.y_value_type,
-            color_values=barchart_args_2022.color_values,
-            title=barchart_args_2022.title,
-            scheme=barchart_args_2022.scheme,
-            sort_order=barchart_args_2022.sort_order)
-
-    # ------------------------------------------------------------------------
     # ---CREATE STACKED BAR CHARTS FOR ROUTES BY RIDERSHIP--------------------
     # ------------------------------------------------------------------------
-    # - 1999-2022 (Weekday, Saturday, Sunday)
-    # - 1999-2009 (Weekday, Saturday, Sunday)
-    # - 2010-2019 (Weekday, Saturday, Sunday)
+    # - 2001-2022 (Weekday, Saturday, Sunday)
+    # - 2001-2010 (Weekday, Saturday, Sunday)
+    # - 2011-2019 (Weekday, Saturday, Sunday)
     # - 2020-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
@@ -313,9 +301,9 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
     # ---CREATE BUMP CHARTS FOR ROUTES BY RIDERSHIP AND YEAR------------------
     # ------------------------------------------------------------------------
-    # - 1999-2022 (Weekday, Saturday, Sunday)
-    # - 1999-2009 (Weekday, Saturday, Sunday)
-    # - 2010-2019 (Weekday, Saturday, Sunday)
+    # - 2001-2022 (Weekday, Saturday, Sunday)
+    # - 2001-2010 (Weekday, Saturday, Sunday)
+    # - 2011-2019 (Weekday, Saturday, Sunday)
     # - 2020-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
@@ -343,7 +331,7 @@ if __name__ == "__main__":
     # ridership or for our purposes a route ridership time series analysis
     # (rrtsa).
     #
-    # - 1999-2022 (Weekday, Saturday, Sunday)
+    # - 2001-2022 (Weekday, Saturday, Sunday)
     # ------------------------------------------------------------------------
 
     logging.info("Creating line plots for routes by ridership and year")
