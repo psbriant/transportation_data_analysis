@@ -37,7 +37,7 @@ This will install all of the packages required to run the analysis.
 conda activate transportation_data_analysis
 ```
 
-3. Navigate to the src directory and in the below command, replace FILE_PATH with the absolute path to the bus ridership data and OUTPUT_DIRECTORY with the directory to where you would like all visualizations to be written to.
+3. Navigate to the `src` directory and in the below command, replace `FILE_PATH` with the absolute path to the bus ridership data and `OUTPUT_DIRECTORY` with the directory to where you would like all visualizations to be written to.
 
 ```
 python main.py --bus_data_path FILE_PATH --output_dir OUTPUT_DIRECTORY
@@ -50,11 +50,11 @@ python main.py --bus_data_path FILE_PATH --output_dir OUTPUT_DIRECTORY
 
 ### Reporting a bug
 
-To report a bug, please create an issue, tag it as a "bug" and write a short description of the problem and attach a screenshot of any error message.
+To report a bug, please create an issue, tag it as a `bug` and write a short description of the problem and attach a screenshot of any error message.
 
 ### Suggesting a new feature
 
-To suggest a new feature, please create an issue, tag it as a "enhancement" and write a short description of what you would like to see added.
+To suggest a new feature, please create an issue, tag it as a `enhancement` and write a short description of what you would like to see added.
 
 ### Setting up an development environment
 
@@ -62,11 +62,11 @@ Since this project is not currently a package, you can use the transportation_da
 
 ### Making modifications
 
-When making modifications, please create a new branch and submit a pull request when you are ready to merge with the main branch.
+When making modifications, please create a new branch and submit a pull request when you are ready to merge with the `main` branch. Please refrain from making changes on `main`.
 
 ### Running tests
 
-For any function you add, please add tests for any outputs and any exceptions that are raised. This project currently has a test framework that uses pytest as a test runner. Github actions is currently setup to run all tests when someone tries to merge a pull request. You can also run tests from any project directory using the following command:
+For any function you add, please add tests for any outputs and any exceptions that are raised. This project currently has a test framework that uses pytest as a test runner. Github actions is currently setup to run all tests when someone tries to merge a pull request. You can also run tests from any directory within the `transportation_data_analysis` repo using the following command:
 
 ```
 pytest
