@@ -1,4 +1,4 @@
-name: transportation_data_analysis_test
+name: transportation_data_analysis
 dependencies:
   - altair
   - numpy
