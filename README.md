@@ -16,9 +16,9 @@ Before doing anything please fork and clone this repository.
 
 ### Environment creation
 
-Before running an analysis, you must install the necessary packages. It is recommended that you install them into a conda environment but please to use the environment/container of your choice. Below are instructions for creating a conda environment and installing the required packages into it.
+Before running an analysis, you must install the necessary packages. It is recommended that you install them into a [conda environment](https://docs.conda.io/en/latest/) but please to use the environment/container of your choice. Below are instructions for creating a `conda` environment and installing the required packages into it.
 
-1. Download and install conda from https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html
+1. Download and install [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
 2. Create an environment using the following command:
 
 ```
@@ -31,7 +31,7 @@ This will install all of the packages required to run the analysis.
 
 1. Visit the link for Chicago bus ridership mentioned in the [description section](#Description) and download the latest bus ridership dataset. Save this file in a designated directory for analysis inputs.
 
-2. Activate the conda environment using the following command:
+2. Activate the `conda` environment using the following command:
 
 ```
 conda activate transportation_data_analysis
