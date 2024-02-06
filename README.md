@@ -27,7 +27,7 @@ conda env create -f environment.yml
 
 This will install all of the packages required to run the analysis. 
 
-## Running an analyses
+## Running an analysis
 
 1. Visit the link for Chicago bus ridership mentioned in the [description section](#Description) and download the latest bus ridership dataset. Save this file in a designated directory for analysis inputs.
 
