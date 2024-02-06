@@ -22,7 +22,7 @@ Before running an analysis, you must install the nesscary packages. It is recomm
 2. Create an environment using the following command:
 
 ```
-conda create -n transportation_data_analysis --file requirements.txt
+conda env create -f environment.yml
 ```
 
 This will install all of the packages required to run the analysis. 
