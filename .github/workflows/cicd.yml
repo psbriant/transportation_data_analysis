@@ -17,4 +17,5 @@ jobs:
           $CONDA/bin/conda env update -f environment.yml -n base
       - name: Run pytest
         run: |
-          pytest
+          conda install pytest
+          $CONDA/bin/pytest
