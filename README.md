@@ -58,7 +58,7 @@ To suggest a new feature, please create an issue, tag it as a `enhancement` and 
 
 ### Setting up an development environment
 
-Since this project is not currently a package, you can use the transportation_data_analysis environment to make modifications and run tests.
+Since this project is not currently a package, you can use the `transportation_data_analysis` environment to make modifications and run tests.
 
 ### Making modifications
 
@@ -66,7 +66,7 @@ When making modifications, please create a new branch and submit a pull request 
 
 ### Running tests
 
-For any function you add, please add tests for any outputs and any exceptions that are raised. This project currently has a test framework that uses [pytest](https://docs.pytest.org/en/8.0.x/) as a test runner. [Github actions](https://docs.github.com/en/actions) is currently setup to run all tests when someone tries to merge a pull request. You can also run tests from any directory within the `transportation_data_analysis` repo using the following command:
+For any function you add, please add tests for any outputs and any exceptions that are raised. This project currently has a test framework that uses [pytest](https://docs.pytest.org/en/8.0.x/) as a test runner. [Github actions](https://docs.github.com/en/actions) is currently setup to run all tests when someone tries to merge a pull request and push commits. You can also run tests from any directory within the `transportation_data_analysis` repo using the following command:
 
 ```
 pytest
