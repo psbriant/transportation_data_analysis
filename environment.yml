@@ -1,0 +1,7 @@
+name: transportation_data_analysis_test
+dependencies:
+  - altair
+  - numpy
+  - pandas
+  - pytest
+  - conda-forge::vl-convert-python
