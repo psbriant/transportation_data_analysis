@@ -1,0 +1,21 @@
+name: Build and test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          # $CONDA is an environment variable pointing to the root of the miniconda directory
+          $CONDA/bin/conda env update -f environment.yml -n base
+      - name: Run pytest
+        run: |
+          conda install pytest
+          $CONDA/bin/pytest
