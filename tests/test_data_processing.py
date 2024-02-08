@@ -211,3 +211,43 @@ def test_aggregate_data(
         id_cols=id_cols)
 
     assert test_df.equals(expected)
+
+
+@pytest.mark.parametrize(
+    "df_list,col,datatype",
+    [('input_updated_type_df', ['YEAR'], 'str'),
+     ('input_dfs', 'YEAR', ['str'])])
+def test_change_column_datatype_type_execeptions(
+        df_list: list[pd.DataFrame],
+        col: str,
+        datatype: str,
+        request) -> list[pd.DataFrame] | pd.DataFrame:
+    """
+    Tests the following:
+    1. Tests whether TypeErrors are raised if the value of variable
+        'col' is not a string.
+    2. Tests whether TypeErrors are raised if the value of variable
+        'datatype' is not a string.
+
+    Arguments:
+        df_list (DataFrame): List of pandas dataframes containing the columns
+            to update.
+        col (str): The column to change the datatype for. Please note that the
+            value of this argument should not be a list of different strings.
+        datatype (str): The datatype to update to. Please note that the
+            value of this argument should not be a list of different datatypes.
+        request: A special fixture used to provide information regarding the
+            requesting test function. This is used to retrieve the value of
+            fixtures used in parameterized tests.
+
+    Returns:
+        NONE
+    """
+
+    df_list = request.getfixturevalue(df_list)
+
+    with pytest.raises(TypeError):
+        change_column_datatype(
+            df_list=df_list,
+            col=col,
+            datatype=datatype)
