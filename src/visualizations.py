@@ -1,7 +1,5 @@
 """
-Project: Transportation data analysis
-Description:
-TBD
+Description: Functions for creating analytical visualizations.
 """
 
 import logging

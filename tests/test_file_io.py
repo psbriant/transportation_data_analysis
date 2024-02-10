@@ -45,14 +45,13 @@ def test_create_absolute_file_paths(
 
 
 @pytest.mark.parametrize(
-    "file_list,file_path,expected",
-    [("file1.csv", "/dir1/", "/dir1/file1.csv"),
-     (["file1.csv"], ["/dir1/"], "/dir1/file1.csv"),
-     (["file1.csv", 1], "/dir1/", "/dir1/file1.csv")])
+    "file_list,file_path",
+    [("file1.csv", "/dir1/"),
+     (["file1.csv"], ["/dir1/"]),
+     (["file1.csv", 1], "/dir1/")])
 def test_create_absolute_file_paths_type_exceptions(
         file_list: list[str],
-        file_path: str,
-        expected: list[str]) -> list[str] | str:
+        file_path: str) -> list[str] | str:
     """
     Tests the following:
     1. Tests whether TypeErrors are raised if the value of variable
@@ -67,7 +66,6 @@ def test_create_absolute_file_paths_type_exceptions(
             path.
         file_path (str): The file path to join the files specified in
             'file_list' to.
-        expected (StrList): The expected test case.
 
     Returns:
         NONE
@@ -81,15 +79,14 @@ def test_create_absolute_file_paths_type_exceptions(
 
 
 @pytest.mark.parametrize(
-    "file_list,file_path,expected",
-    [([""], "/dir1/", "/dir1/file1.csv"),
-     (["file1"], "/dir1/", "/dir1/file1.csv"),
-     ([".csv"], "/dir1/", "/dir1/file1.csv"),
-     (["file1.csv"], "dir1/", "/dir1/file1.csv")])
+    "file_list,file_path",
+    [([""], "/dir1/"),
+     (["file1"], "/dir1/"),
+     ([".csv"], "/dir1/"),
+     (["file1.csv"], "dir1/")])
 def test_create_absolute_file_paths_value_exceptions(
         file_list: list[str],
-        file_path: str,
-        expected: list[str]) -> list[str] | str:
+        file_path: str) -> list[str] | str:
     """
     Tests the following:
     1. Tests whether ValueErrors are raised if elements of 'file_list' do not
@@ -104,7 +101,6 @@ def test_create_absolute_file_paths_value_exceptions(
             path.
         file_path (str): The file path to join the files specified in
             'file_list' to.
-        expected (StrList): The expected test case.
 
     Returns:
         NONE
