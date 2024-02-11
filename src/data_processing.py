@@ -76,8 +76,9 @@ def create_rankings(
     Arguments:
         df (DataFrame): Dataset to develop rankings for.
         value_col (str): The name of the column rankings will be based off of.
-        rank_col (str): The name of the column containing the numerical
-            rankings.
+        rank_col (str): The name of a new column that will contain the
+            numerical rankings. This column should not already exist in the
+            input Dataframe.
         group_col (strList): The columns used for ensuring rankings are made
             across columns (e.g. specifying the year column in a dataset
             containing bus routes, ridership numbers and years will rank each
