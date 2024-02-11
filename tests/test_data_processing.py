@@ -251,3 +251,44 @@ def test_change_column_datatype_type_execeptions(
             df_list=df_list,
             col=col,
             datatype=datatype)
+
+
+@pytest.mark.parametrize(
+    "dfs,operator,target_col,filter_val",
+    [('input_dfs', ['>', '<'], ['YEAR'], [2010, 2020]),
+     ('input_dfs', ['=='], ['YEAR', 'YEAR'], [2010, 2020])])
+def test_subset_dataframes_by_value_execeptions(
+        dfs: list[pd.DataFrame],
+        operator: list[str],
+        target_col: list[str],
+        filter_val: list,
+        request) -> list[pd.DataFrame]:
+    """
+    Tests the following:
+    1. Tests whether ValueErrors are raised if the length of operator,
+        target_col and filter_val are not the same.
+
+    Arguments:
+        dfs (DataFrameList): List of dataframes to subset.
+        operator (strlist): The operations to preform to execute the subset
+            (e.g. '>=', '==', '<=' or '!=').
+        target_col (strlist): The name of the columns to subset the dataframe
+            by.
+        filter_val (list): List of specific values to subset the dataframe
+            by.
+        request: A special fixture used to provide information regarding the
+            requesting test function. This is used to retrieve the value of
+            fixtures used in parameterized tests.
+
+    Returns:
+        NONE
+    """
+
+    dfs = request.getfixturevalue(dfs)
+
+    with pytest.raises(ValueError):
+        subset_dataframes_by_value(
+            dfs=dfs,
+            operator=operator,
+            target_col=target_col,
+            filter_val=filter_val)
