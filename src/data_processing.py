@@ -91,7 +91,10 @@ def create_rankings(
         Dataframe with numerical rankings for each row.
 
     Raises:
-        NONE
+        ValueError if the value of argument 'num_rankings' is greater than the
+            number of unique values in 'value_col'.
+        ValueError if there is already a column named 'rank_col' in 'df'.
+        ValueError if 'rank_col' has the same value as 'value_col'.
     """
 
     rank_df = df.copy()
