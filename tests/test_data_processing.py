@@ -15,10 +15,7 @@ from data_processing import (aggregate_data,
 @pytest.mark.parametrize(
     "df_list,col,datatype,expected",
     [('input_updated_type_df', 'YEAR', 'str', 'expected_updated_type_df'),
-     ('input_dfs',
-      'YEAR',
-      'str',
-      'expected_updated_type_dfs')])
+     ('input_dfs', 'YEAR', 'str', 'expected_updated_type_dfs')])
 def test_change_column_datatype(
     df_list: list[pd.DataFrame],
     col: str,
