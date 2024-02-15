@@ -257,7 +257,7 @@ def test_change_column_datatype_by_type(
     "dfs,operator,target_col,filter_val",
     [('input_dfs', ['>', '<'], ['YEAR'], [2010, 2020]),
      ('input_dfs', ['=='], ['YEAR', 'YEAR'], [2010, 2020])])
-def test_subset_dataframes_by_value_execeptions(
+def test_subset_dataframes_by_value(
         dfs: list[pd.DataFrame],
         operator: list[str],
         target_col: list[str],
