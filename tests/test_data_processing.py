@@ -214,7 +214,7 @@ def test_aggregate_data(
     "df_list,col,datatype",
     [('input_updated_type_df', ['YEAR'], 'str'),
      ('input_dfs', 'YEAR', ['str'])])
-def test_change_column_datatype_by_type(
+def test_change_column_datatype_type_exceptions(
         df_list: list[pd.DataFrame],
         col: str,
         datatype: str,
