@@ -306,7 +306,7 @@ def test_create_rankings_value_exceptions(
     "dfs,operator,target_col,filter_val",
     [('input_dfs', ['>', '<'], ['YEAR'], [2010, 2020]),
      ('input_dfs', ['=='], ['YEAR', 'YEAR'], [2010, 2020])])
-def test_subset_dataframes_by_value(
+def test_subset_dataframes_by_value_value_exceptions(
         dfs: list[pd.DataFrame],
         operator: list[str],
         target_col: list[str],
