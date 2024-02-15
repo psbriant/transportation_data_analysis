@@ -15,10 +15,7 @@ from data_processing import (aggregate_data,
 @pytest.mark.parametrize(
     "df_list,col,datatype,expected",
     [('input_updated_type_df', 'YEAR', 'str', 'expected_updated_type_df'),
-     ('input_dfs',
-      'YEAR',
-      'str',
-      'expected_updated_type_dfs')])
+     ('input_dfs', 'YEAR', 'str', 'expected_updated_type_dfs')])
 def test_change_column_datatype(
     df_list: list[pd.DataFrame],
     col: str,
@@ -217,7 +214,7 @@ def test_aggregate_data(
     "df_list,col,datatype",
     [('input_updated_type_df', ['YEAR'], 'str'),
      ('input_dfs', 'YEAR', ['str'])])
-def test_change_column_datatype_type_execeptions(
+def test_change_column_datatype_type_exceptions(
         df_list: list[pd.DataFrame],
         col: str,
         datatype: str,
@@ -254,10 +251,62 @@ def test_change_column_datatype_type_execeptions(
 
 
 @pytest.mark.parametrize(
+    "df,value_col,rank_col,group_col,num_rankings",
+    [('input_df', 'AVG_RIDES', 'RANK', ['YEAR'], 5),
+     ('expected_rankings_df', 'AVG_RIDES', 'RANK', ['YEAR'], 0),
+     ('input_df', 'AVG_RIDES', 'AVG_RIDES', ['YEAR'], 0)])
+def test_create_rankings_value_exceptions(
+        df: pd.DataFrame,
+        value_col: str,
+        rank_col: str,
+        group_col: list[str],
+        num_rankings: int,
+        request) -> pd.DataFrame:
+    """
+    Tests the following:
+    1. Tests whether ValueErrors are raised if the value of argument
+        'num_rankings' is greater than the number of unique values in
+        'value_col'.
+    2. Tests whether ValueErrors are raised if there is already a column named
+        'rank_col' in 'df'.
+    3. Tests whether ValueErrors are raised if 'rank_col' has the same value
+        as 'value_col'.
+
+    Arguments:
+        df (DataFrame): Dataset to develop rankings for.
+        value_col (str): The name of the column rankings will be based off of.
+        rank_col (str): The name of the column containing the numerical
+            rankings.
+        group_col (strList): The columns used for ensuring rankings are made
+            across columns (e.g. specifying the year column in a dataset
+            containing bus routes, ridership numbers and years will rank each
+            bus route by ridership for each year).
+        num_rankings (int): The number of rows to return rankings for. If set
+            to zero, no limit will be applied and all rows will be ranked.
+        request: A special fixture used to provide information regarding the
+            requesting test function. This is used to retrieve the value of
+            fixtures used in parameterized tests.
+
+    Returns:
+        NONE
+    """
+
+    df = request.getfixturevalue(df)
+
+    with pytest.raises(ValueError):
+        create_rankings(
+            df=df,
+            value_col=value_col,
+            rank_col=rank_col,
+            group_col=group_col,
+            num_rankings=num_rankings)
+
+
+@pytest.mark.parametrize(
     "dfs,operator,target_col,filter_val",
     [('input_dfs', ['>', '<'], ['YEAR'], [2010, 2020]),
      ('input_dfs', ['=='], ['YEAR', 'YEAR'], [2010, 2020])])
-def test_subset_dataframes_by_value_execeptions(
+def test_subset_dataframes_by_value_value_exceptions(
         dfs: list[pd.DataFrame],
         operator: list[str],
         target_col: list[str],
