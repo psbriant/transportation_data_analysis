@@ -64,7 +64,14 @@ def test_change_column_datatype(
 
 @pytest.mark.parametrize(
     "df,value_col,rank_col,group_col,num_rankings,expected",
-    [('input_df', 'AVG_RIDES', 'RANK', ['YEAR'], 0, 'expected_rankings_df')])
+    [('input_df', 'AVG_RIDES', 'RANK', ['YEAR'], 0, 'expected_rankings_df'),
+     ('input_df', 'AVG_RIDES', 'RANK', ['YEAR'], 2, 'expected_rankings_df'),
+     ('input_df',
+      'AVG_RIDES',
+      'RANK',
+      ['YEAR'],
+      1,
+      'expected_rankings_subset_df')])
 def test_create_rankings(
         df: pd.DataFrame,
         value_col: str,
