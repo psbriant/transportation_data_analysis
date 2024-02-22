@@ -115,7 +115,7 @@ def test_create_rankings(
         group_col=group_col,
         num_rankings=num_rankings)
 
-    assert test_rankings.equals(expected)
+    pd.testing.assert_frame_equal(test_rankings, expected)
 
 
 @pytest.mark.parametrize(
