@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
+
 @pytest.fixture
 def input_df() -> pd.DataFrame:
     """
