@@ -64,7 +64,14 @@ def test_change_column_datatype(
 
 @pytest.mark.parametrize(
     "df,value_col,rank_col,group_col,num_rankings,expected",
-    [('input_df', 'AVG_RIDES', 'RANK', ['YEAR'], 0, 'expected_rankings_df')])
+    [('input_df', 'AVG_RIDES', 'RANK', ['YEAR'], 0, 'expected_rankings_df'),
+     ('input_df', 'AVG_RIDES', 'RANK', ['YEAR'], 2, 'expected_rankings_df'),
+     ('input_df',
+      'AVG_RIDES',
+      'RANK',
+      ['YEAR'],
+      1,
+      'expected_rankings_subset_df')])
 def test_create_rankings(
         df: pd.DataFrame,
         value_col: str,
@@ -75,7 +82,11 @@ def test_create_rankings(
         request) -> pd.DataFrame:
     """
     Tests the following:
-    1. Tests whether rankings were correctly executed.
+    1. Tests whether rankings for all target values were correctly executed.
+    2. Tests whether rankings for all target values were correctly executed if
+        num_rankings is equal to the number of values that can be ranked.
+    3. Tests whether rankings for a subset of target values were correctly
+        executed.
 
     Arguments:
         df (DataFrame): Dataset to develop rankings for.
@@ -108,7 +119,7 @@ def test_create_rankings(
         group_col=group_col,
         num_rankings=num_rankings)
 
-    assert test_rankings.equals(expected)
+    pd.testing.assert_frame_equal(test_rankings, expected)
 
 
 @pytest.mark.parametrize(

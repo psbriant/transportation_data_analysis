@@ -97,10 +97,6 @@ def create_rankings(
         ValueError if 'rank_col' has the same value as 'value_col'.
     """
 
-    if num_rankings > len(df[value_col].unique()):
-        raise ValueError(
-            "The value of num_rankings should not be greater than the number "
-            "of unique values in the value_col")
     if rank_col in df.columns:
         raise ValueError("rank_col should be a new column")
     if value_col == rank_col:
@@ -114,6 +110,10 @@ def create_rankings(
         value_col].rank(ascending=False)
 
     # Subset dataframe by the value of limit. Do not specify if set to zero.
+    if num_rankings > len(rank_df[rank_col].unique()):
+        raise ValueError(
+            "The value of num_rankings should not be greater than the number "
+            "of unique values in the value_col")
     if num_rankings > 0:
         rank_df = rank_df[rank_df[rank_col] <= num_rankings]
 

@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
+
 @pytest.fixture
 def input_df() -> pd.DataFrame:
     """
@@ -27,7 +28,7 @@ def input_df() -> pd.DataFrame:
 
     """
     input_df = {
-        'ROUTE': [1, 97, 100, 'X21'],
+        'ROUTE': ['1', '97', '100', 'X21'],
         'YEAR': [2022, 2001, 2022, 2001],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Sunday - Holiday', 'Weekday', 'Saturday'],
@@ -153,7 +154,7 @@ def expected_rankings_df() -> pd.DataFrame:
 
     """
     expected_rankings_df = {
-        'ROUTE': [1, 97, 100, 'X21'],
+        'ROUTE': ['1', '97', '100', 'X21'],
         'YEAR': [2022, 2001, 2022, 2001],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Sunday - Holiday', 'Weekday', 'Saturday'],
@@ -163,6 +164,43 @@ def expected_rankings_df() -> pd.DataFrame:
 
     expected_rankings_df = pd.DataFrame(expected_rankings_df)
     return expected_rankings_df
+
+
+@pytest.fixture
+def expected_rankings_subset_df() -> pd.DataFrame:
+    """
+    Creates a small dataframe of data that can be used for testing whether
+    datasets are ranked correctly by providing an expected test case for a
+    general ranking by year limited by a specific number of values that get
+    ranked.
+
+    Arguments:
+        NONE
+
+    Returns:
+        Dataframe of generic test ridership data that includes the following:
+            - ROUTE: A subset of bus route numbers.
+            - YEAR: A subset of the years data was reported for.
+            - MONTH: A subset of the months data was reported for.
+            - DAY_TYPE: Each of the types of days that data was reported for
+                (Weekdays, Saturdays and Sunday Holidays).
+            - AVG_RIDES: A subset of ridership data.
+            - RANK: A subset of ridership rankings for specified parameters.
+                In this case, they are by year meaning every year will have
+                its own rankings.
+
+    """
+    expected_rankings_subset_df = {
+        'ROUTE': ['1', '97'],
+        'YEAR': [2022, 2001],
+        'MONTH': ['October', 'January'],
+        'DAY_TYPE': ['Weekday', 'Sunday - Holiday'],
+        'AVG_RIDES': [812, 1076],
+        'RANK': [1.0, 1.0]
+    }
+
+    expected_rankings_subset_df = pd.DataFrame(expected_rankings_subset_df)
+    return expected_rankings_subset_df
 
 
 @pytest.fixture
