@@ -82,7 +82,11 @@ def test_create_rankings(
         request) -> pd.DataFrame:
     """
     Tests the following:
-    1. Tests whether rankings were correctly executed.
+    1. Tests whether rankings for all target values were correctly executed.
+    2. Tests whether rankings for all target values were correctly executed if
+        num_rankings is equal to the number of values that can be ranked.
+    3. Tests whether rankings for a subset of target values were correctly
+        executed.
 
     Arguments:
         df (DataFrame): Dataset to develop rankings for.
