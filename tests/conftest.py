@@ -28,7 +28,7 @@ def input_df() -> pd.DataFrame:
 
     """
     input_df = {
-        'ROUTE': [1, 97, 100, 'X21'],
+        'ROUTE': ['1', '97', '100', 'X21'],
         'YEAR': [2022, 2001, 2022, 2001],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Sunday - Holiday', 'Weekday', 'Saturday'],
@@ -154,7 +154,7 @@ def expected_rankings_df() -> pd.DataFrame:
 
     """
     expected_rankings_df = {
-        'ROUTE': [1, 97, 100, 'X21'],
+        'ROUTE': ['1', '97', '100', 'X21'],
         'YEAR': [2022, 2001, 2022, 2001],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Sunday - Holiday', 'Weekday', 'Saturday'],
