@@ -52,14 +52,14 @@ def test_change_column_datatype(
         datatype=datatype)
 
     if len(df_list) == 1:
-        assert test_type_updates.equals(expected)
+        pd.testing.assert_frame_equal(test_type_updates, expected)
 
     else:
         for i in range(len(test_type_updates)):
             test_case = test_type_updates[i
             ].reset_index(drop=True)
 
-            assert test_case.equals(expected[i])
+            pd.testing.assert_frame_equal(test_case, expected[i])
 
 
 @pytest.mark.parametrize(
@@ -172,7 +172,7 @@ def test_subset_dataframes_by_value(
     for i in range(len(test_dfs)):
         test_case = test_dfs[i].reset_index(drop=True)
 
-        assert test_case.equals(expected[i])
+        pd.testing.assert_frame_equal(test_case, expected[i])
 
 
 @pytest.mark.parametrize(
@@ -218,7 +218,7 @@ def test_aggregate_data(
         agg_cols=agg_cols,
         id_cols=id_cols)
 
-    assert test_df.equals(expected)
+    pd.testing.assert_frame_equal(test_df, expected)
 
 
 @pytest.mark.parametrize(

@@ -59,7 +59,7 @@ def input_updated_type_df() -> pd.DataFrame:
 
     """
     input_df = {
-        'ROUTE': [1, 97, 100, 'X21'],
+        'ROUTE': ['1', '97', '100', 'X21'],
         'YEAR': [2022, 2001, 2022, 2001],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Sunday - Holiday', 'Weekday', 'Saturday'],
@@ -96,7 +96,7 @@ def input_dfs() -> list[pd.DataFrame]:
 
     """
     input_df1 = {
-        'ROUTE': [1, 97, 100, 'X21'],
+        'ROUTE': ['1', '97', '100', 'X21'],
         'YEAR': [2010, 2001, 2022, 2011],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Weekday', 'Weekday', 'Weekday'],
@@ -105,7 +105,7 @@ def input_dfs() -> list[pd.DataFrame]:
     input_df1 = pd.DataFrame(input_df1)
 
     input_df2 = {
-        'ROUTE': [1, 97, 100, 'X21'],
+        'ROUTE': ['1', '97', '100', 'X21'],
         'YEAR': [2010, 2001, 2022, 2011],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Saturday', 'Saturday', 'Saturday', 'Saturday'],
@@ -114,7 +114,7 @@ def input_dfs() -> list[pd.DataFrame]:
     input_df2 = pd.DataFrame(input_df2)
 
     input_df3 = {
-        'ROUTE': [1, 97, 100, 'X21'],
+        'ROUTE': ['1', '97', '100', 'X21'],
         'YEAR': [2010, 2001, 2022, 2011],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Sunday - Holiday',
@@ -224,7 +224,7 @@ def expected_updated_type_df() -> pd.DataFrame:
 
     """
     expected_updated_type_df = {
-        'ROUTE': [1, 97, 100, 'X21'],
+        'ROUTE': ['1', '97', '100', 'X21'],
         'YEAR': ['2022', '2001', '2022', '2001'],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Sunday - Holiday', 'Weekday', 'Saturday'],
@@ -256,7 +256,7 @@ def expected_updated_type_dfs() -> list[pd.DataFrame]:
 
     """
     expected_df1 = {
-        'ROUTE': [1, 97, 100, 'X21'],
+        'ROUTE': ['1', '97', '100', 'X21'],
         'YEAR': ['2010', '2001', '2022', '2011'],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Weekday', 'Weekday', 'Weekday', 'Weekday'],
@@ -265,7 +265,7 @@ def expected_updated_type_dfs() -> list[pd.DataFrame]:
     expected_df1 = pd.DataFrame(expected_df1)
 
     expected_df2 = {
-        'ROUTE': [1, 97, 100, 'X21'],
+        'ROUTE': ['1', '97', '100', 'X21'],
         'YEAR': ['2010', '2001', '2022', '2011'],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Saturday', 'Saturday', 'Saturday', 'Saturday'],
@@ -274,7 +274,7 @@ def expected_updated_type_dfs() -> list[pd.DataFrame]:
     expected_df2 = pd.DataFrame(expected_df2)
 
     expected_df3 = {
-        'ROUTE': [1, 97, 100, 'X21'],
+        'ROUTE': ['1', '97', '100', 'X21'],
         'YEAR': ['2010', '2001', '2022', '2011'],
         'MONTH': ['October', 'January', 'October', 'January'],
         'DAY_TYPE': ['Sunday - Holiday',
@@ -311,7 +311,7 @@ def expected_subset_dfs_gtet() -> list[pd.DataFrame]:
 
     """
     expected_subset_df1 = {
-        'ROUTE': [100, 'X21'],
+        'ROUTE': ['100', 'X21'],
         'YEAR': [2022, 2011],
         'MONTH': ['October', 'January'],
         'DAY_TYPE': ['Weekday', 'Weekday'],
@@ -320,7 +320,7 @@ def expected_subset_dfs_gtet() -> list[pd.DataFrame]:
     expected_subset_df1 = pd.DataFrame(expected_subset_df1)
 
     expected_subset_df2 = {
-        'ROUTE': [100, 'X21'],
+        'ROUTE': ['100', 'X21'],
         'YEAR': [2022, 2011],
         'MONTH': ['October', 'January'],
         'DAY_TYPE': ['Saturday', 'Saturday'],
@@ -329,7 +329,7 @@ def expected_subset_dfs_gtet() -> list[pd.DataFrame]:
     expected_subset_df2 = pd.DataFrame(expected_subset_df2)
 
     expected_subset_df3 = {
-        'ROUTE': [100, 'X21'],
+        'ROUTE': ['100', 'X21'],
         'YEAR': [2022, 2011],
         'MONTH': ['October', 'January'],
         'DAY_TYPE': ['Sunday - Holiday', 'Sunday - Holiday'],
