@@ -29,7 +29,7 @@ This will install all of the packages required to run the analysis.
 
 ## Running an analysis
 
-1. Visit the link for Chicago bus ridership mentioned in the [description section](#Description) and download the latest bus ridership dataset. Save this file in a designated directory for analysis inputs.
+1. Download the latest bus ridership [dataset](https://rtams.org/sites/default/files/documents/2024-02/CTA_Average_Bus_Ridership_1999_2023.csv). Save this file in a directory designated for analysis inputs.
 
 2. Activate the `conda` environment using the following command:
 
