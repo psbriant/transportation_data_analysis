@@ -29,7 +29,7 @@ This will install all of the packages required to run the analysis.
 
 ## Running an analysis
 
-1. Visit the link for Chicago bus ridership mentioned in the [description section](#Description) and download the latest bus ridership dataset. Save this file in a designated directory for analysis inputs.
+1. Download the latest bus ridership [dataset](https://rtams.org/sites/default/files/documents/2024-02/CTA_Average_Bus_Ridership_1999_2023.csv). Save this file in a directory designated for analysis inputs.
 
 2. Activate the `conda` environment using the following command:
 
@@ -66,7 +66,7 @@ When making modifications, please create a new branch and submit a pull request 
 
 ### Running tests
 
-For any function you add, please add tests for any outputs and any exceptions that are raised. This project currently has a test framework that uses [pytest](https://docs.pytest.org/en/8.0.x/) as a test runner. [Github actions](https://docs.github.com/en/actions) is currently setup to run all tests when someone tries to merge a pull request and push commits. You can also run tests from any directory within the `transportation_data_analysis` repo using the following command:
+For any function you add, please add unit tests for any outputs and any exceptions that are raised. This project currently has a test framework that uses [pytest](https://docs.pytest.org/en/8.0.x/) as a test runner. [Github actions](https://docs.github.com/en/actions) is currently setup to run all tests when someone tries to merge a pull request and push commits. You can also run tests from the `tests` directory using the following command:
 
 ```
 pytest

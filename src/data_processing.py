@@ -76,8 +76,9 @@ def create_rankings(
     Arguments:
         df (DataFrame): Dataset to develop rankings for.
         value_col (str): The name of the column rankings will be based off of.
-        rank_col (str): The name of the column containing the numerical
-            rankings.
+        rank_col (str): The name of a new column that will contain the
+            numerical rankings. This column should not already exist in the
+            input Dataframe.
         group_col (strList): The columns used for ensuring rankings are made
             across columns (e.g. specifying the year column in a dataset
             containing bus routes, ridership numbers and years will rank each
@@ -90,8 +91,17 @@ def create_rankings(
         Dataframe with numerical rankings for each row.
 
     Raises:
-        NONE
+        ValueError if the value of argument 'num_rankings' is greater than the
+            number of unique values in 'value_col'.
+        ValueError if there is already a column named 'rank_col' in 'df'.
+        ValueError if 'rank_col' has the same value as 'value_col'.
     """
+
+    if rank_col in df.columns:
+        raise ValueError("rank_col should be a new column")
+    if value_col == rank_col:
+        raise ValueError(
+            "value_col and rank_col should not be the same value")
 
     rank_df = df.copy()
 
@@ -100,6 +110,10 @@ def create_rankings(
         value_col].rank(ascending=False)
 
     # Subset dataframe by the value of limit. Do not specify if set to zero.
+    if num_rankings > len(rank_df[rank_col].unique()):
+        raise ValueError(
+            "The value of num_rankings should not be greater than the number "
+            "of unique values in the value_col")
     if num_rankings > 0:
         rank_df = rank_df[rank_df[rank_col] <= num_rankings]
 
