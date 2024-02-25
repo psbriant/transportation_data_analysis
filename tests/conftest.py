@@ -506,10 +506,10 @@ def input_agg_df() -> pd.DataFrame:
 
 
 @pytest.fixture
-def expected_month_agg_df() -> pd.DataFrame:
+def expected_month_agg_sum_df() -> pd.DataFrame:
     """
-    Creates a small dataframe of data that can be used for testing aggregation
-    functions by providing an expected test case.
+    Creates a small dataframe of data that can be used for testing sum
+    aggregations by providing an expected test case.
 
     Arguments:
         NONE
@@ -546,10 +546,10 @@ def expected_month_agg_df() -> pd.DataFrame:
 
 
 @pytest.fixture
-def expected_year_agg_df() -> pd.DataFrame:
+def expected_year_agg_sum_df() -> pd.DataFrame:
     """
-    Creates a small dataframe of data that can be used for testing aggregation
-    functions by providing an expected test case.
+    Creates a small dataframe of data that can be used for testing sum
+    aggregations by providing an expected test case.
 
     Arguments:
         NONE
