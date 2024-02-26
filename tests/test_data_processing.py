@@ -176,30 +176,47 @@ def test_subset_dataframes_by_value(
 
 
 @pytest.mark.parametrize(
-    "df,agg_cols,id_cols,expected",
+    "df,agg_cols,id_cols,agg_type,expected",
     [('input_agg_df',
       ['DAY'],
       ['ROUTE', 'MONTH', 'YEAR', 'DAY_TYPE'],
-      'expected_month_agg_df'),
+      'sum',
+      'expected_month_agg_sum_df'),
      ('input_agg_df',
       ['DAY', 'MONTH'],
       ['ROUTE', 'YEAR', 'DAY_TYPE'],
-      'expected_year_agg_df')])
+      'sum',
+      'expected_year_agg_sum_df'),
+     ('input_agg_df',
+      ['DAY'],
+      ['ROUTE', 'MONTH', 'YEAR', 'DAY_TYPE'],
+      'mean',
+      'expected_month_agg_mean_df'),
+     ('input_agg_df',
+      ['DAY', 'MONTH'],
+      ['ROUTE', 'YEAR', 'DAY_TYPE'],
+      'mean',
+      'expected_year_agg_mean_df')])
 def test_aggregate_data(
         df: pd.DataFrame,
         agg_cols: list[str],
         id_cols: list[str],
+        agg_type: str,
         expected: pd.DataFrame,
         request) -> pd.DataFrame:
     """
     Tests the following:
-    1. Aggregatiuon by month
-    2. Aggregation by year
+    1. Sum aggregation by month
+    2. Sum aggregation by year
+    3. Mean aggregation by month
+    4. Mean aggregation by year
 
     Arguments:
         df (DataFrame): Pandas dataframe to aggregate.
         agg_cols (strList): The column to aggregate the data by.
         id_cols (strList): The columns representing non-aggregated dimensions.
+        agg_type (str): The type of aggregation to perform on the data. Must
+            be one of either 'sum' or 'mean'.
         expected (DataFrame): Dataframe with the expected result of
             aggregating the dataframe by specified dimensions.
         request: A special fixture used to provide information regarding the
