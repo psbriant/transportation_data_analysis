@@ -6,8 +6,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from data_processing import (aggregate_data,
-                             change_column_datatype,
+from data_processing import (change_column_datatype,
                              create_rankings,
                              subset_dataframes_by_value)
 
@@ -176,52 +175,6 @@ def test_subset_dataframes_by_value(
 
 
 @pytest.mark.parametrize(
-    "df,agg_cols,id_cols,expected",
-    [('input_agg_df',
-      ['DAY'],
-      ['ROUTE', 'MONTH', 'YEAR', 'DAY_TYPE'],
-      'expected_month_agg_df'),
-     ('input_agg_df',
-      ['DAY', 'MONTH'],
-      ['ROUTE', 'YEAR', 'DAY_TYPE'],
-      'expected_year_agg_df')])
-def test_aggregate_data(
-        df: pd.DataFrame,
-        agg_cols: list[str],
-        id_cols: list[str],
-        expected: pd.DataFrame,
-        request) -> pd.DataFrame:
-    """
-    Tests the following:
-    1. Aggregatiuon by month
-    2. Aggregation by year
-
-    Arguments:
-        df (DataFrame): Pandas dataframe to aggregate.
-        agg_cols (strList): The column to aggregate the data by.
-        id_cols (strList): The columns representing non-aggregated dimensions.
-        expected (DataFrame): Dataframe with the expected result of
-            aggregating the dataframe by specified dimensions.
-        request: A special fixture used to provide information regarding the
-            requesting test function. This is used to retrieve the value of
-            fixtures used in parameterized tests.
-
-    Returns:
-        NONE
-
-    """
-    df = request.getfixturevalue(df)
-    expected = request.getfixturevalue(expected)
-
-    test_df = aggregate_data(
-        df=df,
-        agg_cols=agg_cols,
-        id_cols=id_cols)
-
-    pd.testing.assert_frame_equal(test_df, expected)
-
-
-@pytest.mark.parametrize(
     "df_list,col,datatype",
     [('input_updated_type_df', ['YEAR'], 'str'),
      ('input_dfs', 'YEAR', ['str'])])
@@ -352,3 +305,4 @@ def test_subset_dataframes_by_value_value_exceptions(
             operator=operator,
             target_col=target_col,
             filter_val=filter_val)
+

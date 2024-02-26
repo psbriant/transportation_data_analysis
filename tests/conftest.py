@@ -506,10 +506,10 @@ def input_agg_df() -> pd.DataFrame:
 
 
 @pytest.fixture
-def expected_month_agg_df() -> pd.DataFrame:
+def expected_month_agg_sum_df() -> pd.DataFrame:
     """
-    Creates a small dataframe of data that can be used for testing aggregation
-    functions by providing an expected test case.
+    Creates a small dataframe of data that can be used for testing sum
+    aggregations by providing an expected test case.
 
     Arguments:
         NONE
@@ -546,10 +546,10 @@ def expected_month_agg_df() -> pd.DataFrame:
 
 
 @pytest.fixture
-def expected_year_agg_df() -> pd.DataFrame:
+def expected_year_agg_sum_df() -> pd.DataFrame:
     """
-    Creates a small dataframe of data that can be used for testing aggregation
-    functions by providing an expected test case.
+    Creates a small dataframe of data that can be used for testing sum
+    aggregations by providing an expected test case.
 
     Arguments:
         NONE
@@ -577,6 +577,84 @@ def expected_year_agg_df() -> pd.DataFrame:
                      'Sunday - Holiday',
                      'Weekday'],
         'AVG_RIDES': [2487, 107, 50, 2639]
+    }
+    expected_year_agg_df = pd.DataFrame(expected_year_agg_df)
+
+    return expected_year_agg_df
+
+
+@pytest.fixture
+def expected_month_agg_mean_df() -> pd.DataFrame:
+    """
+    Creates a small dataframe of data that can be used for testing mean
+    aggregations by providing an expected test case.
+
+    Arguments:
+        NONE
+
+    Returns:
+        Dataframe of generic test ridership data that includes the following:
+            - ROUTE: A subset of bus route numbers.
+            - YEAR: A subset of the years data was reported for.
+            - MONTH: A subset of the months data was reported for.
+            - DAY: A subset of the days data was reported for.
+            - DAY_TYPE: Each of the types of days that data was reported for
+                (Weekdays, Saturdays and Sunday Holidays).
+            - AVG_RIDES: A subset of ridership data.
+
+    NOTE: The ridership numbers used for this test dataset were created
+        specifically for testing purposes instead of being taken from the
+        actual CTA dataset.
+
+    """
+    expected_month_agg_df = {
+        'ROUTE': ['3', '3', '3', '3', '3'],
+        'MONTH': ['December', 'February', 'January', 'January', 'January'],
+        'YEAR': [2010, 2011, 2011, 2011, 2011],
+        'DAY_TYPE': ['Weekday',
+                     'Weekday',
+                     'Saturday',
+                     'Sunday - Holiday',
+                     'Weekday'],
+        'AVG_RIDES': [829, 728, 107, 50, 591.5]
+    }
+    expected_month_agg_df = pd.DataFrame(expected_month_agg_df)
+
+    return expected_month_agg_df
+
+
+@pytest.fixture
+def expected_year_agg_mean_df() -> pd.DataFrame:
+    """
+    Creates a small dataframe of data that can be used for testing mean
+    aggregations by providing an expected test case.
+
+    Arguments:
+        NONE
+
+    Returns:
+        Dataframe of generic test ridership data that includes the following:
+            - ROUTE: A subset of bus route numbers.
+            - YEAR: A subset of the years data was reported for.
+            - MONTH: A subset of the months data was reported for.
+            - DAY: A subset of the days data was reported for.
+            - DAY_TYPE: Each of the types of days that data was reported for
+                (Weekdays, Saturdays and Sunday Holidays).
+            - AVG_RIDES: A subset of ridership data.
+
+    NOTE: The ridership numbers used for this test dataset were created
+        specifically for testing purposes instead of being taken from the
+        actual CTA dataset.
+
+    """
+    expected_year_agg_df = {
+        'ROUTE': ['3', '3', '3', '3'],
+        'YEAR': [2010, 2011, 2011, 2011],
+        'DAY_TYPE': ['Weekday',
+                     'Saturday',
+                     'Sunday - Holiday',
+                     'Weekday'],
+        'AVG_RIDES': [829, 107, 50, 659.75]
     }
     expected_year_agg_df = pd.DataFrame(expected_year_agg_df)
 
