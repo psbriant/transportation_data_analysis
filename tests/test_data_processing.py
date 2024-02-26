@@ -225,15 +225,16 @@ def test_aggregate_data(
 
     Returns:
         NONE
-
     """
+
     df = request.getfixturevalue(df)
     expected = request.getfixturevalue(expected)
 
     test_df = aggregate_data(
         df=df,
         agg_cols=agg_cols,
-        id_cols=id_cols)
+        id_cols=id_cols,
+        agg_type=agg_type)
 
     pd.testing.assert_frame_equal(test_df, expected)
 
