@@ -370,3 +370,52 @@ def test_subset_dataframes_by_value_value_exceptions(
             operator=operator,
             target_col=target_col,
             filter_val=filter_val)
+
+
+@pytest.mark.parametrize(
+    "df,agg_cols,id_cols,agg_type",
+    [('input_agg_df',
+      ['DAY'],
+      ['ROUTE', 'MONTH', 'YEAR', 'DAY_TYPE'],
+      'Sum'),
+     ('input_agg_df',
+      ['DAY'],
+      ['ROUTE', 'MONTH', 'YEAR', 'DAY_TYPE'],
+      'MEAN'),
+     ('input_agg_df',
+      ['DAY'],
+      ['ROUTE', 'MONTH', 'YEAR', 'DAY_TYPE'],
+      'median')])
+def test_aggregate_data_value_exceptions(
+        df: pd.DataFrame,
+        agg_cols: list[str],
+        id_cols: list[str],
+        agg_type: str,
+        request) -> pd.DataFrame:
+    """
+    Tests the following:
+    1. Tests whether ValueErrors are raised if agg_type is not one of 'sum' or
+        'mean'.
+
+    Arguments:
+        df (DataFrame): Pandas dataframe to aggregate.
+        agg_cols (strList): The column to aggregate the data by.
+        id_cols (strList): The columns representing non-aggregated dimensions.
+        agg_type (str): The type of aggregation to perform on the data. Must
+            be one of either 'sum' or 'mean'.
+        request: A special fixture used to provide information regarding the
+            requesting test function. This is used to retrieve the value of
+            fixtures used in parameterized tests.
+
+    Returns:
+        NONE
+
+    """
+    df = request.getfixturevalue(df)
+
+    with pytest.raises(ValueError):
+        aggregate_data(
+            df=df,
+            agg_cols=agg_cols,
+            id_cols=id_cols,
+            agg_type=agg_type)
