@@ -125,7 +125,8 @@ if __name__ == "__main__":
     agg_year = aggregate_data(
         df=cta_bus_data,
         agg_cols=['MONTH'],
-        id_cols=['ROUTE', 'YEAR', 'DAY_TYPE'])
+        id_cols=['ROUTE', 'YEAR', 'DAY_TYPE'],
+        agg_type='sum')
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 1999 - 2022.
