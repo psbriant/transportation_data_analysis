@@ -138,7 +138,6 @@ if __name__ == "__main__":
 
     agg_year_dfs = [agg_year_wd, agg_year_sat, agg_year_sun]
 
-
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 1999 - 2009.
     agg_year_dfs_1999_2009 = subset_dataframes_by_value(
