@@ -8,6 +8,7 @@ import pytest
 
 from data_processing import (change_column_datatype,
                              create_rankings,
+                             split_df,
                              subset_dataframes_by_value)
 
 
