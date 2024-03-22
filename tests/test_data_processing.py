@@ -56,8 +56,7 @@ def test_change_column_datatype(
 
     else:
         for i in range(len(test_type_updates)):
-            test_case = test_type_updates[i
-            ].reset_index(drop=True)
+            test_case = test_type_updates[i].reset_index(drop=True)
 
             pd.testing.assert_frame_equal(test_case, expected[i])
 
