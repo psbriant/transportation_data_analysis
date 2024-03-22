@@ -175,6 +175,47 @@ def test_subset_dataframes_by_value(
 
 
 @pytest.mark.parametrize(
+    "df,split_col,expected",
+    [('input_df', 'DAY_TYPE', 'expected_day_type_split_dict'),
+     ('input_df', 'MONTH', 'expected_month_split_dict'),
+     ('input_df', 'ROUTE', 'expected_route_split_dict'),
+     ('input_df', 'YEAR', 'expected_year_split_dict')])
+def test_split_df(
+        df: pd.DataFrame,
+        split_col: str,
+        expected: pd.DataFrame,
+        request) -> dict:
+    """
+    Tests the following:
+    1. Tests whether a dataframe is successfully split into a dictionary of
+        dataframes.
+
+    Arguments:
+        df (DataFrame): Pandas dataframe to split into multiple smaller
+            dataframes.
+        split_col (str): The name of the column to use to split the dataframe.
+        expected (dict): Dictionary containing the expected result of
+            splitting the dataframe into multiple dataframes.
+        request: A special fixture used to provide information regarding the
+            requesting test function. This is used to retrieve the value of
+            fixtures used in parameterized tests.
+
+    Returns:
+        NONE
+    """
+
+    df = request.getfixturevalue(df)
+    expected = request.getfixturevalue(expected)
+
+    test_splits = split_df(
+        df=df,
+        split_col=split_col)
+
+    for key in test_splits.keys():
+        pd.testing.assert_frame_equal(test_splits[key], expected[key])
+
+
+@pytest.mark.parametrize(
     "df_list,col,datatype",
     [('input_updated_type_df', ['YEAR'], 'str'),
      ('input_dfs', 'YEAR', ['str'])])
