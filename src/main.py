@@ -211,7 +211,7 @@ if __name__ == "__main__":
     # data. Please note that this must be executed after subsetting each
     # dataframe by the relevant years to avoid raising a TypeError.
     ts_bpc_dfs = change_column_datatype(
-        df_list=ts_dfs,
+        df_list=agg_year_dfs,
         col='YEAR',
         datatype='str')
 
