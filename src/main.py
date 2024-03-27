@@ -247,11 +247,10 @@ if __name__ == "__main__":
 
     logging.info(
         "Creating heatmaps for ridership by month and year (1999-2022)")
-    for df, op in zip(hm_dfs, hm_file_paths):
-
+    for hm_df, hm_op in zip(hm_dfs, hm_file_paths):
         create_heatmap(
-            data=df,
-            output_path=op,
+            data=hm_df,
+            output_path=hm_op,
             x_value=heatmap_args.x_value,
             x_value_type=heatmap_args.x_value_type,
             y_value=heatmap_args.y_value,
@@ -272,11 +271,10 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     logging.info("Creating stacked bar charts for routes by ridership")
-    for df, op in zip(ts_bc_dfs, ts_bc_file_paths):
-
+    for ts_bc_df, ts_bc_op in zip(ts_bc_dfs, ts_bc_file_paths):
         create_barchart(
-            data=df,
-            output_path=op,
+            data=ts_bc_df,
+            output_path=ts_bc_op,
             x_value=barchart_args.x_value,
             y_value=barchart_args.y_value,
             x_value_type=barchart_args.x_value_type,
@@ -295,10 +293,10 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     logging.info("Creating bump charts for routes by ridership and year")
-    for df, op in zip(ts_bpc_dfs, bpc_file_paths):
+    for ts_bpc_df, ts_bpc_op in zip(ts_bpc_dfs, bpc_file_paths):
         create_bumpchart(
-            data=df,
-            output_path=op,
+            data=ts_bpc_df,
+            output_path=ts_bpc_op,
             x_value=bumpchart_args.x_value,
             y_value=bumpchart_args.y_value,
             x_value_type=bumpchart_args.x_value_type,
@@ -322,10 +320,10 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     logging.info("Creating line plots for routes by ridership and year")
-    for df, op in zip(ts_dfs, rrtsa_file_paths):
+    for ts_df, ts_op in zip(ts_dfs, rrtsa_file_paths):
         create_linechart(
-            data=df,
-            output_path=op,
+            data=ts_df,
+            output_path=ts_op,
             x_value=rrtsa_args.x_value,
             y_value=rrtsa_args.y_value,
             x_value_type=rrtsa_args.x_value_type,
