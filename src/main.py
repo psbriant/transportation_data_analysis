@@ -18,6 +18,7 @@ from constants import (viz_file_names,
                        HeatmapArguments)
 from data_processing import (change_column_datatype,
                              create_rankings,
+                             split_df,
                              subset_dataframes_by_value)
 from file_io import create_absolute_file_paths
 from visualizations import (create_barchart,
@@ -85,22 +86,51 @@ if __name__ == "__main__":
 
     # Create dataframe for making heatmaps.
     logging.info("Subsetting data")
-    hm_rmy_data = cta_bus_data.copy()
+    hm_rmy_data, hm_rmy_agg_data = cta_bus_data.copy(), cta_bus_data.copy()
 
-    hm_rmy_data_1999_2022_wd, hm_rmy_data_1999_2022_sat, \
-        hm_rmy_data_1999_2022_sun = hm_rmy_data.copy(), hm_rmy_data.copy(), \
-        hm_rmy_data.copy()
+    # Create tiers for binning heatmaps:
+    # 1. Calculate mean ridership for each route
+    # 2. Create three tiers (bins) for low, medium and high ridership using
+    # the previously calculated mean.
+    # 3. Split data by ridership tiers.
+    # 4. Split data by day type.
+    hm_rmy_agg_data = hm_rmy_agg_data.drop(columns=['MONTH'])
 
-    hm_rmy_data_1999_2022_wd = hm_rmy_data_1999_2022_wd.query(
-        'DAY_TYPE == "Weekday"')
-    hm_rmy_data_1999_2022_sat = hm_rmy_data_1999_2022_sat.query(
-        'DAY_TYPE == "Saturday"')
-    hm_rmy_data_1999_2022_sun = hm_rmy_data_1999_2022_sun.query(
-        'DAY_TYPE == "Sunday - Holiday"')
+    # 1. Calculate mean ridership for each route
+    hm_rmy_agg_data = aggregate_data(
+        df=cta_bus_data,
+        agg_cols=['YEAR'],
+        id_cols=['ROUTE', 'DAY_TYPE'],
+        agg_type='mean')
 
-    hm_rmy_1999_2022 = [hm_rmy_data_1999_2022_wd,
-                        hm_rmy_data_1999_2022_sat,
-                        hm_rmy_data_1999_2022_sun]
+    hm_rmy_agg_data = hm_rmy_agg_data.rename(
+        columns={'AVG_RIDES': 'ROUTE_MEAN'})
+
+    hm_rmy_data = hm_rmy_data.merge(
+        hm_rmy_agg_data,
+        how='left',
+        on=['ROUTE', 'DAY_TYPE'])
+
+    # 2. Create three tiers (bins) for low, medium and high ridership using
+    # the previously calculated mean.
+    hm_rmy_data['RIDERSHIP_TIER'] = pd.qcut(
+        x=hm_rmy_data['ROUTE_MEAN'],
+        q=3,
+        labels=['low', 'medium', 'high'])
+
+    hm_rmy_data = hm_rmy_data.drop(labels=['ROUTE_MEAN'], axis=1)
+
+    # 3. Split data by ridership tiers.
+    hm_rmy_data_tiers = split_df(df=hm_rmy_data, split_col='RIDERSHIP_TIER')
+    hm_rmy_data_tiers = list(hm_rmy_data_tiers.values())
+
+    # 4. Split data by day type.
+    hm_rmy_1999_2022 = []
+
+    for tier in hm_rmy_data_tiers:
+        tdt_split = split_df(df=tier, split_col='DAY_TYPE')
+        tdt_split = list(tdt_split.values())
+        hm_rmy_1999_2022 += tdt_split
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 1999 - 2009.
@@ -125,19 +155,13 @@ if __name__ == "__main__":
     agg_year = aggregate_data(
         df=cta_bus_data,
         agg_cols=['MONTH'],
-        id_cols=['ROUTE', 'YEAR', 'DAY_TYPE'])
+        id_cols=['ROUTE', 'YEAR', 'DAY_TYPE'],
+        agg_type='sum')
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 1999 - 2022.
-    agg_year_wd, agg_year_sat, agg_year_sun = agg_year.copy(), \
-        agg_year.copy(), agg_year.copy()
-
-    agg_year_wd = agg_year_wd.query('DAY_TYPE == "Weekday"')
-    agg_year_sat = agg_year_sat.query('DAY_TYPE == "Saturday"')
-    agg_year_sun = agg_year_sun.query('DAY_TYPE == "Sunday - Holiday"')
-
-    agg_year_dfs = [agg_year_wd, agg_year_sat, agg_year_sun]
-
+    agg_year_dfs = split_df(df=agg_year, split_col='DAY_TYPE')
+    agg_year_dfs = list(agg_year_dfs.values())
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 1999 - 2009.
@@ -191,7 +215,7 @@ if __name__ == "__main__":
     # data. Please note that this must be executed after subsetting each
     # dataframe by the relevant years to avoid raising a TypeError.
     ts_bpc_dfs = change_column_datatype(
-        df_list=ts_dfs,
+        df_list=agg_year_dfs,
         col='YEAR',
         datatype='str')
 
@@ -227,11 +251,10 @@ if __name__ == "__main__":
 
     logging.info(
         "Creating heatmaps for ridership by month and year (1999-2022)")
-    for df, op in zip(hm_dfs, hm_file_paths):
-
+    for hm_df, hm_op in zip(hm_dfs, hm_file_paths):
         create_heatmap(
-            data=df,
-            output_path=op,
+            data=hm_df,
+            output_path=hm_op,
             x_value=heatmap_args.x_value,
             x_value_type=heatmap_args.x_value_type,
             y_value=heatmap_args.y_value,
@@ -252,11 +275,10 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     logging.info("Creating stacked bar charts for routes by ridership")
-    for df, op in zip(ts_bc_dfs, ts_bc_file_paths):
-
+    for ts_bc_df, ts_bc_op in zip(ts_bc_dfs, ts_bc_file_paths):
         create_barchart(
-            data=df,
-            output_path=op,
+            data=ts_bc_df,
+            output_path=ts_bc_op,
             x_value=barchart_args.x_value,
             y_value=barchart_args.y_value,
             x_value_type=barchart_args.x_value_type,
@@ -275,10 +297,10 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     logging.info("Creating bump charts for routes by ridership and year")
-    for df, op in zip(ts_bpc_dfs, bpc_file_paths):
+    for ts_bpc_df, ts_bpc_op in zip(ts_bpc_dfs, bpc_file_paths):
         create_bumpchart(
-            data=df,
-            output_path=op,
+            data=ts_bpc_df,
+            output_path=ts_bpc_op,
             x_value=bumpchart_args.x_value,
             y_value=bumpchart_args.y_value,
             x_value_type=bumpchart_args.x_value_type,
@@ -302,10 +324,10 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------------
 
     logging.info("Creating line plots for routes by ridership and year")
-    for df, op in zip(ts_dfs, rrtsa_file_paths):
+    for ts_df, ts_op in zip(ts_dfs, rrtsa_file_paths):
         create_linechart(
-            data=df,
-            output_path=op,
+            data=ts_df,
+            output_path=ts_op,
             x_value=rrtsa_args.x_value,
             y_value=rrtsa_args.y_value,
             x_value_type=rrtsa_args.x_value_type,

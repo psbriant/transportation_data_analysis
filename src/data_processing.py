@@ -175,3 +175,31 @@ def subset_dataframes_by_value(
         raise ValueError(
             "The variables 'operator', 'target_col', and 'filter_val' must be "
             "the same length")
+
+
+def split_df(
+        df: pd.DataFrame,
+        split_col: str) -> dict:
+    """
+    Take a dataframe and split it into a dictionary of smaller dataframes based
+    on the unique values of a specified column.
+
+    Arguments:
+        df (DataFrame): Pandas dataframe to split into multiple smaller
+            dataframes.
+        split_col (str): The name of the column to use to split the dataframe.
+
+    Returns:
+        Dictionary of split dataframes.
+
+    Raises:
+        NONE
+    """
+
+    split_values = df[split_col].unique()
+    df_dict = {elem: pd.DataFrame() for elem in split_values}
+    for key in df_dict.keys():
+        df_dict[key] = df[:][df[split_col] == key]
+        df_dict[key] = df_dict[key].reset_index(drop=True)
+
+    return df_dict

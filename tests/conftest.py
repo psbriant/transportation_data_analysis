@@ -659,3 +659,193 @@ def expected_year_agg_mean_df() -> pd.DataFrame:
     expected_year_agg_df = pd.DataFrame(expected_year_agg_df)
 
     return expected_year_agg_df
+
+
+@pytest.fixture
+def expected_day_type_split_dict() -> pd.DataFrame:
+    """
+    Creates a small dictionary of dataframes that can be used for testing
+    dataframes split from larger dataframes based on the values of a specific
+    column.
+
+    Arguments:
+        NONE
+
+    Returns:
+        Dataframe of generic test ridership data that includes the following:
+            - ROUTE: A subset of bus route numbers.
+            - YEAR: A subset of the years data was reported for.
+            - MONTH: A subset of the months data was reported for.
+            - DAY: A subset of the days data was reported for.
+            - DAY_TYPE: Each of the types of days that data was reported for
+                (Weekdays, Saturdays and Sunday Holidays).
+            - AVG_RIDES: A subset of ridership data.
+
+    NOTE: The ridership numbers used for this test dataset were created
+        specifically for testing purposes instead of being taken from the
+        actual CTA dataset.
+    """
+
+    expected_day_type_split_dict = {
+        'Weekday': pd.DataFrame({
+            'ROUTE': ['1', '100'],
+            'YEAR': [2022, 2022],
+            'MONTH': ['October', 'October'],
+            'DAY_TYPE': ['Weekday', 'Weekday'],
+            'AVG_RIDES': [812, 363]}),
+        'Sunday - Holiday': pd.DataFrame({
+            'ROUTE': ['97'],
+            'YEAR': [2001],
+            'MONTH': ['January'],
+            'DAY_TYPE': ['Sunday - Holiday'],
+            'AVG_RIDES': [1076]}),
+        'Saturday': pd.DataFrame({
+            'ROUTE': ['X21'],
+            'YEAR': [2001],
+            'MONTH': ['January'],
+            'DAY_TYPE': ['Saturday'],
+            'AVG_RIDES': [312]})
+    }
+
+    return expected_day_type_split_dict
+
+
+@pytest.fixture
+def expected_month_split_dict() -> pd.DataFrame:
+    """
+    Creates a small dictionary of dataframes that can be used for testing
+    dataframes split from larger dataframes based on the values of a specific
+    column.
+
+    Arguments:
+        NONE
+
+    Returns:
+        Dataframe of generic test ridership data that includes the following:
+            - ROUTE: A subset of bus route numbers.
+            - YEAR: A subset of the years data was reported for.
+            - MONTH: A subset of the months data was reported for.
+            - DAY: A subset of the days data was reported for.
+            - DAY_TYPE: Each of the types of days that data was reported for
+                (Weekdays, Saturdays and Sunday Holidays).
+            - AVG_RIDES: A subset of ridership data.
+
+    NOTE: The ridership numbers used for this test dataset were created
+        specifically for testing purposes instead of being taken from the
+        actual CTA dataset.
+    """
+
+    expected_month_split_dict = {
+        'October': pd.DataFrame({
+            'ROUTE': ['1', '100'],
+            'YEAR': [2022, 2022],
+            'MONTH': ['October', 'October'],
+            'DAY_TYPE': ['Weekday', 'Weekday'],
+            'AVG_RIDES': [812, 363]}),
+        'January': pd.DataFrame({
+            'ROUTE': ['97', 'X21'],
+            'YEAR': [2001, 2001],
+            'MONTH': ['January', 'January'],
+            'DAY_TYPE': ['Sunday - Holiday', 'Saturday'],
+            'AVG_RIDES': [1076, 312]})
+    }
+
+    return expected_month_split_dict
+
+
+@pytest.fixture
+def expected_route_split_dict() -> pd.DataFrame:
+    """
+    Creates a small dictionary of dataframes that can be used for testing
+    dataframes split from larger dataframes based on the values of a specific
+    column.
+
+    Arguments:
+        NONE
+
+    Returns:
+        Dataframe of generic test ridership data that includes the following:
+            - ROUTE: A subset of bus route numbers.
+            - YEAR: A subset of the years data was reported for.
+            - MONTH: A subset of the months data was reported for.
+            - DAY: A subset of the days data was reported for.
+            - DAY_TYPE: Each of the types of days that data was reported for
+                (Weekdays, Saturdays and Sunday Holidays).
+            - AVG_RIDES: A subset of ridership data.
+
+    NOTE: The ridership numbers used for this test dataset were created
+        specifically for testing purposes instead of being taken from the
+        actual CTA dataset.
+
+    """
+    expected_route_split_dict = {
+        '1': pd.DataFrame({
+            'ROUTE': ['1'],
+            'YEAR': [2022],
+            'MONTH': ['October'],
+            'DAY_TYPE': ['Weekday'],
+            'AVG_RIDES': [812]}),
+        '97': pd.DataFrame({
+            'ROUTE': ['97'],
+            'YEAR': [2001],
+            'MONTH': ['January'],
+            'DAY_TYPE': ['Sunday - Holiday'],
+            'AVG_RIDES': [1076]}),
+        '100': pd.DataFrame({
+            'ROUTE': ['100'],
+            'YEAR': [2022],
+            'MONTH': ['October'],
+            'DAY_TYPE': ['Weekday'],
+            'AVG_RIDES': [363]}),
+        'X21': pd.DataFrame({
+            'ROUTE': ['X21'],
+            'YEAR': [2001],
+            'MONTH': ['January'],
+            'DAY_TYPE': ['Saturday'],
+            'AVG_RIDES': [312]})
+    }
+
+    return expected_route_split_dict
+
+
+@pytest.fixture
+def expected_year_split_dict() -> pd.DataFrame:
+    """
+    Creates a small dictionary of dataframes that can be used for testing
+    dataframes split from larger dataframes based on the values of a specific
+    column.
+
+    Arguments:
+        NONE
+
+    Returns:
+        Dataframe of generic test ridership data that includes the following:
+            - ROUTE: A subset of bus route numbers.
+            - YEAR: A subset of the years data was reported for.
+            - MONTH: A subset of the months data was reported for.
+            - DAY: A subset of the days data was reported for.
+            - DAY_TYPE: Each of the types of days that data was reported for
+                (Weekdays, Saturdays and Sunday Holidays).
+            - AVG_RIDES: A subset of ridership data.
+
+    NOTE: The ridership numbers used for this test dataset were created
+        specifically for testing purposes instead of being taken from the
+        actual CTA dataset.
+
+    """
+    expected_year_split_dict = {
+        2022: pd.DataFrame({
+            'ROUTE': ['1', '100'],
+            'YEAR': [2022, 2022],
+            'MONTH': ['October', 'October'],
+            'DAY_TYPE': ['Weekday', 'Weekday'],
+            'AVG_RIDES': [812, 363]}),
+        2001: pd.DataFrame({
+            'ROUTE': ['97', 'X21'],
+            'YEAR': [2001, 2001],
+            'MONTH': ['January', 'January'],
+            'DAY_TYPE': ['Sunday - Holiday', 'Saturday'],
+            'AVG_RIDES': [1076, 312]})
+    }
+
+    return expected_year_split_dict
