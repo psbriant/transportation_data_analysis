@@ -86,22 +86,41 @@ if __name__ == "__main__":
 
     # Create dataframe for making heatmaps.
     logging.info("Subsetting data")
-    hm_rmy_data = cta_bus_data.copy()
+    hm_rmy_data, hm_rmy_agg_data = cta_bus_data.copy(), cta_bus_data.copy()
 
-    hm_rmy_data_1999_2022_wd, hm_rmy_data_1999_2022_sat, \
-        hm_rmy_data_1999_2022_sun = hm_rmy_data.copy(), hm_rmy_data.copy(), \
-        hm_rmy_data.copy()
+    # Create tiers for binning heatmaps
+    hm_rmy_agg_data = hm_rmy_agg_data.drop(columns=['MONTH'])
 
-    hm_rmy_data_1999_2022_wd = hm_rmy_data_1999_2022_wd.query(
-        'DAY_TYPE == "Weekday"')
-    hm_rmy_data_1999_2022_sat = hm_rmy_data_1999_2022_sat.query(
-        'DAY_TYPE == "Saturday"')
-    hm_rmy_data_1999_2022_sun = hm_rmy_data_1999_2022_sun.query(
-        'DAY_TYPE == "Sunday - Holiday"')
+    hm_rmy_agg_data = aggregate_data(
+        df=cta_bus_data,
+        agg_cols=['YEAR'],
+        id_cols=['ROUTE', 'DAY_TYPE'],
+        agg_type='mean')
 
-    hm_rmy_1999_2022 = [hm_rmy_data_1999_2022_wd,
-                        hm_rmy_data_1999_2022_sat,
-                        hm_rmy_data_1999_2022_sun]
+    hm_rmy_agg_data = hm_rmy_agg_data.rename(
+        columns={'AVG_RIDES': 'ROUTE_MEAN'})
+
+    hm_rmy_data = hm_rmy_data.merge(
+        hm_rmy_agg_data,
+        how='left',
+        on=['ROUTE', 'DAY_TYPE'])
+
+    hm_rmy_data['RIDERSHIP_TIER'] = pd.qcut(
+        x=hm_rmy_data['ROUTE_MEAN'],
+        q=3,
+        labels=['low', 'medium', 'high'])
+
+    hm_rmy_data = hm_rmy_data.drop(labels=['ROUTE_MEAN'], axis=1)
+
+    hm_rmy_data_tiers = split_df(df=hm_rmy_data, split_col='RIDERSHIP_TIER')
+    hm_rmy_data_tiers = list(hm_rmy_data_tiers.values())
+
+    hm_rmy_1999_2022 = []
+
+    for tier in hm_rmy_data_tiers:
+        tdt_split = split_df(df=tier, split_col='DAY_TYPE')
+        tdt_split = list(tdt_split.values())
+        hm_rmy_1999_2022 += tdt_split
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 1999 - 2009.
