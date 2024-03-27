@@ -160,14 +160,8 @@ if __name__ == "__main__":
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 1999 - 2022.
-    agg_year_wd, agg_year_sat, agg_year_sun = agg_year.copy(), \
-        agg_year.copy(), agg_year.copy()
-
-    agg_year_wd = agg_year_wd.query('DAY_TYPE == "Weekday"')
-    agg_year_sat = agg_year_sat.query('DAY_TYPE == "Saturday"')
-    agg_year_sun = agg_year_sun.query('DAY_TYPE == "Sunday - Holiday"')
-
-    agg_year_dfs = [agg_year_wd, agg_year_sat, agg_year_sun]
+    agg_year_dfs = split_df(df=agg_year, split_col='DAY_TYPE')
+    agg_year_dfs = list(agg_year_dfs.values())
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 1999 - 2009.
