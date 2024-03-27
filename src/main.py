@@ -88,9 +88,15 @@ if __name__ == "__main__":
     logging.info("Subsetting data")
     hm_rmy_data, hm_rmy_agg_data = cta_bus_data.copy(), cta_bus_data.copy()
 
-    # Create tiers for binning heatmaps
+    # Create tiers for binning heatmaps:
+    # 1. Calculate mean ridership for each route
+    # 2. Create three tiers (bins) for low, medium and high ridership using
+    # the previously calculated mean.
+    # 3. Split data by ridership tiers.
+    # 4. Split data by day type.
     hm_rmy_agg_data = hm_rmy_agg_data.drop(columns=['MONTH'])
 
+    # 1. Calculate mean ridership for each route
     hm_rmy_agg_data = aggregate_data(
         df=cta_bus_data,
         agg_cols=['YEAR'],
@@ -105,6 +111,8 @@ if __name__ == "__main__":
         how='left',
         on=['ROUTE', 'DAY_TYPE'])
 
+    # 2. Create three tiers (bins) for low, medium and high ridership using
+    # the previously calculated mean.
     hm_rmy_data['RIDERSHIP_TIER'] = pd.qcut(
         x=hm_rmy_data['ROUTE_MEAN'],
         q=3,
@@ -112,9 +120,11 @@ if __name__ == "__main__":
 
     hm_rmy_data = hm_rmy_data.drop(labels=['ROUTE_MEAN'], axis=1)
 
+    # 3. Split data by ridership tiers.
     hm_rmy_data_tiers = split_df(df=hm_rmy_data, split_col='RIDERSHIP_TIER')
     hm_rmy_data_tiers = list(hm_rmy_data_tiers.values())
 
+    # 4. Split data by day type.
     hm_rmy_1999_2022 = []
 
     for tier in hm_rmy_data_tiers:
