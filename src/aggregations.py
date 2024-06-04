@@ -47,3 +47,43 @@ def aggregate_data(
     agg_df = agg_df.reset_index()
 
     return agg_df
+
+
+def get_route_count(
+        df: pd.DataFrame,
+        route_dims: list[str],
+        count_dim: list[str],
+        count_col: str) -> pd.DataFrame:
+    """
+    Create a count of the number of bus routes by a specified set of
+    dimensions (e.g. year).
+
+    Arguments:
+        df (DataFrame): Pandas dataframe to create counts for.
+        route_dims (strList): The columns required for counting the number of
+            bus routes.
+        count_dim (str): The column used for creating dimension specific
+            counts.
+        count_col (str): The name of the column that will contain the number
+            bus routes.
+
+    Returns:
+        Dataframe of the number of bus routes by a specified dimension.
+
+    Raises:
+        NONE
+    """
+
+    route_count = df.copy()
+
+    # Remove columns not involved in counting the number of bus routes.
+    route_count = route_count[route_dims]
+    route_count = route_count.drop_duplicates().reset_index(drop=True)
+
+    # Create a count of the number of bus routes by specified dimensions
+    route_count[count_col] = route_count.groupby(
+        count_dim)[count_dim].transform('count')
+    route_count = route_count[[count_dim, count_col]]
+    route_count = route_count.drop_duplicates().reset_index(drop=True)
+
+    return route_count
