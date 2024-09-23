@@ -61,6 +61,7 @@ if __name__ == "__main__":
     bumpchart_args = BumpChartArguments()
     rrtsa_args = LineChartArguments()
     heatmap_args = HeatmapArguments()
+    route_count_args = RouteCountArguments()
 
     # ------------------------------------------------------------------------
     # ---LOAD DATASET---------------------------------------------------------
