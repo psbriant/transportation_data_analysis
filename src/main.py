@@ -9,7 +9,7 @@ import logging
 import numpy as np
 import pandas as pd
 
-from aggregations import aggregate_data
+from aggregations import (aggregate_data, get_route_count)
 from constants import (viz_file_names,
                        BusDataArguments,
                        BarChartArguments,
