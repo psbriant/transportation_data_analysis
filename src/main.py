@@ -15,7 +15,8 @@ from constants import (viz_file_names,
                        BarChartArguments,
                        BumpChartArguments,
                        LineChartArguments,
-                       HeatmapArguments)
+                       HeatmapArguments,
+                       RouteCountArguments)
 from data_processing import (change_column_datatype,
                              create_rankings,
                              split_df,
