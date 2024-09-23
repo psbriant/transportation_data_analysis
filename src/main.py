@@ -243,6 +243,33 @@ if __name__ == "__main__":
         file_list=viz_file_names['line_chart_args'],
         file_path=output_dir)
 
+    # Create absolute file paths for route count time series analysis (rctsa)
+    # covering 1999 to 2022.
+    rctsa_file_paths = create_absolute_file_paths(
+        file_list=viz_file_names['waterfall_chart_args'],
+        file_path=output_dir)
+
+    # Create year over year data for the change in the number of bus routes.
+    route_counts = cta_bus_data.copy()
+    route_counts = get_route_count(
+        df=route_counts,
+        route_dims=route_count_args.route_dims,
+        count_dim=route_count_args.count_dim,
+        count_col=route_count_args.count_col)
+
+    route_counts = route_counts.sort_values(by='YEAR', ascending=True)
+    route_counts['YOY'] = route_counts['COUNT'].diff()
+    route_counts = route_counts.reset_index(drop=True)
+    year_start = route_counts['YEAR'][0]
+    year_end = route_counts['YEAR'][len(route_counts['YEAR']) - 1]
+
+    route_yoy = route_counts.copy()
+    route_yoy['YOY'].loc[route_yoy['YEAR'] == year_start] = \
+        route_yoy['COUNT'].loc[route_yoy['YEAR'] == year_start]
+
+    route_yoy['YOY'].loc[route_yoy['YEAR'] == year_end] = \
+        route_yoy['COUNT'].loc[route_yoy['YEAR'] == year_end]
+
     # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2022)-----------
     # ------------------------------------------------------------------------
