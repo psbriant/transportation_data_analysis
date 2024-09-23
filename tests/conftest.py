@@ -24,7 +24,7 @@ def input_df() -> pd.DataFrame:
             - MONTH: A subset of the months data was reported for.
             - DAY_TYPE: Each of the types of days that data was reported for
                 (Weekdays, Saturdays and Sunday Holidays).
-            - RIDES: A subset of ridership data.
+            - AVG_RIDES: A subset of ridership data.
 
     """
     input_df = {
@@ -506,6 +506,102 @@ def input_agg_df() -> pd.DataFrame:
 
 
 @pytest.fixture
+def input_route_count_df() -> pd.DataFrame:
+    """
+    Creates a small dataframe of data that can be used for testing the
+    get_route_count function.
+
+    Arguments:
+        NONE
+
+    Returns:
+        Dataframe of generic test ridership data that includes the following:
+            - ROUTE: A subset of bus route numbers.
+            - YEAR: A subset of the years data was reported for.
+            - MONTH: A subset of the months data was reported for.
+            - DAY_TYPE: Each of the types of days that data was reported for
+                (Weekdays, Saturdays and Sunday Holidays).
+            - AVG_RIDES: A subset of ridership data.
+
+    """
+    input_route_count_df = {
+        'ROUTE': ['1',
+                  '1',
+                  '1',
+                  '1',
+                  '1',
+                  '1',
+                  '1',
+                  '1',
+                  '2',
+                  '2',
+                  '2',
+                  '2',
+                  '3',
+                  '3'],
+        'YEAR': [1999,
+                 1999,
+                 2000,
+                 2000,
+                 2001,
+                 2001,
+                 2002,
+                 2002,
+                 2000,
+                 2000,
+                 2001,
+                 2001,
+                 2001,
+                 2001],
+        'MONTH': ['January',
+                  'February',
+                  'January',
+                  'February',
+                  'January',
+                  'February',
+                  'January',
+                  'February',
+                  'January',
+                  'February',
+                  'January',
+                  'February',
+                  'January',
+                  'February'],
+        'DAY_TYPE': ['Weekday',
+                     'Weekday',
+                     'Weekday',
+                     'Weekday',
+                     'Weekday',
+                     'Weekday',
+                     'Weekday',
+                     'Weekday',
+                     'Weekday',
+                     'Weekday',
+                     'Weekday',
+                     'Weekday',
+                     'Weekday',
+                     'Weekday'],
+        'AVG_RIDES': [812,
+                      1076,
+                      363,
+                      312,
+                      109,
+                      333,
+                      251,
+                      691,
+                      579,
+                      273,
+                      400,
+                      910,
+                      710,
+                      234]
+    }
+
+    input_route_count_df = pd.DataFrame(input_route_count_df)
+    return input_route_count_df
+
+
+@pytest.fixture
 def expected_month_agg_sum_df() -> pd.DataFrame:
     """
     Creates a small dataframe of data that can be used for testing sum
@@ -849,3 +945,27 @@ def expected_year_split_dict() -> pd.DataFrame:
     }
 
     return expected_year_split_dict
+
+
+@pytest.fixture
+def expected_route_count_df() -> pd.DataFrame:
+    """
+    Creates a small dataframe of data that can be used for testing whether
+    route counts have been generate correctly.
+
+    Arguments:
+        NONE
+
+    Returns:
+        Dataframe of generic test ridership data that includes the following:
+            - YEAR: A subset of the years data was reported for.
+            - COUNT: The number of bus routes in operation for each year.
+
+    """
+    expected_route_count_df = {
+        'YEAR': [1999, 2000, 2001, 2002],
+        'COUNT': [1, 2, 3, 1]
+    }
+
+    expected_route_count_df = pd.DataFrame(expected_route_count_df)
+    return expected_route_count_df
