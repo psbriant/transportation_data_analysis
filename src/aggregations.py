@@ -52,7 +52,7 @@ def aggregate_data(
 def get_route_count(
         df: pd.DataFrame,
         route_dims: list[str],
-        count_dim: list[str],
+        count_dim: str,
         count_col: str) -> pd.DataFrame:
     """
     Create a count of the number of bus routes by a specified set of
