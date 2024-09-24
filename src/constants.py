@@ -138,3 +138,9 @@ class HeatmapArguments:
         'October',
         'November',
         'December'])
+
+@dataclass
+class RouteCountArguments:
+    route_dims: list[str] = field(default_factory=lambda: ['ROUTE', 'YEAR'])
+    count_dim: str = 'YEAR'
+    count_col: str = 'COUNT'
