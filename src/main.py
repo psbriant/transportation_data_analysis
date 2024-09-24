@@ -364,3 +364,21 @@ if __name__ == "__main__":
             color_values=rrtsa_args.color_values,
             title=rrtsa_args.title,
             scheme=rrtsa_args.scheme)
+
+    # ------------------------------------------------------------------------
+    # ---CREATE WATERFALL CHARTS FOR THE NUMBER OF BUS ROUTES BY YEAR---------
+    # ------------------------------------------------------------------------
+    # The plots created below represent a time series analysis of the number
+    # of bus routes or for our purposes a route count time series analysis
+    # (rctsa).
+    #
+    # - 1999-2022
+    # ------------------------------------------------------------------------
+
+    # logging.info(
+    #     "Creating waterfall charts for the number of bus routes by year")
+    # create_waterfall_chart(
+    #     data=route_yoy,
+    #     output_path=rctsa_file_paths,
+    #     x_value=rctsa_args.x_value,
+    #     y_value=rctsa_args.y_value)

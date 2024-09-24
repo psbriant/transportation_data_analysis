@@ -144,3 +144,8 @@ class RouteCountArguments:
     route_dims: list[str] = field(default_factory=lambda: ['ROUTE', 'YEAR'])
     count_dim: str = 'YEAR'
     count_col: str = 'COUNT'
+
+# @dataclass
+# class WaterFallChartArguments:
+#     x_value: str = 'YEAR'
+#     y_value: str = 'COUNT'
