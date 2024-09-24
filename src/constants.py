@@ -50,7 +50,8 @@ viz_file_names = {
                      'sunday_ridership_heatmap_2010_2022_low.png',
                      'weekday_ridership_heatmap_2010_2022_high.png',
                      'saturday_ridership_heatmap_2010_2022_high.png',
-                     'sunday_ridership_heatmap_2010_2022_high.png']}
+                     'sunday_ridership_heatmap_2010_2022_high.png'],
+    'route_count_bar_chart_args': ['route_count_1999_2022.png']}
 
 @dataclass
 class Months(TypedDict):
@@ -137,3 +138,9 @@ class HeatmapArguments:
         'October',
         'November',
         'December'])
+
+@dataclass
+class RouteCountArguments:
+    route_dims: list[str] = field(default_factory=lambda: ['ROUTE', 'YEAR'])
+    count_dim: str = 'YEAR'
+    count_col: str = 'COUNT'
