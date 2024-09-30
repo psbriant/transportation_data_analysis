@@ -202,6 +202,42 @@ if __name__ == "__main__":
 
         ts_dfs.append(ts_rankings)
 
+    # Create subsets for the covid recovery analysis for 2019 and 2022 and use
+    # them to create a recovery ratio.
+    recovery_ratio = agg_year.copy()
+
+    recovery_ratio_2019 = recovery_ratio[recovery_ratio['YEAR'] == 2019]
+    recovery_ratio_2022 = recovery_ratio[recovery_ratio['YEAR'] == 2022]
+
+    recovery_ratio_2019 = recovery_ratio_2019.rename(
+        columns={'AVG_RIDES': 'AVG_RIDES_2019'})
+    recovery_ratio_2022 = recovery_ratio_2022.rename(
+        columns={'AVG_RIDES': 'AVG_RIDES_2022'})
+
+    recovery_ratio_2019 = recovery_ratio_2019.drop(labels=['YEAR'], axis=1)
+    recovery_ratio_2022 = recovery_ratio_2022.drop(labels=['YEAR'], axis=1)
+
+    recovery_ratio_2019_2022 = recovery_ratio_2019.merge(
+        recovery_ratio_2022,
+        how='outer',
+        on=['ROUTE', 'DAY_TYPE'])
+    recovery_ratio_2019_2022 = recovery_ratio_2019_2022.dropna()
+
+    recovery_ratio_2019_2022[
+        'PERCENT_RECOVERED'] = (
+            recovery_ratio_2019_2022[
+                'AVG_RIDES_2022'] / recovery_ratio_2019_2022[
+                                       'AVG_RIDES_2019']) * 100
+
+
+
+    # Create subsets for weekday, saturday and sunday - holiday ridership for
+    # the years 1999 - 2022.
+    rr_2019_2022_dfs = split_df(
+        df=recovery_ratio_2019_2022,
+        split_col='DAY_TYPE')
+    rr_2019_2022_dfs = list(rr_2019_2022_dfs.values())
+
     # Change values in the "YEAR" column from integers to strings to improve
     # plot readability for barcharts representing more than one year of data.
     # Please note that this must be executed after subsetting each dataframe
