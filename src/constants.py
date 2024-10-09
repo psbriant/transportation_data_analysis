@@ -160,8 +160,24 @@ class HeatmapArguments:
         'November',
         'December'])
 
+
 @dataclass
 class RouteCountArguments:
     route_dims: list[str] = field(default_factory=lambda: ['ROUTE', 'YEAR'])
     count_dim: str = 'YEAR'
     count_col: str = 'COUNT'
+
+
+@dataclass
+class RidershipRecoveryArguments:
+    x_value: str = 'PERCENT_RECOVERED'
+    y_value: str = 'ROUTE'
+    x_value_type: str = 'quantitative'
+    y_value_type: str = 'ordinal'
+    x_axis_title: str = 'Percent recovered'
+    y_axis_title: str = 'Route'
+    color_title: str = 'Day type'
+    color_values: str = 'DAY_TYPE'
+    scheme: str = 'tableau20'
+    title: str = ("Percent of ridership recovery between 2019 and 2022 by "
+                  "CTA bus route")
