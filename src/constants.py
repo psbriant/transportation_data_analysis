@@ -79,15 +79,20 @@ class BusDataArguments:
         11: 'November',
         12: 'December'})
 
+
 @dataclass
 class BarChartArguments:
     x_value: str = 'AVG_RIDES'
     y_value: str = 'ROUTE'
     x_value_type: str = 'quantitative'
     y_value_type: str = 'ordinal'
+    x_axis_title: str = 'Average rides'
+    y_axis_title: str = 'Route'
+    color_title: str = 'Year'
     color_values: str = 'YEAR'
     scheme: str = 'tableau20'
     title: str = "Number of rides per CTA bus route"
+
 
 @dataclass
 class BumpChartArguments:
@@ -95,6 +100,9 @@ class BumpChartArguments:
     y_value: str = 'RANK'
     x_value_type: str = 'ordinal'
     y_value_type: str = 'ordinal'
+    x_axis_title: str = 'Year'
+    y_axis_title: str = 'Rank'
+    color_title: str = 'Route'
     color_values: str = 'ROUTE'
     title: str = "Chicago Transit Authority bus routes with the highest " \
                  "number of riders (1999-2022)"
@@ -103,6 +111,7 @@ class BumpChartArguments:
     rank_col: str = 'RANK'
     group_col: list[str] = field(default_factory=lambda: ['YEAR'])
     num_rankings: int = 10
+
 
 @dataclass
 class LineChartArguments:
@@ -110,6 +119,9 @@ class LineChartArguments:
     y_value: str = 'AVG_RIDES'
     x_value_type: str = 'ordinal'
     y_value_type: str = 'quantitative'
+    x_axis_title: str = 'Year'
+    y_axis_title: str = 'Average rides'
+    color_title: str = 'Route'
     color_values: str = 'ROUTE'
     title: str = "Chicago Transit Authority bus routes with the highest " \
                  "number of riders (1999-2022)"
@@ -119,12 +131,16 @@ class LineChartArguments:
     group_col: list[str] = field(default_factory=lambda: ['YEAR'])
     num_rankings: int = 10
 
+
 @dataclass
 class HeatmapArguments:
     x_value: str = 'MONTH'
     x_value_type: str = 'ordinal'
     y_value: str = 'YEAR'
     y_value_type: str = 'ordinal'
+    x_axis_title: str = 'Month'
+    y_axis_title: str = 'Year'
+    color_title: str = 'Average rides'
     color_values: str = 'AVG_RIDES'
     facet_values: str = 'ROUTE'
     facet_columns: int = 3
