@@ -56,10 +56,12 @@ viz_file_names = {
                      'sunday_ridership_heatmap_2010_2022_high.png'],
     'route_count_bar_chart_args': ['route_count_1999_2022.png']}
 
+
 @dataclass
 class Months(TypedDict):
    name_numeric: int
    name_alpha: str
+
 
 @dataclass
 class BusDataArguments:
