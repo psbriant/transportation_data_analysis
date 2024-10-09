@@ -231,7 +231,9 @@ if __name__ == "__main__":
                 'AVG_RIDES_2022'] / recovery_ratio_2019_2022[
                                        'AVG_RIDES_2019']) * 100
 
-
+    recovery_ratio_2019_2022 = recovery_ratio_2019_2022.drop(
+        labels=['AVG_RIDES_2019', 'AVG_RIDES_2022'],
+        axis=1)
 
     # Create subsets for weekday, saturday and sunday - holiday ridership for
     # the years 1999 - 2022.
