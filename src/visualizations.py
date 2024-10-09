@@ -16,6 +16,9 @@ def create_heatmap(
     output_path: str,
     x_value: str,
     y_value: str,
+    x_axis_title: str,
+    y_axis_title: str,
+    color_title: str,
     color_values: str,
     facet_values: str,
     facet_columns: int,
@@ -36,6 +39,9 @@ def create_heatmap(
         y_value (str): The name of the column representing the y-axis.
         color_values (str): The name of column representing the values to
             plot.
+        x_axis_title (str): The x-axis label of the plot.
+        y_axis_title (str): The y-axis label of the plot.
+        color_title (str): The legend label.
         facet_values (str): The name of the column representing the values to
             create a facet grid of plots for.
         facet_columns (int): The number of columns the facet grid will
@@ -62,10 +68,14 @@ def create_heatmap(
     data = data.copy()
 
     chart = alt.Chart(data).mark_rect().encode(
-        alt.X(x_value, type=x_value_type, sort=x_axis_sort_order),
-        alt.Y(y_value, type=y_value_type),
+        alt.X(x_value,
+              type=x_value_type,
+              title=x_axis_title,
+              sort=x_axis_sort_order),
+        alt.Y(y_value, type=y_value_type, title=y_axis_title),
         alt.Color(color_values,
                   type='quantitative',
+                  title=color_title,
                   scale=alt.Scale(scheme=scheme)),
         alt.Facet(facet_values,
                   type='ordinal',
@@ -87,6 +97,9 @@ def create_barchart(
         scheme: str,
         x_value_type: str,
         y_value_type: str,
+        x_axis_title: str,
+        y_axis_title: str,
+        color_title: str,
         sort_order_y_axis: str = '-x',
         sort_order_color: str | list[str] = 'ascending') -> None:
     """
@@ -110,6 +123,9 @@ def create_barchart(
         y_value_type (str): The type of data that will be plotted on the
             y-axis. Must be one of quantitative, ordinal, nominal, temporal,
             or geojson.
+        x_axis_title (str): The x-axis label of the plot.
+        y_axis_title (str): The y-axis label of the plot.
+        color_title (str): The legend label.
         sort_order_y_axis (str): The sort order for the y-axis. Defaults to
             '-x'.
         sort_order_color (str or strlist): The sort order for the color scheme
@@ -124,10 +140,14 @@ def create_barchart(
     """
 
     chart = alt.Chart(data).mark_bar().encode(
-        alt.X(x_value, type=x_value_type),
-        alt.Y(y_value, type=y_value_type, sort=sort_order_y_axis),
+        alt.X(x_value, type=x_value_type, title=x_axis_title),
+        alt.Y(y_value,
+              type=y_value_type,
+              title=y_axis_title,
+              sort=sort_order_y_axis),
         alt.Color(color_values,
                   sort=sort_order_color,
+                  title=color_title,
                   scale=alt.Scale(scheme=scheme))
     ).properties(title=title)
 
@@ -143,7 +163,10 @@ def create_linechart(
         title: str,
         scheme: str,
         x_value_type: str,
-        y_value_type: str) -> None:
+        y_value_type: str,
+        x_axis_title: str,
+        y_axis_title: str,
+        color_title: str) -> None:
     """
     Create a line chart for specified data and columns.
 
@@ -165,6 +188,9 @@ def create_linechart(
         y_value_type (str): The type of data that will be plotted on the
             y-axis. Must be one of quantitative, ordinal, nominal, temporal,
             or geojson.
+        x_axis_title (str): The x-axis label of the plot.
+        y_axis_title (str): The y-axis label of the plot.
+        color_title (str): The legend label.
 
     Returns:
         None
@@ -174,9 +200,11 @@ def create_linechart(
     """
 
     chart = alt.Chart(data).mark_line(point=True).encode(
-        x=alt.X(x_value, type=x_value_type),
-        y=alt.Y(y_value, type=y_value_type),
-        color=alt.Color(color_values, scale=alt.Scale(scheme=scheme))
+        x=alt.X(x_value, type=x_value_type, title=x_axis_title),
+        y=alt.Y(y_value, type=y_value_type, title=y_axis_title),
+        color=alt.Color(color_values,
+                        title=color_title,
+                        scale=alt.Scale(scheme=scheme))
     ).properties(title=title)
 
     chart.save(output_path)
@@ -192,6 +220,9 @@ def create_bumpchart(
         scheme: str,
         x_value_type: str,
         y_value_type: str,
+        x_axis_title: str,
+        y_axis_title: str,
+        color_title: str,
         value_col: str,
         rank_col: str,
         group_col: list[str],
@@ -217,6 +248,9 @@ def create_bumpchart(
         y_value_type (str): The type of data that will be plotted on the
             y-axis. Must be one of quantitative, ordinal, nominal, temporal,
             or geojson.
+        x_axis_title (str): The x-axis label of the plot.
+        y_axis_title (str): The y-axis label of the plot.
+        color_title (str): The legend label.
         value_col (str): The name of the column rankings will be based off of.
         rank_col (str): The name of the column containing the numerical
             rankings.
@@ -254,4 +288,7 @@ def create_bumpchart(
         title=title,
         scheme=scheme,
         x_value_type=x_value_type,
-        y_value_type=y_value_type)
+        y_value_type=y_value_type,
+        x_axis_title=x_axis_title,
+        y_axis_title=y_axis_title,
+        color_title=color_title)
