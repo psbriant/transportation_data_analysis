@@ -363,7 +363,32 @@ if __name__ == "__main__":
             y_value_type=barchart_args.y_value_type,
             color_values=barchart_args.color_values,
             title=barchart_args.title,
+            x_axis_title=barchart_args.x_axis_title,
+            y_axis_title=barchart_args.y_axis_title,
+            color_title=barchart_args.color_title,
             scheme=barchart_args.scheme)
+
+    # ------------------------------------------------------------------------
+    # ---CREATE BAR CHARTS FOR RIDERSHIP RECOVERY BY ROUTE--------------------
+    # ------------------------------------------------------------------------
+    # - 2019-2022 (Weekday, Saturday, Sunday)
+    # ------------------------------------------------------------------------
+
+    logging.info("Creating bar charts for ridership recovery by route")
+    for rr_2019_2022_df, rr_bc_op in zip(rr_2019_2022_dfs, rrbc_file_paths):
+        create_barchart(
+            data=rr_2019_2022_df,
+            output_path=rr_bc_op,
+            x_value=ridership_recovery_args.x_value,
+            y_value=ridership_recovery_args.y_value,
+            x_value_type=ridership_recovery_args.x_value_type,
+            y_value_type=ridership_recovery_args.y_value_type,
+            color_values=ridership_recovery_args.color_values,
+            title=ridership_recovery_args.title,
+            x_axis_title=ridership_recovery_args.x_axis_title,
+            y_axis_title=ridership_recovery_args.y_axis_title,
+            color_title=ridership_recovery_args.color_title,
+            scheme=ridership_recovery_args.scheme)
 
     # ------------------------------------------------------------------------
     # ---CREATE BUMP CHARTS FOR ROUTES BY RIDERSHIP AND YEAR------------------
