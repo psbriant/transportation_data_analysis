@@ -289,6 +289,12 @@ if __name__ == "__main__":
         file_list=viz_file_names['route_count_bar_chart_args'],
         file_path=output_dir)
 
+    # Create absolute file paths for ridership recovery analysis between 2019
+    # and 2022.
+    rrbc_file_paths = create_absolute_file_paths(
+        file_list=viz_file_names['ridership_recovery_args'],
+        file_path=output_dir)
+
     # Create year over year data for the change in the number of bus routes.
     route_counts = cta_bus_data.copy()
     route_counts = get_route_count(
