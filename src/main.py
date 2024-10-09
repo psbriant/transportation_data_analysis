@@ -16,7 +16,8 @@ from constants import (viz_file_names,
                        BumpChartArguments,
                        LineChartArguments,
                        HeatmapArguments,
-                       RouteCountArguments)
+                       RouteCountArguments,
+                       RidershipRecoveryArguments)
 from data_processing import (change_column_datatype,
                              create_rankings,
                              split_df,
@@ -62,6 +63,7 @@ if __name__ == "__main__":
     rrtsa_args = LineChartArguments()
     heatmap_args = HeatmapArguments()
     route_count_args = RouteCountArguments()
+    ridership_recovery_args = RidershipRecoveryArguments()
 
     # ------------------------------------------------------------------------
     # ---LOAD DATASET---------------------------------------------------------
