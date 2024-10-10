@@ -166,6 +166,15 @@ class RouteCountArguments:
     route_dims: list[str] = field(default_factory=lambda: ['ROUTE', 'YEAR'])
     count_dim: str = 'YEAR'
     count_col: str = 'COUNT'
+    x_value: str = 'YEAR'
+    y_value: str = 'COUNT'
+    x_value_type: str = 'ordinal'
+    y_value_type: str = 'quantitative'
+    x_axis_title: str = 'Year'
+    y_axis_title: str = 'Count'
+    color: str = '#8856a7'
+    title: str = ("Trends in the number of CTA bus routes in operation from "
+                  "1999 to 2022")
 
 
 @dataclass
