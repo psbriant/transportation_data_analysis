@@ -23,7 +23,8 @@ from data_processing import (change_column_datatype,
                              split_df,
                              subset_dataframes_by_value)
 from file_io import create_absolute_file_paths
-from visualizations import (create_barchart,
+from visualizations import (create_areachart,
+                            create_barchart,
                             create_bumpchart,
                             create_heatmap,
                             create_linechart)
