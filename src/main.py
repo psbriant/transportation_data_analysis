@@ -454,3 +454,25 @@ if __name__ == "__main__":
             color_values=rrtsa_args.color_values,
             title=rrtsa_args.title,
             scheme=rrtsa_args.scheme)
+
+    # ------------------------------------------------------------------------
+    # ---CREATE AREA CHARTS FOR THE NUMBER OF BUS ROUTES FROM 1999 TO 2022----
+    # ------------------------------------------------------------------------
+    # The plots created below represent an analysis of the number of bus
+    # routes in service during the period for which data is available.
+    #
+    # - 1999-2022
+    # ------------------------------------------------------------------------
+
+    logging.info("Creating line plots for routes by ridership and year")
+    create_areachart(
+        data=route_yoy,
+        output_path=rctsa_file_path,
+        x_value=route_count_args.x_value,
+        y_value=route_count_args.y_value,
+        x_value_type=route_count_args.x_value_type,
+        y_value_type=route_count_args.y_value_type,
+        x_axis_title=route_count_args.x_axis_title,
+        y_axis_title=route_count_args.y_axis_title,
+        title=route_count_args.title,
+        color=route_count_args.color)
