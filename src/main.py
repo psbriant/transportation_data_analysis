@@ -317,6 +317,15 @@ if __name__ == "__main__":
     route_yoy['YOY'].loc[route_yoy['YEAR'] == year_end] = \
         route_yoy['COUNT'].loc[route_yoy['YEAR'] == year_end]
 
+    # Change values in the "YEAR" column from integers to strings to improve
+    # plot readability for bump charts representing more than one year of
+    # data. Please note that this must be executed after subsetting each
+    # dataframe by the relevant years to avoid raising a TypeError.
+    route_yoy = change_column_datatype(
+        df_list=[route_yoy],
+        col='YEAR',
+        datatype='str')
+
     # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2022)-----------
     # ------------------------------------------------------------------------
