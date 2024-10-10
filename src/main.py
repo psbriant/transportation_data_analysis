@@ -16,13 +16,15 @@ from constants import (viz_file_names,
                        BumpChartArguments,
                        LineChartArguments,
                        HeatmapArguments,
-                       RouteCountArguments)
+                       RouteCountArguments,
+                       RidershipRecoveryArguments)
 from data_processing import (change_column_datatype,
                              create_rankings,
                              split_df,
                              subset_dataframes_by_value)
 from file_io import create_absolute_file_paths
-from visualizations import (create_barchart,
+from visualizations import (create_areachart,
+                            create_barchart,
                             create_bumpchart,
                             create_heatmap,
                             create_linechart)
@@ -62,6 +64,7 @@ if __name__ == "__main__":
     rrtsa_args = LineChartArguments()
     heatmap_args = HeatmapArguments()
     route_count_args = RouteCountArguments()
+    ridership_recovery_args = RidershipRecoveryArguments()
 
     # ------------------------------------------------------------------------
     # ---LOAD DATASET---------------------------------------------------------
@@ -202,6 +205,44 @@ if __name__ == "__main__":
 
         ts_dfs.append(ts_rankings)
 
+    # Create subsets for the covid recovery analysis for 2019 and 2022 and use
+    # them to create a recovery ratio.
+    recovery_ratio = agg_year.copy()
+
+    recovery_ratio_2019 = recovery_ratio[recovery_ratio['YEAR'] == 2019]
+    recovery_ratio_2022 = recovery_ratio[recovery_ratio['YEAR'] == 2022]
+
+    recovery_ratio_2019 = recovery_ratio_2019.rename(
+        columns={'AVG_RIDES': 'AVG_RIDES_2019'})
+    recovery_ratio_2022 = recovery_ratio_2022.rename(
+        columns={'AVG_RIDES': 'AVG_RIDES_2022'})
+
+    recovery_ratio_2019 = recovery_ratio_2019.drop(labels=['YEAR'], axis=1)
+    recovery_ratio_2022 = recovery_ratio_2022.drop(labels=['YEAR'], axis=1)
+
+    recovery_ratio_2019_2022 = recovery_ratio_2019.merge(
+        recovery_ratio_2022,
+        how='outer',
+        on=['ROUTE', 'DAY_TYPE'])
+    recovery_ratio_2019_2022 = recovery_ratio_2019_2022.dropna()
+
+    recovery_ratio_2019_2022[
+        'PERCENT_RECOVERED'] = (
+            recovery_ratio_2019_2022[
+                'AVG_RIDES_2022'] / recovery_ratio_2019_2022[
+                                       'AVG_RIDES_2019']) * 100
+
+    recovery_ratio_2019_2022 = recovery_ratio_2019_2022.drop(
+        labels=['AVG_RIDES_2019', 'AVG_RIDES_2022'],
+        axis=1)
+
+    # Create subsets for weekday, saturday and sunday - holiday ridership for
+    # the years 1999 - 2022.
+    rr_2019_2022_dfs = split_df(
+        df=recovery_ratio_2019_2022,
+        split_col='DAY_TYPE')
+    rr_2019_2022_dfs = list(rr_2019_2022_dfs.values())
+
     # Change values in the "YEAR" column from integers to strings to improve
     # plot readability for barcharts representing more than one year of data.
     # Please note that this must be executed after subsetting each dataframe
@@ -245,8 +286,14 @@ if __name__ == "__main__":
 
     # Create absolute file paths for route count time series analysis (rctsa)
     # covering 1999 to 2022.
-    rctsa_file_paths = create_absolute_file_paths(
-        file_list=viz_file_names['route_count_bar_chart_args'],
+    rctsa_file_path = create_absolute_file_paths(
+        file_list=viz_file_names['route_count_area_chart_args'],
+        file_path=output_dir)
+
+    # Create absolute file paths for ridership recovery analysis between 2019
+    # and 2022.
+    rrbc_file_paths = create_absolute_file_paths(
+        file_list=viz_file_names['ridership_recovery_args'],
         file_path=output_dir)
 
     # Create year over year data for the change in the number of bus routes.
@@ -270,6 +317,15 @@ if __name__ == "__main__":
     route_yoy['YOY'].loc[route_yoy['YEAR'] == year_end] = \
         route_yoy['COUNT'].loc[route_yoy['YEAR'] == year_end]
 
+    # Change values in the "YEAR" column from integers to strings to improve
+    # plot readability for bump charts representing more than one year of
+    # data. Please note that this must be executed after subsetting each
+    # dataframe by the relevant years to avoid raising a TypeError.
+    route_yoy = change_column_datatype(
+        df_list=[route_yoy],
+        col='YEAR',
+        datatype='str')
+
     # ------------------------------------------------------------------------
     # ---CREATE HEATMAP FOR RIDERSHIP BY MONTH AND YEAR (1999-2022)-----------
     # ------------------------------------------------------------------------
@@ -288,6 +344,9 @@ if __name__ == "__main__":
             x_value_type=heatmap_args.x_value_type,
             y_value=heatmap_args.y_value,
             y_value_type=heatmap_args.y_value_type,
+            x_axis_title=heatmap_args.x_axis_title,
+            y_axis_title=heatmap_args.y_axis_title,
+            color_title=heatmap_args.color_title,
             color_values=heatmap_args.color_values,
             facet_values=heatmap_args.facet_values,
             facet_columns=heatmap_args.facet_columns,
@@ -314,7 +373,32 @@ if __name__ == "__main__":
             y_value_type=barchart_args.y_value_type,
             color_values=barchart_args.color_values,
             title=barchart_args.title,
+            x_axis_title=barchart_args.x_axis_title,
+            y_axis_title=barchart_args.y_axis_title,
+            color_title=barchart_args.color_title,
             scheme=barchart_args.scheme)
+
+    # ------------------------------------------------------------------------
+    # ---CREATE BAR CHARTS FOR RIDERSHIP RECOVERY BY ROUTE--------------------
+    # ------------------------------------------------------------------------
+    # - 2019-2022 (Weekday, Saturday, Sunday)
+    # ------------------------------------------------------------------------
+
+    logging.info("Creating bar charts for ridership recovery by route")
+    for rr_2019_2022_df, rr_bc_op in zip(rr_2019_2022_dfs, rrbc_file_paths):
+        create_barchart(
+            data=rr_2019_2022_df,
+            output_path=rr_bc_op,
+            x_value=ridership_recovery_args.x_value,
+            y_value=ridership_recovery_args.y_value,
+            x_value_type=ridership_recovery_args.x_value_type,
+            y_value_type=ridership_recovery_args.y_value_type,
+            color_values=ridership_recovery_args.color_values,
+            title=ridership_recovery_args.title,
+            x_axis_title=ridership_recovery_args.x_axis_title,
+            y_axis_title=ridership_recovery_args.y_axis_title,
+            color_title=ridership_recovery_args.color_title,
+            scheme=ridership_recovery_args.scheme)
 
     # ------------------------------------------------------------------------
     # ---CREATE BUMP CHARTS FOR ROUTES BY RIDERSHIP AND YEAR------------------
@@ -335,6 +419,9 @@ if __name__ == "__main__":
             x_value_type=bumpchart_args.x_value_type,
             y_value_type=bumpchart_args.y_value_type,
             color_values=bumpchart_args.color_values,
+            x_axis_title=bumpchart_args.x_axis_title,
+            y_axis_title=bumpchart_args.y_axis_title,
+            color_title=bumpchart_args.color_title,
             title=bumpchart_args.title,
             scheme=bumpchart_args.scheme,
             value_col=bumpchart_args.value_col,
@@ -361,6 +448,31 @@ if __name__ == "__main__":
             y_value=rrtsa_args.y_value,
             x_value_type=rrtsa_args.x_value_type,
             y_value_type=rrtsa_args.y_value_type,
+            x_axis_title=rrtsa_args.x_axis_title,
+            y_axis_title=rrtsa_args.y_axis_title,
+            color_title=rrtsa_args.color_title,
             color_values=rrtsa_args.color_values,
             title=rrtsa_args.title,
             scheme=rrtsa_args.scheme)
+
+    # ------------------------------------------------------------------------
+    # ---CREATE AREA CHARTS FOR THE NUMBER OF BUS ROUTES FROM 1999 TO 2022----
+    # ------------------------------------------------------------------------
+    # The plots created below represent an analysis of the number of bus
+    # routes in service during the period for which data is available.
+    #
+    # - 1999-2022
+    # ------------------------------------------------------------------------
+
+    logging.info("Creating line plots for routes by ridership and year")
+    create_areachart(
+        data=route_yoy,
+        output_path=rctsa_file_path,
+        x_value=route_count_args.x_value,
+        y_value=route_count_args.y_value,
+        x_value_type=route_count_args.x_value_type,
+        y_value_type=route_count_args.y_value_type,
+        x_axis_title=route_count_args.x_axis_title,
+        y_axis_title=route_count_args.y_axis_title,
+        title=route_count_args.title,
+        color=route_count_args.color)

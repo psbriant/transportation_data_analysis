@@ -18,6 +18,9 @@ viz_file_names = {
                        'weekday_ridership_barchart_2020_2022.png',
                        'saturday_ridership_barchart_2020_2022.png',
                        'sunday_ridership_barchart_2020_2022.png'],
+    'ridership_recovery_args': ['saturday_ridership_recovery_barchart.png',
+                                'sunday_ridership_recovery_barchart.png',
+                                'weekday_ridership_recovery_barchart.png'],
     'bump_chart_args': ['weekday_ridership_bump_chart.png',
                         'saturday_ridership_bump_chart.png',
                         'sunday_ridership_bump_chart.png'],
@@ -51,12 +54,14 @@ viz_file_names = {
                      'weekday_ridership_heatmap_2010_2022_high.png',
                      'saturday_ridership_heatmap_2010_2022_high.png',
                      'sunday_ridership_heatmap_2010_2022_high.png'],
-    'route_count_bar_chart_args': ['route_count_1999_2022.png']}
+    'route_count_area_chart_args': ['route_count_1999_2022.png']}
+
 
 @dataclass
 class Months(TypedDict):
    name_numeric: int
    name_alpha: str
+
 
 @dataclass
 class BusDataArguments:
@@ -74,15 +79,20 @@ class BusDataArguments:
         11: 'November',
         12: 'December'})
 
+
 @dataclass
 class BarChartArguments:
     x_value: str = 'AVG_RIDES'
     y_value: str = 'ROUTE'
     x_value_type: str = 'quantitative'
     y_value_type: str = 'ordinal'
+    x_axis_title: str = 'Average rides'
+    y_axis_title: str = 'Route'
+    color_title: str = 'Year'
     color_values: str = 'YEAR'
     scheme: str = 'tableau20'
     title: str = "Number of rides per CTA bus route"
+
 
 @dataclass
 class BumpChartArguments:
@@ -90,6 +100,9 @@ class BumpChartArguments:
     y_value: str = 'RANK'
     x_value_type: str = 'ordinal'
     y_value_type: str = 'ordinal'
+    x_axis_title: str = 'Year'
+    y_axis_title: str = 'Rank'
+    color_title: str = 'Route'
     color_values: str = 'ROUTE'
     title: str = "Chicago Transit Authority bus routes with the highest " \
                  "number of riders (1999-2022)"
@@ -98,6 +111,7 @@ class BumpChartArguments:
     rank_col: str = 'RANK'
     group_col: list[str] = field(default_factory=lambda: ['YEAR'])
     num_rankings: int = 10
+
 
 @dataclass
 class LineChartArguments:
@@ -105,6 +119,9 @@ class LineChartArguments:
     y_value: str = 'AVG_RIDES'
     x_value_type: str = 'ordinal'
     y_value_type: str = 'quantitative'
+    x_axis_title: str = 'Year'
+    y_axis_title: str = 'Average rides'
+    color_title: str = 'Route'
     color_values: str = 'ROUTE'
     title: str = "Chicago Transit Authority bus routes with the highest " \
                  "number of riders (1999-2022)"
@@ -114,12 +131,16 @@ class LineChartArguments:
     group_col: list[str] = field(default_factory=lambda: ['YEAR'])
     num_rankings: int = 10
 
+
 @dataclass
 class HeatmapArguments:
     x_value: str = 'MONTH'
     x_value_type: str = 'ordinal'
     y_value: str = 'YEAR'
     y_value_type: str = 'ordinal'
+    x_axis_title: str = 'Month'
+    y_axis_title: str = 'Year'
+    color_title: str = 'Average rides'
     color_values: str = 'AVG_RIDES'
     facet_values: str = 'ROUTE'
     facet_columns: int = 3
@@ -139,8 +160,33 @@ class HeatmapArguments:
         'November',
         'December'])
 
+
 @dataclass
 class RouteCountArguments:
     route_dims: list[str] = field(default_factory=lambda: ['ROUTE', 'YEAR'])
     count_dim: str = 'YEAR'
     count_col: str = 'COUNT'
+    x_value: str = 'YEAR'
+    y_value: str = 'COUNT'
+    x_value_type: str = 'ordinal'
+    y_value_type: str = 'quantitative'
+    x_axis_title: str = 'Year'
+    y_axis_title: str = 'Count'
+    color: str = '#8856a7'
+    title: str = ("Trends in the number of CTA bus routes in operation from "
+                  "1999 to 2022")
+
+
+@dataclass
+class RidershipRecoveryArguments:
+    x_value: str = 'PERCENT_RECOVERED'
+    y_value: str = 'ROUTE'
+    x_value_type: str = 'quantitative'
+    y_value_type: str = 'ordinal'
+    x_axis_title: str = 'Percent recovered'
+    y_axis_title: str = 'Route'
+    color_title: str = 'Day type'
+    color_values: str = 'DAY_TYPE'
+    scheme: str = 'tableau20'
+    title: str = ("Percent of ridership recovery between 2019 and 2022 by "
+                  "CTA bus route")
