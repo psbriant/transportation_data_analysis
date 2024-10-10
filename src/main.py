@@ -286,8 +286,8 @@ if __name__ == "__main__":
 
     # Create absolute file paths for route count time series analysis (rctsa)
     # covering 1999 to 2022.
-    rctsa_file_paths = create_absolute_file_paths(
-        file_list=viz_file_names['route_count_bar_chart_args'],
+    rctsa_file_path = create_absolute_file_paths(
+        file_list=viz_file_names['route_count_area_chart_args'],
         file_path=output_dir)
 
     # Create absolute file paths for ridership recovery analysis between 2019
