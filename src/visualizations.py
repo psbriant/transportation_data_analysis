@@ -292,3 +292,54 @@ def create_bumpchart(
         x_axis_title=x_axis_title,
         y_axis_title=y_axis_title,
         color_title=color_title)
+
+
+def create_areachart(
+        data: pd.DataFrame,
+        output_path: str,
+        x_value: str,
+        y_value: str,
+        title: str,
+        x_value_type: str,
+        y_value_type: str,
+        x_axis_title: str,
+        y_axis_title: str,
+        color: str) -> None:
+    """
+    Create an area chart for specified data and columns.
+
+    Arguments:
+        data (DataFrame): Input data to visualize.
+        output_path (str): Absolute file path (including the name of the file)
+            to save the plot to.
+        x_value (str): The name of the column representing the x-axis.
+        y_value (str): The name of the column representing the y-axis.
+        title (str): The title of the plot.
+        x_value_type (str): The type of data that will be plotted on the
+            x-axis. Must be one of quantitative, ordinal, nominal, temporal,
+            or geojson.
+        y_value_type (str): The type of data that will be plotted on the
+            y-axis. Must be one of quantitative, ordinal, nominal, temporal,
+            or geojson.
+        x_axis_title (str): The x-axis label of the plot.
+        y_axis_title (str): The y-axis label of the plot.
+        color (str): The color of the area plot. Can be the name of a color or
+        a hexidecimal.
+
+    Returns:
+        None
+
+    Raises:
+        None
+    """
+
+    chart = alt.Chart(data).mark_area(
+        color=color,
+        interpolate='step-after',
+        line=True
+    ).encode(
+        x=alt.X(x_value, type=x_value_type, title=x_axis_title),
+        y=alt.Y(y_value, type=y_value_type, title=y_axis_title)
+    ).properties(title=title)
+
+    chart.save(output_path)
