@@ -82,7 +82,7 @@ if __name__ == "__main__":
         dfs=[cta_bus_data],
         operator=['<'],
         target_col=['YEAR'],
-        filter_val=[2023])
+        filter_val=[2024])
 
     # Change values in the month column so that they represent the actual
     # names of each month instead of the numerical representation.
