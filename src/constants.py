@@ -6,18 +6,18 @@ from dataclasses import (dataclass, field)
 from typing import TypedDict
 
 viz_file_names = {
-    'bar_chart_args': ['weekday_ridership_barchart_1999_2022.png',
-                       'saturday_ridership_barchart_1999_2022.png',
-                       'sunday_ridership_barchart_1999_2022.png',
+    'bar_chart_args': ['weekday_ridership_barchart_1999_2023.png',
+                       'saturday_ridership_barchart_1999_2023.png',
+                       'sunday_ridership_barchart_1999_2023.png',
                        'weekday_ridership_barchart_1999_2009.png',
                        'saturday_ridership_barchart_1999_2009.png',
                        'sunday_ridership_barchart_1999_2009.png',
                        'weekday_ridership_barchart_2010_2019.png',
                        'saturday_ridership_barchart_2010_2019.png',
                        'sunday_ridership_barchart_2010_2019.png',
-                       'weekday_ridership_barchart_2020_2022.png',
-                       'saturday_ridership_barchart_2020_2022.png',
-                       'sunday_ridership_barchart_2020_2022.png'],
+                       'weekday_ridership_barchart_2020_2023.png',
+                       'saturday_ridership_barchart_2020_2023.png',
+                       'sunday_ridership_barchart_2020_2023.png'],
     'ridership_recovery_args': ['saturday_ridership_recovery_barchart.png',
                                 'sunday_ridership_recovery_barchart.png',
                                 'weekday_ridership_recovery_barchart.png'],
@@ -27,15 +27,15 @@ viz_file_names = {
     'line_chart_args': ['weekday_ridership_time_series_analysis.png',
                         'saturday_ridership_time_series_analysis.png',
                         'sunday_ridership_time_series_analysis.png'],
-    'heatmap_args': ['weekday_ridership_heatmap_1999_2022_medium.png',
-                     'saturday_ridership_heatmap_1999_2022_medium.png',
-                     'sunday_ridership_heatmap_1999_2022_medium.png',
-                     'weekday_ridership_heatmap_1999_2022_low.png',
-                     'saturday_ridership_heatmap_1999_2022_low.png',
-                     'sunday_ridership_heatmap_1999_2022_low.png',
-                     'weekday_ridership_heatmap_1999_2022_high.png',
-                     'saturday_ridership_heatmap_1999_2022_high.png',
-                     'sunday_ridership_heatmap_1999_2022_high.png',
+    'heatmap_args': ['weekday_ridership_heatmap_1999_2023_medium.png',
+                     'saturday_ridership_heatmap_1999_2023_medium.png',
+                     'sunday_ridership_heatmap_1999_2023_medium.png',
+                     'weekday_ridership_heatmap_1999_2023_low.png',
+                     'saturday_ridership_heatmap_1999_2023_low.png',
+                     'sunday_ridership_heatmap_1999_2023_low.png',
+                     'weekday_ridership_heatmap_1999_2023_high.png',
+                     'saturday_ridership_heatmap_1999_2023_high.png',
+                     'sunday_ridership_heatmap_1999_2023_high.png',
                      'weekday_ridership_heatmap_1999_2009_medium.png',
                      'saturday_ridership_heatmap_1999_2009_medium.png',
                      'sunday_ridership_heatmap_1999_2009_medium.png',
@@ -45,16 +45,16 @@ viz_file_names = {
                      'weekday_ridership_heatmap_1999_2009_high.png',
                      'saturday_ridership_heatmap_1999_2009_high.png',
                      'sunday_ridership_heatmap_1999_2009_high.png',
-                     'weekday_ridership_heatmap_2010_2022_medium.png',
-                     'saturday_ridership_heatmap_2010_2022_medium.png',
-                     'sunday_ridership_heatmap_2010_2022_medium.png',
-                     'weekday_ridership_heatmap_2010_2022_low.png',
-                     'saturday_ridership_heatmap_2010_2022_low.png',
-                     'sunday_ridership_heatmap_2010_2022_low.png',
-                     'weekday_ridership_heatmap_2010_2022_high.png',
-                     'saturday_ridership_heatmap_2010_2022_high.png',
-                     'sunday_ridership_heatmap_2010_2022_high.png'],
-    'route_count_area_chart_args': ['route_count_1999_2022.png']}
+                     'weekday_ridership_heatmap_2010_2023_medium.png',
+                     'saturday_ridership_heatmap_2010_2023_medium.png',
+                     'sunday_ridership_heatmap_2010_2023_medium.png',
+                     'weekday_ridership_heatmap_2010_2023_low.png',
+                     'saturday_ridership_heatmap_2010_2023_low.png',
+                     'sunday_ridership_heatmap_2010_2023_low.png',
+                     'weekday_ridership_heatmap_2010_2023_high.png',
+                     'saturday_ridership_heatmap_2010_2023_high.png',
+                     'sunday_ridership_heatmap_2010_2023_high.png'],
+    'route_count_area_chart_args': ['route_count_1999_2023.png']}
 
 
 @dataclass
@@ -105,7 +105,7 @@ class BumpChartArguments:
     color_title: str = 'Route'
     color_values: str = 'ROUTE'
     title: str = "Chicago Transit Authority bus routes with the highest " \
-                 "number of riders (1999-2022)"
+                 "number of riders (1999-2023)"
     scheme: str = 'category20'
     value_col: str = 'AVG_RIDES'
     rank_col: str = 'RANK'
@@ -124,7 +124,7 @@ class LineChartArguments:
     color_title: str = 'Route'
     color_values: str = 'ROUTE'
     title: str = "Chicago Transit Authority bus routes with the highest " \
-                 "number of riders (1999-2022)"
+                 "number of riders (1999-2023)"
     scheme: str = 'category20'
     value_col: str = 'AVG_RIDES'
     rank_col: str = 'RANK'
@@ -174,7 +174,7 @@ class RouteCountArguments:
     y_axis_title: str = 'Count'
     color: str = '#8856a7'
     title: str = ("Trends in the number of CTA bus routes in operation from "
-                  "1999 to 2022")
+                  "1999 to 2023")
 
 
 @dataclass
@@ -188,5 +188,5 @@ class RidershipRecoveryArguments:
     color_title: str = 'Day type'
     color_values: str = 'DAY_TYPE'
     scheme: str = 'tableau20'
-    title: str = ("Percent of ridership recovery between 2019 and 2022 by "
+    title: str = ("Percent of ridership recovery between 2019 and 2023 by "
                   "CTA bus route")
