@@ -80,8 +80,8 @@ def create_heatmap(
         alt.Facet(facet_values,
                   type='ordinal',
                   columns=facet_columns),
-        stroke = alt.value('black'),
-        strokeWidth = alt.value(0.2),
+        stroke=alt.value('black'),
+        strokeWidth=alt.value(0.2),
     )
 
     chart.save(output_path)
