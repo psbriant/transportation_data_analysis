@@ -25,7 +25,8 @@ def create_heatmap(
     x_axis_sort_order: list[str],
     scheme: str,
     x_value_type: str,
-    y_value_type: str) -> None:
+    y_value_type: str,
+    save_chart: bool = True) -> None:
     """
     Create a heatmap for specified data and columns.
 
@@ -57,13 +58,20 @@ def create_heatmap(
         y_value_type (str): The type of data that will be plotted on the
             y-axis. Must be one of quantitative, ordinal, nominal, temporal,
             or geojson.
+        save_chart (bool): Must be one of either True or False. If True,
+            output plot to the file path specified by output_path. If False,
+            return the plot. Defaults to True.
 
     Returns:
-        None
+        Object representing the chart being created.
 
     Raises:
-        None
+        TypeError if the value of the 'save_chart' argument  is not a bool.
     """
+
+    # Confirm values for 'save_chart' are boolean values.
+    if type(save_chart) is not bool:
+        raise TypeError("The value of 'save_chart' should be a bool")
 
     data = data.copy()
 
@@ -84,7 +92,10 @@ def create_heatmap(
         strokeWidth=alt.value(0.2),
     )
 
-    chart.save(output_path)
+    if save_chart:
+        chart.save(output_path)
+    else:
+        return chart
 
 
 def create_barchart(
@@ -101,7 +112,8 @@ def create_barchart(
         y_axis_title: str,
         color_title: str,
         sort_order_y_axis: str = '-x',
-        sort_order_color: str | list[str] = 'ascending') -> None:
+        sort_order_color: str | list[str] = 'ascending',
+        save_chart: bool = True) -> None:
     """
     Create a bar chart for specified data and columns.
 
@@ -131,13 +143,22 @@ def create_barchart(
         sort_order_color (str or strlist): The sort order for the color scheme
             and legend. One of "ascending", "descending", or a list of strings
             containing a custom order. Defaults to ascending.
+        save_chart (bool): Must be one of either True or False. If True,
+            output plot to the file path specified by output_path. If False,
+            return the plot. Defaults to True.
 
     Returns:
-        None
+        Object representing the chart being created.
 
     Raises:
-        None
+        TypeError if the value of the 'save_chart' argument  is not a bool.
     """
+
+    # Confirm values for 'save_chart' are boolean values.
+    if type(save_chart) is not bool:
+        raise TypeError("The value of 'save_chart' should be a bool")
+
+    data = data.copy()
 
     chart = alt.Chart(data).mark_bar().encode(
         alt.X(x_value, type=x_value_type, title=x_axis_title),
@@ -151,7 +172,10 @@ def create_barchart(
                   scale=alt.Scale(scheme=scheme))
     ).properties(title=title)
 
-    chart.save(output_path)
+    if save_chart:
+        chart.save(output_path)
+    else:
+        return chart
 
 
 def create_linechart(
@@ -166,7 +190,8 @@ def create_linechart(
         y_value_type: str,
         x_axis_title: str,
         y_axis_title: str,
-        color_title: str) -> None:
+        color_title: str,
+        save_chart: bool = True) -> None:
     """
     Create a line chart for specified data and columns.
 
@@ -191,13 +216,22 @@ def create_linechart(
         x_axis_title (str): The x-axis label of the plot.
         y_axis_title (str): The y-axis label of the plot.
         color_title (str): The legend label.
+        save_chart (bool): Must be one of either True or False. If True,
+            output plot to the file path specified by output_path. If False,
+            return the plot. Defaults to True.
 
     Returns:
-        None
+        Object representing the chart being created.
 
     Raises:
-        None
+        TypeError if the value of the 'save_chart' argument  is not a bool.
     """
+
+    # Confirm values for 'save_chart' are boolean values.
+    if type(save_chart) is not bool:
+        raise TypeError("The value of 'save_chart' should be a bool")
+
+    data = data.copy()
 
     chart = alt.Chart(data).mark_line(point=True).encode(
         x=alt.X(x_value, type=x_value_type, title=x_axis_title),
@@ -207,7 +241,10 @@ def create_linechart(
                         scale=alt.Scale(scheme=scheme))
     ).properties(title=title)
 
-    chart.save(output_path)
+    if save_chart:
+        chart.save(output_path)
+    else:
+        return chart
 
 
 def create_bumpchart(
@@ -226,7 +263,8 @@ def create_bumpchart(
         value_col: str,
         rank_col: str,
         group_col: list[str],
-        num_rankings: int) -> None:
+        num_rankings: int,
+        save_chart: bool = True) -> None:
     """
     Create a bump chart for specified data and columns.
 
@@ -261,14 +299,23 @@ def create_bumpchart(
         num_rankings (int): The number of rows to return rankings for. If set
             to zero, no limit will be applied and all rows will be ranked.
             Defaults to zero.
+        save_chart (bool): Must be one of either True or False. If True,
+            output plot to the file path specified by output_path. If False,
+            return the plot. Defaults to True.
 
 
     Returns:
-        None
+        Object representing the chart being created.
 
     Raises:
-        None
+        TypeError if the value of the 'save_chart' argument  is not a bool.
     """
+
+    # Confirm values for 'save_chart' are boolean values.
+    if type(save_chart) is not bool:
+        raise TypeError("The value of 'save_chart' should be a bool")
+
+    data = data.copy()
 
     logging.info("Creating rankings for bumpchart")
     ranked_data = create_rankings(
@@ -279,7 +326,7 @@ def create_bumpchart(
         num_rankings=num_rankings)
 
     logging.info("Plotting bumpchart data")
-    create_linechart(
+    chart = create_linechart(
         data=ranked_data,
         output_path=output_path,
         x_value=x_value,
@@ -293,6 +340,11 @@ def create_bumpchart(
         y_axis_title=y_axis_title,
         color_title=color_title)
 
+    if save_chart:
+        chart.save(output_path)
+    else:
+        return chart
+
 
 def create_areachart(
         data: pd.DataFrame,
@@ -304,7 +356,8 @@ def create_areachart(
         y_value_type: str,
         x_axis_title: str,
         y_axis_title: str,
-        color: str) -> None:
+        color: str,
+        save_chart: bool = True) -> None:
     """
     Create an area chart for specified data and columns.
 
@@ -324,14 +377,23 @@ def create_areachart(
         x_axis_title (str): The x-axis label of the plot.
         y_axis_title (str): The y-axis label of the plot.
         color (str): The color of the area plot. Can be the name of a color or
-        a hexidecimal.
+            a hexidecimal.
+        save_chart (bool): Must be one of either True or False. If True,
+            output plot to the file path specified by output_path. If False,
+            return the plot. Defaults to True.
 
     Returns:
-        None
+        Object representing the chart being created.
 
     Raises:
-        None
+        TypeError if the value of the 'save_chart' argument  is not a bool.
     """
+
+    # Confirm values for 'save_chart' are boolean values.
+    if type(save_chart) is not bool:
+        raise TypeError("The value of 'save_chart' should be a bool")
+
+    data = data.copy()
 
     chart = alt.Chart(data).mark_area(
         color=color,
@@ -343,3 +405,8 @@ def create_areachart(
     ).properties(title=title)
 
     chart.save(output_path)
+
+    if save_chart:
+        chart.save(output_path)
+    else:
+        return chart
