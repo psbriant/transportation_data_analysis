@@ -26,7 +26,7 @@ def create_heatmap(
     scheme: str,
     x_value_type: str,
     y_value_type: str,
-    save_chart: bool = True) -> None:
+    save_chart: bool = True):
     """
     Create a heatmap for specified data and columns.
 
@@ -113,7 +113,7 @@ def create_barchart(
         color_title: str,
         sort_order_y_axis: str = '-x',
         sort_order_color: str | list[str] = 'ascending',
-        save_chart: bool = True) -> None:
+        save_chart: bool = True):
     """
     Create a bar chart for specified data and columns.
 
@@ -191,7 +191,7 @@ def create_linechart(
         x_axis_title: str,
         y_axis_title: str,
         color_title: str,
-        save_chart: bool = True) -> None:
+        save_chart: bool = True):
     """
     Create a line chart for specified data and columns.
 
@@ -264,7 +264,7 @@ def create_bumpchart(
         rank_col: str,
         group_col: list[str],
         num_rankings: int,
-        save_chart: bool = True) -> None:
+        save_chart: bool = True):
     """
     Create a bump chart for specified data and columns.
 
@@ -357,7 +357,7 @@ def create_areachart(
         x_axis_title: str,
         y_axis_title: str,
         color: str,
-        save_chart: bool = True) -> None:
+        save_chart: bool = True):
     """
     Create an area chart for specified data and columns.
 
