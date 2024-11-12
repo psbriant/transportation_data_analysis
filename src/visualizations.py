@@ -303,7 +303,6 @@ def create_bumpchart(
             output plot to the file path specified by output_path. If False,
             return the plot. Defaults to True.
 
-
     Returns:
         Object representing the chart being created.
 
