@@ -10,7 +10,8 @@ import pytest
 from visualizations import (create_heatmap,
                             create_barchart,
                             create_linechart,
-                            create_bumpchart)
+                            create_bumpchart,
+                            create_areachart)
 
 
 # @pytest.mark.parametrize(
@@ -283,3 +284,209 @@ from visualizations import (create_heatmap,
 #         rank_col=rank_col,
 #         group_col=group_col,
 #         num_rankings=num_rankings)
+
+@pytest.mark.parametrize(
+    "data,save_chart",
+    [(["input_df"], "True"),
+     (["input_df"], "False")])
+def test_create_heatmap_type_exceptions(
+        data: pd.DataFrame,
+        save_chart: bool):
+    """
+    Tests the following:
+    1. Tests whether TypeErrors are raised if the value of the save_chart'
+        argument is not a bool.
+
+    Arguments:
+        data (DataFrame): Input data to visualize.
+        save_chart (bool): Must be one of either True or False. If True,
+            output plot to the file path specified by output_path. If False,
+            return the plot. Defaults to True.
+
+    Returns:
+        NONE
+    """
+
+    with pytest.raises(TypeError):
+
+        create_heatmap(
+            data=data,
+            output_path='test_heatmap.html',
+            x_value='MONTH',
+            y_value='YEAR',
+            x_axis_title='Month',
+            y_axis_title='Year',
+            color_title='Average rides',
+            color_values='AVG_RIDES',
+            facet_values='ROUTE',
+            facet_columns=3,
+            x_axis_sort_order=['January', 'October'],
+            scheme='yelloworangebrown',
+            x_value_type='ordinal',
+            y_value_type='ordinal',
+            save_chart=save_chart)
+
+
+@pytest.mark.parametrize(
+    "data,save_chart",
+    [(["input_df"], "True"),
+     (["input_df"], "False")])
+def test_create_barchart_type_exceptions(
+        data: pd.DataFrame,
+        save_chart: bool):
+    """
+    Tests the following:
+    1. Tests whether TypeErrors are raised if the value of the save_chart'
+        argument is not a bool.
+
+    Arguments:
+        data (DataFrame): Input data to visualize.
+        save_chart (bool): Must be one of either True or False. If True,
+            output plot to the file path specified by output_path. If False,
+            return the plot. Defaults to True.
+
+    Returns:
+        NONE
+    """
+
+    with pytest.raises(TypeError):
+
+        create_barchart(
+            data=data,
+            output_path='test_barchart.html',
+            x_value='AVG_RIDES',
+            y_value='ROUTE',
+            color_values='YEAR',
+            title="Number of rides per CTA bus route",
+            scheme='tableau20',
+            x_value_type='quantitative',
+            y_value_type='ordinal',
+            x_axis_title='Average rides',
+            y_axis_title='Route',
+            color_title='Year',
+            save_chart=save_chart)
+
+
+@pytest.mark.parametrize(
+    "data,save_chart",
+    [(["input_df"], "True"),
+     (["input_df"], "False")])
+def test_create_linechart_type_exceptions(
+        data: pd.DataFrame,
+        save_chart: bool):
+    """
+    Tests the following:
+    1. Tests whether TypeErrors are raised if the value of the save_chart'
+        argument is not a bool.
+
+    Arguments:
+        data (DataFrame): Input data to visualize.
+        save_chart (bool): Must be one of either True or False. If True,
+            output plot to the file path specified by output_path. If False,
+            return the plot. Defaults to True.
+
+    Returns:
+        NONE
+    """
+
+    with pytest.raises(TypeError):
+
+        create_linechart(
+            data=data,
+            output_path='test_linechart.html',
+            x_value='YEAR',
+            y_value='AVG_RIDES',
+            color_values='ROUTE',
+            title="Chicago Transit Authority bus routes with the highest " \
+                  "number of riders (1999-2023)",
+            scheme='category20',
+            x_value_type='ordinal',
+            y_value_type='quantitative',
+            x_axis_title='Year',
+            y_axis_title='Average rides',
+            color_title='Route',
+            save_chart=save_chart)
+
+
+@pytest.mark.parametrize(
+    "data,save_chart",
+    [(["input_df"], "True"),
+     (["input_df"], "False")])
+def test_create_bumpchart_type_exceptions(
+        data: pd.DataFrame,
+        save_chart: bool):
+    """
+    Tests the following:
+    1. Tests whether TypeErrors are raised if the value of the save_chart'
+        argument is not a bool.
+
+    Arguments:
+        data (DataFrame): Input data to visualize.
+        save_chart (bool): Must be one of either True or False. If True,
+            output plot to the file path specified by output_path. If False,
+            return the plot. Defaults to True.
+
+    Returns:
+        NONE
+    """
+
+    with pytest.raises(TypeError):
+
+        create_bumpchart(
+            data=data,
+            output_path='test_bumpchart.html',
+            x_value='YEAR',
+            y_value='RANK',
+            color_values='ROUTE',
+            title="Chicago Transit Authority bus routes with the highest " \
+                  "number of riders (1999-2023)",
+            scheme='category20',
+            x_value_type='ordinal',
+            y_value_type='ordinal',
+            x_axis_title='Year',
+            y_axis_title='Rank',
+            color_title='Route',
+            value_col='AVG_RIDES',
+            rank_col='RANK',
+            group_col=['YEAR'],
+            num_rankings=10,
+            save_chart=save_chart)
+
+
+@pytest.mark.parametrize(
+    "data,save_chart",
+    [(["input_df"], "True"),
+     (["input_df"], "False")])
+def test_create_areachart_type_exceptions(
+        data: pd.DataFrame,
+        save_chart: bool):
+    """
+    Tests the following:
+    1. Tests whether TypeErrors are raised if the value of the save_chart'
+        argument is not a bool.
+
+    Arguments:
+        data (DataFrame): Input data to visualize.
+        save_chart (bool): Must be one of either True or False. If True,
+            output plot to the file path specified by output_path. If False,
+            return the plot. Defaults to True.
+
+    Returns:
+        NONE
+    """
+
+    with pytest.raises(TypeError):
+
+        create_areachart(
+            data=data,
+            output_path='test_areachart.html',
+            x_value='YEAR',
+            y_value='COUNT',
+            title=("Trends in the number of CTA bus routes in operation from "
+                  "1999 to 2023"),
+            x_value_type='ordinal',
+            y_value_type='quantitative',
+            x_axis_title='Year',
+            y_axis_title='Count',
+            color='#8856a7',
+            save_chart=save_chart)
